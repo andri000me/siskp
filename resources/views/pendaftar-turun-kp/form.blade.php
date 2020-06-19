@@ -1,0 +1,33 @@
+@if(isset($turun_kp))
+    {!! Form::hidden('id_periode_daftar_turun_kp', $turun_kp->id_periode_daftar_turun_kp) !!}
+    {!! Form::hidden('id', $turun_kp->id) !!}
+@endif
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                    <label>Nama Instansi</label>
+                                    {!! Form::text('instansi', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                    <label>Alamat Instansi</label>
+                                    {!! Form::textarea('alamat', null, ['class' => 'form-control', 'style' => 'height:80px', 'required' => 'required']) !!}
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                    <label> Scan Persetujuan Dari Kantor (.pdf & Max : {{ $pengaturan->max_file_upload / 1024 }} Mb) (Opsional)</label>
+                                    <div class="custom-file">
+                                        <label class="custom-file-label" id="targetSatu"> Pilih File </label>
+                                        {!! Form::file('file_lembar_persetujuan', ['class' => 'custom-file-input', 'id' => 'fileSatu']) !!}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-paper-plane"></span> Submit</button>
+                                </div>
+                            </div>

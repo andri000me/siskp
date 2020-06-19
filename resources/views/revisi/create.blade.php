@@ -17,20 +17,26 @@
                             
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>File Laporan Skripsi (.pdf & max {{ $pengaturan->max_file_upload / 1024 }} Mb)</label>
+                                    <label>File Laporan Skripsi<sup>1</sup> </label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" id="targetDua"> Pilih File Laporan</label>
                                         {!! Form::file('file_laporan', ['class' => 'custom-file-input', 'id' => 'fileDua', 'required' => 'required']) !!}
+                                        <small class="form-text text-muted">
+                                            <sup>1</sup> laporan (mulai dari cover s/d daftar pustaka), bertipe .pdf & ukuran max {{ $pengaturan->max_file_upload / 1024 }} Mb)
+                                        </small>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>File Jurnal Skripsi (.pdf & max {{ $pengaturan->max_file_upload / 1024 }} Mb)</label>
+                                    <label>File Jurnal Skripsi<sup>2</sup> </label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" id="targetSatu"> Pilih File Laporan</label>
                                         {!! Form::file('file_jurnal_skripsi', ['class' => 'custom-file-input', 'id' => 'fileSatu', 'required' => 'required']) !!}
+                                        <small class="form-text text-muted">
+                                            <sup>2</sup> jurnal skripsi, bertipe .pdf & ukuran max {{ $pengaturan->max_file_upload / 1024 }} Mb)
+                                        </small>
                                     </div>
                                 </div>
                             </div>

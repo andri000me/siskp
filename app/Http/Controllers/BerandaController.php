@@ -629,8 +629,8 @@ class BerandaController extends Controller
     {
         $bottom_detail = true;
 
-        $pendaftar = \App\PendaftarUjian::where('ujian', 'sidang-skripsi')->where('id_mahasiswa', Session::get('id'))->first();
-        $riwayat = \App\RiwayatSkripsi::where('id_mahasiswa', Session::get('id'))->first();
+        $pendaftar = \App\PendaftarUjian::where('ujian', 'sidang-skripsi')->where('id_mahasiswa', Session::get('id'))->get()->last();
+        $riwayat = \App\RiwayatSkripsi::where('id_mahasiswa', Session::get('id'))->get()->last();
         return view('revisi.index', compact('pendaftar', 'riwayat', 'bottom_detail'));
     }
 

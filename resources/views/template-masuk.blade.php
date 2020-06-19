@@ -206,12 +206,15 @@
 
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" name="username" class="form-control" value="{{ old('username') }}" required>
+                                <input type="text" name="username" class="form-control" value="{{ old('username') }}" required="required">
+                                <small class="form-text text-muted">
+                                    Isi dengan NIM untuk Mahasiswa & NIP untuk Dosen  
+                                </small>
                             </div>
                                 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" required>
+                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" required="required">
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block btn-sm"><span class="fa fa-paper-plane"></span> Submit</button>

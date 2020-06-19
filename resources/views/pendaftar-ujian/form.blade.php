@@ -14,19 +14,25 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>File Laporan (.pdf & max {{ $pengaturan->max_file_upload / 1024 }} Mb) (Opsional)</label>
+                                    <label>File Laporan<sup>1</sup></label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" id="targetSatu"> Pilih File</label>
                                         {!! Form::file('file_laporan', ['class' => 'custom-file-input', 'id' => 'fileSatu']) !!}
+                                        <small class="form-text text-muted">
+                                            <sup>1</sup> (opsional) laporan (mulai dari cover s/d daftar pustaka), bertipe .pdf & ukuran max {{ $pengaturan->max_file_upload / 1024 }} Mb
+                                        </small>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Scan Persetujuan Ujian (.pdf & max {{ $pengaturan->max_file_upload / 1024 }} Mb) (Opsional)</label>
+                                    <label>Scan Persetujuan Ujian<sup>2</sup> </label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" id="targetDua"> Pilih File</label>
                                         {!! Form::file('file_lembar_persetujuan', ['class' => 'custom-file-input', 'id' => 'fileDua']) !!}
+                                        <small class="form-text text-muted">
+                                            <sup>2</sup> (opsional) lembar persetujuan ujian yg ditanda tangani oleh 2 dosen pembimbing, bertipe .pdf & ukuran max {{ $pengaturan->max_file_upload / 1024 }} Mb
+                                        </small>
                                     </div>
                                 </div>
                             </div>

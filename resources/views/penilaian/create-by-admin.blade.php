@@ -38,7 +38,7 @@
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Nilai Ujian (Angka)</label>
-                                    {!! Form::text("nilai_ujian", old('nilai_ujian'), ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::text("nilai_ujian", old('nilai_ujian'), ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Contoh: 99.9']) !!}
                                 </div>
                             </div>
 

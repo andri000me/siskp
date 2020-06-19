@@ -4,8 +4,11 @@
 @endif
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Usulan Topik</label>
-                                    {!! Form::text('usulan_topik', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    <label>Usulan Topik<sup>1</sup></label>
+                                    {!! Form::text('usulan_topik', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Contoh: Android, Augmented Reality, Web Service, GIS, dll']) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>1</sup> Topik dalam dunia IT atau skripsi apa yang akan anda angkat
+                                    </small>
                                 </div>
                             </div>
 
@@ -18,28 +21,34 @@
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Alternatif Judul</label>
+                                    <label>Alternatif Judul<sup>2</sup> </label>
                                     {!! Form::textarea('alternatif_judul', null, ['class' => 'form-control borang' ]) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>2</sup> Daftar alternatif judul jika usulan judul anda ditolak
+                                    </small>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Permasalahan</label>
+                                    <label>Permasalahan<sup>3</sup> </label>
                                     {!! Form::textarea('permasalahan', null, ['class' => 'form-control borang' ]) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>3</sup> Daftar permasalahan yang teridentifikasi
+                                    </small>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Tujuan</label>
+                                    <label>Tujuan Penelitian</label>
                                     {!! Form::textarea('tujuan', null, ['class' => 'form-control borang' ]) !!}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Manfaat</label>
+                                    <label>Manfaat Penelitian</label>
                                     {!! Form::textarea('manfaat', null, ['class' => 'form-control borang' ]) !!}
                                 </div>
                             </div>
@@ -53,8 +62,11 @@
 
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Metode Pengembangan Sistem</label>
+                                    <label>Metode Pengembangan Sistem<sup>4</sup> </label>
                                     {!! Form::textarea('metode_pengembangan_sistem', null, ['class' => 'form-control borang' ]) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>4</sup> Jika tidak ada isi dengan karakter '-'
+                                    </small>
                                 </div>
                             </div>
 

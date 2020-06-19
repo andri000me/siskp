@@ -18,8 +18,11 @@
                             
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Topik Bimbingan</label>
-                                    {!! Form::text('topik_bimbingan', old('topik_bimbingan'), ['class' => 'form-control', 'required' => 'required']) !!}
+                                    <label>Topik Bimbingan<sup>1</sup> </label>
+                                    {!! Form::text('topik_bimbingan', old('topik_bimbingan'), ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Contoh: Identifikasi permasalahan']) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>1</sup> Hal apa yang akan anda konsultasikan
+                                    </small>
                                 </div>
                             </div>
                             
@@ -39,10 +42,13 @@
                             
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>File (.pdf & max {{ $pengaturan->max_file_upload / 1024 }} Mb) (Opsional)</label>
+                                    <label>File Pendukung<sup>2</sup> </label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" id="targetSatu"> Pilih File</label>
                                         {!! Form::file('file', ['class' => 'custom-file-input', 'id' => 'fileSatu']) !!}
+                                        <small class="form-text text-muted">
+                                            <sup>2</sup> (Opsional) Bertipe .pdf & ukuran max {{ $pengaturan->max_file_upload / 1024 }} Mb
+                                        </small>
                                     </div>
                                 </div>
                             </div>

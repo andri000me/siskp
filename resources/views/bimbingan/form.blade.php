@@ -15,8 +15,11 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Konsultasi</label>
+                                    <label>Konsultasi<sup>1</sup> </label>
                                     {!! Form::textarea('konsultasi', !empty($bimbingan->konsultasi) ? $bimbingan->konsultasi : old('konsultasi'), ['class' => 'form-control', 'style' => 'height:80px', 'required' => 'required']) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>1</sup> Hal apa yang sedang anda konsultasikan pada waktu itu
+                                    </small>
                                 </div>
                             </div>
 

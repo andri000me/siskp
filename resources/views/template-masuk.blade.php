@@ -205,10 +205,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Username</label>
+                                <label>Username<sup>1</sup> </label>
                                 <input type="text" name="username" class="form-control" value="{{ old('username') }}" required="required">
                                 <small class="form-text text-muted">
-                                    Isi dengan NIM untuk Mahasiswa & NIP untuk Dosen  
+                                    <sup>1</sup> Isi dengan NIM untuk Mahasiswa & NIP untuk Dosen  
                                 </small>
                             </div>
                                 

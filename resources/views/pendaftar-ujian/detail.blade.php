@@ -103,7 +103,7 @@
                             <dd>{{ !empty($pendaftar->mahasiswa->prodi->nama) ? $pendaftar->mahasiswa->prodi->nama : '-' }} ({{ $pendaftar->mahasiswa->angkatan }})</dd>
 
                             <dt>Ujian</dt>
-                            <dd>{{ str_replace('-', ' ', $pendaftar->ujian) }}</dd>
+                            <dd>{{ ucwords(str_replace('-', ' ', $pendaftar->ujian)) }}</dd>
 
                             <dt>Periode Ujian</dt>
                             <dd>{{ !empty($pendaftar->periodeDaftarUjian->nama) ? $pendaftar->periodeDaftarUjian->nama : '-' }}</dd>
@@ -224,6 +224,8 @@
 
                         @endif
 
+                            <dt>Waktu Daftar</dt>
+                            <dd>{{ selisih_waktu($pendaftar->created_at) }}</dd>
                         </dl>
                     </div>
 

@@ -126,7 +126,10 @@
 
                             <?php $i++ ?>
                             @endforeach
-                            
+
+                            <dt>Waktu Daftar</dt>
+                            <dd>{{ selisih_waktu($usulan_topik->created_at) }}</dd>                       
+                        
                         </dl>
                     </div>
 

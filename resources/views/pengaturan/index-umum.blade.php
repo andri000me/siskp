@@ -16,8 +16,11 @@
                         {!! Form::open(['url' => 'pengaturan/referensi-utama/'. $pengaturan->id, 'method' => 'patch']) !!}
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label for="">Minimal Referensi Utama (Jurnal Terkait)</label>
+                                    <label for="">Jumlah Referensi Utama<sup>1</sup> </label>
                                     {!! Form::text('min_referensi_utama', $pengaturan->min_referensi_utama, ['class' => 'form-control']) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>1</sup> Jumlah total jurnal ilmiah yang harus diisi oleh mahasiswa saat mendaftar usulan topik   
+                                    </small>
                                 </div>
                             </div>
                             <div class="form-row">

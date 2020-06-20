@@ -97,7 +97,8 @@
                             <dd><span class="fa fa-info-circle"></span> Belum ada data</dd>
                             @endif
 
-                            
+                            <dt>Waktu Daftar</dt>
+                            <dd>{{ selisih_waktu($pendaftar->created_at) }}</dd>                       
                         </dl>
                     </div>
 

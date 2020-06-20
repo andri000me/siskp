@@ -136,7 +136,7 @@
                                         <span class="text-warning"><i class="fa fa-ban"></i> Dibatalkan</span>
                                     @endif
                                     <br>
-                                    <span class="small"><em>({{ selisih_waktu($pendaftar->created_at) }})</em></span>
+                                    <span class="small"><em>{{ selisih_waktu($pendaftar->created_at) }}</em></span>
                                 </p>
 
                                 <!-- menu mobile -->

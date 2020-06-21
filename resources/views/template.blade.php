@@ -1688,7 +1688,12 @@
     <nav class="nav justify-content-center py-0 mb-5 mb-lg-0 border-top bg-primary">
     
         <a class="nav-link text-light text-center" href="https://ft.ung.ac.id/informatika/index.html" target="_blank"><i class="far fa-copyright"></i>
-            {{ date('Y') }} Jurusan Teknik Informatika Universitas Negeri Gorontalo</a>
+            2020  
+            @if(date('Y') !== '2020')
+                - {{ date('Y') }}
+            @endif
+
+             Jurusan Teknik Informatika Universitas Negeri Gorontalo</a>
         
         <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
         

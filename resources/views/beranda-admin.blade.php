@@ -121,8 +121,8 @@
                                             {{ $turun->pendaftarTurunKp->count() }},
                                         @endforeach
                                         ],
-                                        backgroundColor   : "#1E88E5",
-                                        borderColor       : "#1E88E5",
+                                        backgroundColor   : "orange",
+                                        borderColor       : "orange",
                                         fill              : false,
                                     },
                                 ]
@@ -144,14 +144,14 @@
                                             type: 'line',
                                             data: {
                                                 labels: [
-                                                    'Persiapan', 'Pendaftaran Topik', 'Penyusunan Proposal', 'Pendaftaran Proposal', 'Ujian Proposal', 'Penulisan Skripsi', 'Pendaftaran Hasil', 'Ujian Hasil', 'Revisi Skripsi', 'Pendaftaran Sidang', 'Ujian Sidang', 'Lulus'
+                                                    'Pendaftaran Topik', 'Penyusunan Proposal', 'Pendaftaran Proposal', 'Ujian Proposal', 'Penulisan Skripsi', 'Pendaftaran Hasil', 'Ujian Hasil', 'Revisi Skripsi', 'Pendaftaran Sidang', 'Ujian Sidang', 'Lulus'
                                                     ],
                                                 datasets: [
                                                     @foreach($skripsi_mahasiswa as $skripsi)
                                                     {
                                                         label: {{ $skripsi['angkatan'] }},
                                                         data: [
-                                                            {{ $skripsi['persiapan'] }}, {{ $skripsi['pendaftaran_topik'] }}, {{ $skripsi['penyusunan_proposal'] }}, {{ $skripsi['pendaftaran_proposal'] }}, {{ $skripsi['ujian_seminar_proposal'] }}, {{ $skripsi['penulisan_skripsi'] }}, {{ $skripsi['pendaftaran_hasil'] }}, {{ $skripsi['ujian_seminar_hasil'] }}, {{ $skripsi['revisi_skripsi'] }}, {{ $skripsi['pendaftaran_sidang_skripsi'] }}, {{ $skripsi['ujian_sidang_skripsi'] }}, {{ $skripsi['lulus'] }}
+                                                            {{ $skripsi['pendaftaran_topik'] }}, {{ $skripsi['penyusunan_proposal'] }}, {{ $skripsi['pendaftaran_proposal'] }}, {{ $skripsi['ujian_seminar_proposal'] }}, {{ $skripsi['penulisan_skripsi'] }}, {{ $skripsi['pendaftaran_hasil'] }}, {{ $skripsi['ujian_seminar_hasil'] }}, {{ $skripsi['revisi_skripsi'] }}, {{ $skripsi['pendaftaran_sidang_skripsi'] }}, {{ $skripsi['ujian_sidang_skripsi'] }}, {{ $skripsi['lulus'] }}
                                                         ],
                                                         borderColor: '#'+(Math.random()*0xFFFFFF<<0).toString(16),
                                                         fill: false,
@@ -176,14 +176,14 @@
                                             type: 'line',
                                             data: {
                                                 labels: [
-                                                    'Persiapan', 'Pendaftaran Ujian', 'Ujian Seminar', 'Revisi', 'Lulus'
+                                                    'Pendaftaran Ujian', 'Ujian Seminar', 'Revisi', 'Lulus'
                                                     ],
                                                 datasets: [
                                                     @foreach($kp_mahasiswa as $kp)
                                                     {
                                                         label: {{ $kp['angkatan'] }},
                                                         data: [
-                                                            {{ $kp['persiapan_kp'] }}, {{ $kp['pendaftaran_kp'] }}, {{ $kp['ujian_seminar_kp'] }}, {{ $kp['revisi_kp'] }}, {{ $kp['lulus_kp'] }}
+                                                            {{ $kp['pendaftaran_kp'] }}, {{ $kp['ujian_seminar_kp'] }}, {{ $kp['revisi_kp'] }}, {{ $kp['lulus_kp'] }}
                                                         ],
                                                         borderColor: '#'+(Math.random()*0xFFFFFF<<0).toString(16),
                                                         fill: false,

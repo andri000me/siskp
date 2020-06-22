@@ -33,13 +33,13 @@
                                             type: 'bar',
                                             data: {
                                                 labels: [
-                                                    'Persiapan', 'Pendaftaran Topik', 'Penyusunan Proposal', 'Pendaftaran Proposal', 'Ujian Proposal', 'Penulisan Skripsi', 'Pendaftaran Hasil', 'Ujian Hasil', 'Revisi Skripsi', 'Pendaftaran Sidang', 'Ujian Sidang', 'Lulus'
+                                                    'Pendaftaran Topik', 'Penyusunan Proposal', 'Pendaftaran Proposal', 'Ujian Proposal', 'Penulisan Skripsi', 'Pendaftaran Hasil', 'Ujian Hasil', 'Revisi Skripsi', 'Pendaftaran Sidang', 'Ujian Sidang', 'Lulus'
                                                     ],
                                                 datasets: [
                                                     {
                                                         label: "TOTAL MAHASISWA",
                                                         data: [
-                                                            {{ $persiapan }}, {{ $pendaftaran_topik }}, {{ $penyusunan_proposal }}, {{ $pendaftaran_proposal }}, {{ $ujian_seminar_proposal }}, {{ $penulisan_skripsi }}, {{ $pendaftaran_hasil }}, {{ $ujian_seminar_hasil }}, {{ $revisi_skripsi }}, {{ $pendaftaran_sidang_skripsi }}, {{ $ujian_sidang_skripsi }}, {{ $lulus }}
+                                                            {{ $pendaftaran_topik }}, {{ $penyusunan_proposal }}, {{ $pendaftaran_proposal }}, {{ $ujian_seminar_proposal }}, {{ $penulisan_skripsi }}, {{ $pendaftaran_hasil }}, {{ $ujian_seminar_hasil }}, {{ $revisi_skripsi }}, {{ $pendaftaran_sidang_skripsi }}, {{ $ujian_sidang_skripsi }}, {{ $lulus }}
                                                         ],
                                                         backgroundColor: "#22a6b3",
                                                         borderColor: "#22a6b3",
@@ -64,13 +64,13 @@
                                             type: 'bar',
                                             data: {
                                                 labels: [
-                                                    'Persiapan', 'Pendaftaran Ujian', 'Ujian Seminar', 'Revisi', 'Lulus'
+                                                    'Pendaftaran Ujian', 'Ujian Seminar', 'Revisi', 'Lulus'
                                                     ],
                                                 datasets: [
                                                     {
                                                         label: "TOTAL MAHASISWA",
                                                         data: [
-                                                            {{ $persiapan_kp }}, {{ $pendaftaran_kp }}, {{ $ujian_seminar_kp }}, {{ $revisi_kp }}, {{ $lulus_kp }}
+                                                            {{ $pendaftaran_kp }}, {{ $ujian_seminar_kp }}, {{ $revisi_kp }}, {{ $lulus_kp }}
                                                         ],
                                                         backgroundColor: "#badc58",
                                                         borderColor: "#badc58",
@@ -95,13 +95,13 @@
                                             type: 'bar',
                                             data: {
                                                 labels: [
-                                                    'Persiapan', 'Pendaftaran Topik', 'Penyusunan Proposal', 'Pendaftaran Proposal', 'Ujian Proposal', 'Penulisan Skripsi', 'Pendaftaran Hasil', 'Ujian Hasil', 'Revisi Skripsi', 'Pendaftaran Sidang', 'Ujian Sidang', 'Lulus'
+                                                    'Pendaftaran Topik', 'Penyusunan Proposal', 'Pendaftaran Proposal', 'Ujian Proposal', 'Penulisan Skripsi', 'Pendaftaran Hasil', 'Ujian Hasil', 'Revisi Skripsi', 'Pendaftaran Sidang', 'Ujian Sidang', 'Lulus'
                                                     ],
                                                 datasets: [
                                                     {
                                                         label: "TOTAL MAHASISWA",
                                                         data: [
-                                                            {{ $bimbingan_skripsi_persiapan }}, {{ $bimbingan_skripsi_pendaftaran_topik }}, {{ $bimbingan_skripsi_penyusunan_proposal }}, {{ $bimbingan_skripsi_pendaftaran_proposal }}, {{ $bimbingan_skripsi_ujian_seminar_proposal }}, {{ $bimbingan_skripsi_penulisan_skripsi }}, {{ $bimbingan_skripsi_pendaftaran_hasil }}, {{ $bimbingan_skripsi_ujian_seminar_hasil }}, {{ $bimbingan_skripsi_revisi_skripsi }}, {{ $bimbingan_skripsi_pendaftaran_sidang_skripsi }}, {{ $bimbingan_skripsi_ujian_sidang_skripsi }}, {{ $bimbingan_skripsi_lulus }}
+                                                            {{ $bimbingan_skripsi_pendaftaran_topik }}, {{ $bimbingan_skripsi_penyusunan_proposal }}, {{ $bimbingan_skripsi_pendaftaran_proposal }}, {{ $bimbingan_skripsi_ujian_seminar_proposal }}, {{ $bimbingan_skripsi_penulisan_skripsi }}, {{ $bimbingan_skripsi_pendaftaran_hasil }}, {{ $bimbingan_skripsi_ujian_seminar_hasil }}, {{ $bimbingan_skripsi_revisi_skripsi }}, {{ $bimbingan_skripsi_pendaftaran_sidang_skripsi }}, {{ $bimbingan_skripsi_ujian_sidang_skripsi }}, {{ $bimbingan_skripsi_lulus }}
                                                         ],
                                                         backgroundColor: "purple",
                                                         borderColor: "purple",
@@ -126,13 +126,13 @@
                                             type: 'bar',
                                             data: {
                                                 labels: [
-                                                    'Persiapan', 'Pendaftaran Ujian', 'Ujian Seminar', 'Revisi', 'Lulus'
+                                                    'Pendaftaran Ujian', 'Ujian Seminar', 'Revisi', 'Lulus'
                                                     ],
                                                 datasets: [
                                                     {
                                                         label: "TOTAL MAHASISWA",
                                                         data: [
-                                                            {{ $bimbingan_kp_persiapan }}, {{ $bimbingan_kp_pendaftaran }}, {{ $bimbingan_kp_ujian_seminar }}, {{ $bimbingan_kp_revisi }}, {{ $bimbingan_kp_lulus }}
+                                                            {{ $bimbingan_kp_pendaftaran }}, {{ $bimbingan_kp_ujian_seminar }}, {{ $bimbingan_kp_revisi }}, {{ $bimbingan_kp_lulus }}
                                                         ],
                                                         backgroundColor: "orange",
                                                         borderColor: "orange",

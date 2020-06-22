@@ -1693,7 +1693,7 @@
                 - {{ date('Y') }}
             @endif
 
-             Jurusan Teknik Informatika Universitas Negeri Gorontalo</a>
+             Teknik Informatika Universitas Negeri Gorontalo</a>
         
         <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
         

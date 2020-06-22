@@ -73,7 +73,6 @@ class BerandaController extends Controller
         foreach($angkatan as $ang){
             $skripsi_mahasiswa[] = [
                 'angkatan' => $ang->angkatan,
-                'persiapan' => \App\Mahasiswa::where('tahapan_skripsi', 'persiapan')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'pendaftaran_topik' => \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_topik')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'penyusunan_proposal' => \App\Mahasiswa::where('tahapan_skripsi', 'penyusunan_proposal')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'pendaftaran_proposal' => \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_proposal')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
@@ -92,7 +91,6 @@ class BerandaController extends Controller
         foreach($angkatan as $ang){
             $kp_mahasiswa[] = [
                 'angkatan' => $ang->angkatan,
-                'persiapan_kp' => \App\Mahasiswa::where('tahapan_kp', 'persiapan')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'pendaftaran_kp' => \App\Mahasiswa::where('tahapan_kp', 'pendaftaran')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'ujian_seminar_kp' => \App\Mahasiswa::where('tahapan_kp', 'ujian_seminar')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'revisi_kp' => \App\Mahasiswa::where('tahapan_kp', 'revisi')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
@@ -131,13 +129,6 @@ class BerandaController extends Controller
         })->count();
 
         // tahapan mahasiswa skripsi
-        $bimbingan_skripsi_persiapan = \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_satu_skripsi', Session::get('id'))->whereHas('mahasiswa', function ($query) {
-            $query->where('tahapan_skripsi', 'persiapan');
-        })->count();
-        $bimbingan_skripsi_persiapan += \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_dua_skripsi', Session::get('id'))->whereHas('mahasiswa', function ($query) {
-            $query->where('tahapan_skripsi', 'persiapan');
-        })->count();
-
         $bimbingan_skripsi_pendaftaran_topik = \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_satu_skripsi', Session::get('id'))->whereHas('mahasiswa', function ($query) {
             $query->where('tahapan_skripsi', 'pendaftaran_topik');
         })->count();
@@ -216,13 +207,6 @@ class BerandaController extends Controller
         })->count();
 
         // tahapan kp mahasiswa bimbingan kp
-        $bimbingan_kp_persiapan = \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_satu_kp', Session::get('id'))->whereHas('mahasiswa', function ($query) {
-            $query->where('tahapan_kp', 'persiapan');
-        })->count();
-        $bimbingan_kp_persiapan += \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_dua_kp', Session::get('id'))->whereHas('mahasiswa', function ($query) {
-            $query->where('tahapan_kp', 'persiapan');
-        })->count();
-
         $bimbingan_kp_pendaftaran = \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_satu_kp', Session::get('id'))->whereHas('mahasiswa', function ($query) {
             $query->where('tahapan_kp', 'pendaftaran');
         })->count();
@@ -256,14 +240,12 @@ class BerandaController extends Controller
         $kontrak_kp = \App\Mahasiswa::where('kontrak_kp', 'ya')->where('id_dosen', Session::get('id'))->count();
 
         // tahapan kp mahasiswa pa
-        $persiapan_kp = \App\Mahasiswa::where('tahapan_kp', 'persiapan')->where('id_dosen', Session::get('id'))->count();
         $pendaftaran_kp = \App\Mahasiswa::where('tahapan_kp', 'pendaftaran')->where('id_dosen', Session::get('id'))->count();
         $ujian_seminar_kp = \App\Mahasiswa::where('tahapan_kp', 'ujian_seminar')->where('id_dosen', Session::get('id'))->count();
         $revisi_kp = \App\Mahasiswa::where('tahapan_kp', 'revisi')->where('id_dosen', Session::get('id'))->count();
         $lulus_kp = \App\Mahasiswa::where('tahapan_kp', 'lulus')->where('id_dosen', Session::get('id'))->count();
             
         // tahapan skripsi mahasiswa pa
-        $persiapan = \App\Mahasiswa::where('tahapan_skripsi', 'persiapan')->where('id_dosen', Session::get('id'))->count();
         $pendaftaran_topik = \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_topik')->where('id_dosen', Session::get('id'))->count();
         $penyusunan_proposal = \App\Mahasiswa::where('tahapan_skripsi', 'penyusunan_proposal')->where('id_dosen', Session::get('id'))->count();
         $pendaftaran_proposal = \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_proposal')->where('id_dosen', Session::get('id'))->count();
@@ -277,7 +259,7 @@ class BerandaController extends Controller
         $lulus = \App\Mahasiswa::where('tahapan_skripsi', 'lulus')->where('id_dosen', Session::get('id'))->count();
 
         return view('beranda-dosen', compact(
-            'total_mahasiswa', 'kontrak_skripsi', 'kontrak_kp', 'persiapan_kp', 'pendaftaran_kp', 'ujian_seminar_kp', 'revisi_kp', 'lulus_kp', 'persiapan', 'pendaftaran_topik', 'penyusunan_proposal', 'pendaftaran_proposal', 'ujian_seminar_proposal', 'penulisan_skripsi', 'pendaftaran_hasil', 'ujian_seminar_hasil', 'revisi_skripsi', 'pendaftaran_sidang_skripsi', 'ujian_sidang_skripsi', 'lulus', 'bimbingan_skripsi_persiapan', 'bimbingan_skripsi_pendaftaran_topik', 'bimbingan_skripsi_penyusunan_proposal', 'bimbingan_skripsi_pendaftaran_proposal', 'bimbingan_skripsi_ujian_seminar_proposal', 'bimbingan_skripsi_penulisan_skripsi', 'bimbingan_skripsi_pendaftaran_hasil', 'bimbingan_skripsi_ujian_seminar_hasil', 'bimbingan_skripsi_revisi_skripsi', 'bimbingan_skripsi_pendaftaran_sidang_skripsi', 'bimbingan_skripsi_ujian_sidang_skripsi', 'bimbingan_skripsi_lulus', 'total_bimbingan_skripsi', 'total_bimbingan_kp', 'bimbingan_kp_lulus', 'bimbingan_kp_revisi', 'bimbingan_kp_ujian_seminar', 'bimbingan_kp_pendaftaran', 'bimbingan_kp_persiapan', 'total_bimbingan_skripsi_lulus' 
+            'total_mahasiswa', 'kontrak_skripsi', 'kontrak_kp', 'pendaftaran_kp', 'ujian_seminar_kp', 'revisi_kp', 'lulus_kp', 'pendaftaran_topik', 'penyusunan_proposal', 'pendaftaran_proposal', 'ujian_seminar_proposal', 'penulisan_skripsi', 'pendaftaran_hasil', 'ujian_seminar_hasil', 'revisi_skripsi', 'pendaftaran_sidang_skripsi', 'ujian_sidang_skripsi', 'lulus', 'bimbingan_skripsi_pendaftaran_topik', 'bimbingan_skripsi_penyusunan_proposal', 'bimbingan_skripsi_pendaftaran_proposal', 'bimbingan_skripsi_ujian_seminar_proposal', 'bimbingan_skripsi_penulisan_skripsi', 'bimbingan_skripsi_pendaftaran_hasil', 'bimbingan_skripsi_ujian_seminar_hasil', 'bimbingan_skripsi_revisi_skripsi', 'bimbingan_skripsi_pendaftaran_sidang_skripsi', 'bimbingan_skripsi_ujian_sidang_skripsi', 'bimbingan_skripsi_lulus', 'total_bimbingan_skripsi', 'total_bimbingan_kp', 'bimbingan_kp_lulus', 'bimbingan_kp_revisi', 'bimbingan_kp_ujian_seminar', 'bimbingan_kp_pendaftaran', 'total_bimbingan_skripsi_lulus' 
         ));
     }
 

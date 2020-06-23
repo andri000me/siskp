@@ -14,11 +14,13 @@
                     <div class="card-body border-bottom py-2">
                         <div class="row">
                             <div class="col-12 col-lg-11">
-                                <p class="card-title font-weight-bold my-0 py-0">{{ $i }}). {{ $nilai->jadwalUjian->mahasiswa->nama }} ({{ $nilai->jadwalUjian->mahasiswa->nim }})</p>
+                                <p class="card-title font-weight-bold my-0 py-0">{{ $i }}). {{ !empty($nilai->jadwalUjian->mahasiswa->nama) ? $nilai->jadwalUjian->mahasiswa->nama : '-' }} ({{ !empty($nilai->jadwalUjian->mahasiswa->nim) ? $nilai->jadwalUjian->mahasiswa->nim : '-' }})</p>
                                 <p class="my-0 py-0">
-                                    Total Nilai: {{ !empty($nilai->total) ? $nilai->total : '-' }} <span class="d-none d-lg-inline">|</span> <br class="d-lg-none"> 
-                                    Nilai Huruf: {{ !empty($nilai->nilai_huruf) ? $nilai->nilai_huruf : '-' }} <span class="d-none d-lg-inline">|</span> <br class="d-lg-none"> 
-
+                                    {{ !empty($nilai->jadwalUjian->mahasiswa->prodi->nama) ? $nilai->jadwalUjian->mahasiswa->prodi->nama : '-' }} ({{ !empty($nilai->jadwalUjian->mahasiswa->angkatan) ? $nilai->jadwalUjian->mahasiswa->angkatan : '-' }}) <br>
+                                    Total Nilai: {{ !empty($nilai->total) ? $nilai->total : '-' }} 
+                                    <br>
+                                    Nilai Huruf: {{ !empty($nilai->nilai_huruf) ? $nilai->nilai_huruf : '-' }} 
+                                    <br> 
                                     @if($nilai->status >= 'lulus')
                                         <span class="text-primary"><i class="fa fa-check"></i> Lulus</span>
                                     @else

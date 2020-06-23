@@ -4,7 +4,7 @@
 
                 <!-- Filter pencarian -->
                 <div class="accordion mb-2 d-none d-lg-inline" id="filter">
-                    <button class="btn btn-primary btn-sm btn-block mb-2" type="button" data-toggle="collapse" data-target="#pencarian"><span class="fa fa-search"></span> Cari </button>
+                    <button class="btn btn-outline-primary btn-sm btn-block mb-2" type="button" data-toggle="collapse" data-target="#pencarian"><span class="fa fa-search"></span> Cari </button>
                     
                     @if(Request::segment(3) === 'cari')
                     <div id="pencarian" class="collapse my-2 pb-1 border-bottom border-secondary show" data-parent="#filter">
@@ -63,14 +63,18 @@
                     <div class="card-body border-bottom py-2">
                         <div class="row">
                             <div class="col-12 col-lg-11">
-                                <p class="card-title font-weight-bold my-0 py-0">{{ $i }}). {{ $nilai->mahasiswa->nama }} ({{ $nilai->mahasiswa->nim }})</p>
+                                <p class="card-title font-weight-bold my-0 py-0">{{ $i }}). {{ !empty($nilai->mahasiswa->nama) ? $nilai->mahasiswa->nama : '-' }} ({{ !empty($nilai->mahasiswa->nim) ? $nilai->mahasiswa->nim : '-' }})</p>
                                 <p class="my-0 py-0">
-                                    Seminar Proposal: {{ !empty($nilai->seminar_proposal) ? $nilai->seminar_proposal : '-' }} <span class="d-none d-lg-inline">|</span> <br class="d-lg-none"> 
-                                    Seminar Hasil: {{ !empty($nilai->seminar_hasil) ? $nilai->seminar_hasil : '-' }} <span class="d-none d-lg-inline">|</span> <br class="d-lg-none"> 
+                                    {{ !empty($nilai->mahasiswa->prodi->nama) ? $nilai->mahasiswa->prodi->nama : '-' }} ({{ !empty($nilai->mahasiswa->angkatan) ? $nilai->mahasiswa->angkatan : '-' }}) <br>
+                                    Seminar Proposal: {{ !empty($nilai->seminar_proposal) ? $nilai->seminar_proposal : '-' }} 
+                                    <br> 
+                                    Seminar Hasil: {{ !empty($nilai->seminar_hasil) ? $nilai->seminar_hasil : '-' }} 
+                                    <br>
                                     Sidang Skripsi: {{ !empty($nilai->sidang_skripsi) ? $nilai->sidang_skripsi : '-' }} <br> 
-                                    Total Nilai: {{ !empty($nilai->total) ? $nilai->total : '-' }} <span class="d-none d-lg-inline">|</span> <br class="d-lg-none"> 
-                                    Nilai Huruf: {{ $nilai->nilai_huruf }} <span class="d-none d-lg-inline">|</span> <br class="d-lg-none"> 
-
+                                    Total Nilai: {{ !empty($nilai->total) ? $nilai->total : '-' }} 
+                                    <br>
+                                    Nilai Huruf: {{ $nilai->nilai_huruf }}
+                                    <br> 
                                     @if($nilai->total >= 60)
                                         <span class="text-primary"><i class="fa fa-check"></i> Lulus</span>
                                     @else

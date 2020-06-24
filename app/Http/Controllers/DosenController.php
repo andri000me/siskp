@@ -46,8 +46,10 @@ class DosenController extends Controller
     // dosen & pimpinan
     public function show(Dosen $dosen)
     {
+            $prodi_kp = \App\ProdiKp::pluck('id_prodi');
+
             // total mahasiswa PA yang belum lulus kp
-            $total_maspa_kp = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_kp', ['lulus'])->count();
+            $total_maspa_kp = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_kp', ['lulus'])->whereIn('id_prodi', $prodi_kp)->count();
         
             // total mahasiswa bimbingan kp yg bleum lulus 
             $total_masbing_kp = \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_satu_kp', $dosen->id)->whereHas('mahasiswa', function ($query) {

@@ -239,11 +239,13 @@ class BerandaController extends Controller
         $kontrak_skripsi = \App\Mahasiswa::where('kontrak_skripsi', 'ya')->where('id_dosen', Session::get('id'))->count();
         $kontrak_kp = \App\Mahasiswa::where('kontrak_kp', 'ya')->where('id_dosen', Session::get('id'))->count();
 
+        $prodi_kp = \App\ProdiKp::pluck('id_prodi');
+
         // tahapan kp mahasiswa pa
-        $pendaftaran_kp = \App\Mahasiswa::where('tahapan_kp', 'pendaftaran')->where('id_dosen', Session::get('id'))->count();
-        $ujian_seminar_kp = \App\Mahasiswa::where('tahapan_kp', 'ujian_seminar')->where('id_dosen', Session::get('id'))->count();
-        $revisi_kp = \App\Mahasiswa::where('tahapan_kp', 'revisi')->where('id_dosen', Session::get('id'))->count();
-        $lulus_kp = \App\Mahasiswa::where('tahapan_kp', 'lulus')->where('id_dosen', Session::get('id'))->count();
+        $pendaftaran_kp = \App\Mahasiswa::where('tahapan_kp', 'pendaftaran')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
+        $ujian_seminar_kp = \App\Mahasiswa::where('tahapan_kp', 'ujian_seminar')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
+        $revisi_kp = \App\Mahasiswa::where('tahapan_kp', 'revisi')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
+        $lulus_kp = \App\Mahasiswa::where('tahapan_kp', 'lulus')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
             
         // tahapan skripsi mahasiswa pa
         $pendaftaran_topik = \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_topik')->where('id_dosen', Session::get('id'))->count();
@@ -486,8 +488,10 @@ class BerandaController extends Controller
         }elseif(Session::has('dosen')){
             $dosen = \App\Dosen::findOrFail(Session::get('id'));
 
+            $prodi_kp = \App\ProdiKp::pluck('id_prodi');
+
             // total mahasiswa PA yang belum lulus kp
-            $total_maspa_kp = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_kp', ['lulus'])->count();
+            $total_maspa_kp = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_kp', ['lulus'])->whereIn('id_prodi', $prodi_kp)->count();
         
             // total mahasiswa bimbingan kp yg bleum lulus 
             $total_masbing_kp = \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_satu_kp', $dosen->id)->whereHas('mahasiswa', function ($query) {

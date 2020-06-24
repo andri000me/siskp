@@ -867,12 +867,7 @@ class PenilaianController extends Controller
 
         // perbaharui tahapan skripsi mahasiswa
         $mahasiswa = \App\Mahasiswa::findOrFail($id);
-        
-        if($request->post('jenis_ujian') === 'proposal'){
-            $mahasiswa->tahapan_skripsi = 'penulisan_skripsi';
-        }elseif($request->post('jenis_ujian') === 'hasil'){
-            $mahasiswa->tahapan_skripsi = 'revisi_skripsi';
-        }elseif($request->post('jenis_ujian') === 'sidang-skripsi'){
+        if($total_hasil_akumulasi_nilai >= 60){
             $mahasiswa->tahapan_skripsi = 'lulus';
         }
         $mahasiswa->save();

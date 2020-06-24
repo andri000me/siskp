@@ -307,9 +307,9 @@ class PendaftarUsulanTopikController extends Controller
             $notifikasiMahasiswa->jenis = 'pendaftaran';
 
             if($request->post('tahapan') === 'ditolak' || $request->post('tahapan') === 'dibatalkan'){
-                $notifikasiMahasiswa->deskripsi = 'Usulan topik skripsi anda dengan judul : <strong> '. $usulan_topik->usulan_judul .' </strong> telah <strong>'. strtoupper($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan memasukan usulan topik yang baru!';
+                $notifikasiMahasiswa->deskripsi = 'Usulan topik skripsi anda dengan judul : <strong> '. $usulan_topik->usulan_judul .' </strong> telah <strong>'. ucwords($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan memasukan usulan topik yang baru!';
             }else{
-                $notifikasiMahasiswa->deskripsi = 'Usulan topik skripsi anda dengan judul : <strong> '. $usulan_topik->usulan_judul .' </strong> telah <strong>'. strtoupper($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan menunggu dosen pembimbing Skripsi!';
+                $notifikasiMahasiswa->deskripsi = 'Usulan topik skripsi anda dengan judul : <strong> '. $usulan_topik->usulan_judul .' </strong> telah <strong>'. ucwords($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan menunggu dosen pembimbing Skripsi!';
             }
             $notifikasiMahasiswa->save();
         }

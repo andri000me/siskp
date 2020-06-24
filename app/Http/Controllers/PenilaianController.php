@@ -328,7 +328,7 @@ class PenilaianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $jadwal->id_mahasiswa;
         $notifikasiMahasiswa->link = 'nilai-ujian/' . $jadwal->id . '/detail';
         $notifikasiMahasiswa->jenis = 'nilai-ujian';
-        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . strtoupper($jadwal->ujian) . '</strong> anda';
+        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . ucwords(str_replace('-', ' ', $jadwal->ujian)) . '</strong> anda';
         $notifikasiMahasiswa->save();
 
         Session::flash('pesan', 'Penilaian Proposal Berhasil Diperbaharui');
@@ -458,7 +458,7 @@ class PenilaianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $jadwal->id_mahasiswa;
         $notifikasiMahasiswa->link = 'nilai-ujian/' . $jadwal->id . '/detail';
         $notifikasiMahasiswa->jenis = 'nilai-ujian';
-        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . strtoupper($jadwal->ujian) . '</strong> anda';
+        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . ucwords(str_replace('-', ' ', $jadwal->ujian)) . '</strong> anda';
         $notifikasiMahasiswa->save();
 
         Session::flash('pesan', 'Penilaian Hasil Berhasil Diperbaharui');
@@ -588,7 +588,7 @@ class PenilaianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $jadwal->id_mahasiswa;
         $notifikasiMahasiswa->link = 'nilai-ujian/' . $jadwal->id . '/detail';
         $notifikasiMahasiswa->jenis = 'nilai-ujian';
-        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . strtoupper($jadwal->ujian) . '</strong> anda';
+        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . ucwords(str_replace('-', ' ', $jadwal->ujian)) . '</strong> anda';
         $notifikasiMahasiswa->save();
 
         Session::flash('pesan', 'Penilaian Sidang Skripsi Berhasil Diperbaharui');
@@ -679,7 +679,7 @@ class PenilaianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $jadwal->id_mahasiswa;
         $notifikasiMahasiswa->link = 'nilai-ujian/' . $jadwal->id . '/detail';
         $notifikasiMahasiswa->jenis = 'nilai-ujian';
-        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . strtoupper($jadwal->ujian) . '</strong> anda';
+        $notifikasiMahasiswa->deskripsi = 'Salah satu dosen penguji telah menginputkan Nilai ujian <strong> ' . ucwords(str_replace('-', ' ', $jadwal->ujian)) . '</strong> anda';
         $notifikasiMahasiswa->save();
 
         Session::flash('pesan', 'Penilaian Kerja Praktek Berhasil Diperbaharui');

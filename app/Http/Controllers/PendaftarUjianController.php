@@ -235,7 +235,7 @@ class PendaftarUjianController extends Controller
         $notifikasiAdmin = new \App\NotifikasiAdmin;
         $notifikasiAdmin->link = 'pendaftaran/ujian/' . $pendaftar->id;
         $notifikasiAdmin->jenis = 'pendaftaran';
-        $notifikasiAdmin->deskripsi = Session::get('nama') . ' mendaftar ujian : <strong>'. strtoupper($pendaftar->ujian) .'</strong>. Silahkan validasi berkas ujiannya';
+        $notifikasiAdmin->deskripsi = Session::get('nama') . ' mendaftar ujian : <strong>'. ucwords(str_replace('-', ' ', $pendaftar->ujian)) .'</strong>. Silahkan validasi berkas ujiannya';
         $notifikasiAdmin->save();
 
         // notifikasi mahasiswa
@@ -243,7 +243,7 @@ class PendaftarUjianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = Session::get('id');
         $notifikasiMahasiswa->link = 'pendaftaran/ujian/' . $pendaftar->id;
         $notifikasiMahasiswa->jenis = 'pendaftaran';
-        $notifikasiMahasiswa->deskripsi = 'Berkas ujian : <strong> '. strtoupper($pendaftar->ujian) .' </strong> anda sedang <strong>DIPERIKSA</strong>. Silahkan menunggu!';
+        $notifikasiMahasiswa->deskripsi = 'Berkas ujian : <strong> '. ucwords(str_replace('-', ' ', $pendaftar->ujian)) .' </strong> anda sedang <strong>DIPERIKSA</strong>. Silahkan menunggu!';
         $notifikasiMahasiswa->save();
 
         Session::flash('pesan', 'Anda Berhasil Mendaftar Ujian!');
@@ -566,9 +566,9 @@ class PendaftarUjianController extends Controller
             $notifikasiMahasiswa->jenis = 'pendaftaran';
 
             if($request->post('tahapan') === 'ditolak'){
-                $notifikasiMahasiswa->deskripsi = 'Berkas Ujian : <strong> '. strtoupper($ujian->ujian) .' </strong> anda telah <strong>'. strtoupper($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan mendaftar kembali!';
+                $notifikasiMahasiswa->deskripsi = 'Berkas Ujian : <strong> '. ucwords(str_replace('-', ' ', $ujian->ujian)) .' </strong> anda telah <strong>'. ucwords($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan mendaftar kembali!';
             }else{
-                $notifikasiMahasiswa->deskripsi = 'Berkas Ujian : <strong> '. strtoupper($ujian->ujian) .' </strong> anda telah <strong>'. strtoupper($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan menunggu Jadwal Ujian & Dosen Penguji!';
+                $notifikasiMahasiswa->deskripsi = 'Berkas Ujian : <strong> '. ucwords(str_replace('-', ' ', $ujian->ujian)) .' </strong> anda telah <strong>'. ucwords($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan menunggu Jadwal Ujian & Dosen Penguji!';
             }
             $notifikasiMahasiswa->save();
         }
@@ -792,7 +792,7 @@ class PendaftarUjianController extends Controller
         $notifikasiAdmin = new \App\NotifikasiAdmin;
         $notifikasiAdmin->link = 'pendaftaran/ujian/' . $pendaftar->id;
         $notifikasiAdmin->jenis = 'pendaftaran';
-        $notifikasiAdmin->deskripsi = $mahasiswa->nama . ' mendaftar ujian : <strong>'. strtoupper($pendaftar->ujian) .'</strong>. Silahkan validasi berkas ujiannya';
+        $notifikasiAdmin->deskripsi = $mahasiswa->nama . ' mendaftar ujian : <strong>'. ucwords(str_replace('-', ' ', $pendaftar->ujian)) .'</strong>. Silahkan validasi berkas ujiannya';
         $notifikasiAdmin->save();
 
         // notifikasi mahasiswa
@@ -800,7 +800,7 @@ class PendaftarUjianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $mahasiswa->id;
         $notifikasiMahasiswa->link = 'pendaftaran/ujian/' . $pendaftar->id;
         $notifikasiMahasiswa->jenis = 'pendaftaran';
-        $notifikasiMahasiswa->deskripsi = 'Berkas ujian : <strong> '. strtoupper($pendaftar->ujian) .' </strong> anda sedang <strong>DIPERIKSA</strong>. Silahkan menunggu!';
+        $notifikasiMahasiswa->deskripsi = 'Berkas ujian : <strong> '. ucwords(str_replace('-', ' ', $pendaftar->ujian)) .' </strong> anda sedang <strong>DIPERIKSA</strong>. Silahkan menunggu!';
         $notifikasiMahasiswa->save();
 
         Session::flash('pesan', 'Anda berhasil menginput 1 mahasiswa');

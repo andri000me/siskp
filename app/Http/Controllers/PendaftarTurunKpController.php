@@ -401,9 +401,9 @@ class PendaftarTurunKpController extends Controller
             $notifikasiMahasiswa->jenis = 'pendaftaran';
 
             if($request->post('tahapan') === 'ditolak' || $request->post('tahapan') === 'dibatalkan'){
-                $notifikasiMahasiswa->deskripsi = 'Berkas turun kerja praktek anda di instansi : <strong> '. $pendaftar->instansi .' </strong> telah <strong>'. strtoupper($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan mendaftar turun kerja praktek yang baru!';
+                $notifikasiMahasiswa->deskripsi = 'Berkas turun kerja praktek anda di instansi : <strong> '. $pendaftar->instansi .' </strong> telah <strong>'. ucwords($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan mendaftar turun kerja praktek yang baru!';
             }else{
-                $notifikasiMahasiswa->deskripsi = 'Berkas turun kerja praktek anda di instansi : <strong> '. $pendaftar->instansi .' </strong> telah <strong>'. strtoupper($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan menunggu dosen pembimbing Kerja Praktek!';
+                $notifikasiMahasiswa->deskripsi = 'Berkas turun kerja praktek anda di instansi : <strong> '. $pendaftar->instansi .' </strong> telah <strong>'. ucwords($request->post('tahapan')) .'</strong> dengan keterangan : <strong><em>'. $request->post('keterangan') .'</em></strong>. Silahkan menunggu dosen pembimbing Kerja Praktek!';
             }
             $notifikasiMahasiswa->save();
         }

@@ -297,7 +297,7 @@ class AsistensiController extends Controller
         $notifikasiDosen->id_dosen = $request->post('id_dosen');
         $notifikasiDosen->link = 'asistensi/' . $asistensi->id;
         $notifikasiDosen->jenis = 'asistensi';
-        $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> Ingin mengajukan asistensi <strong>'. strtoupper($request->post('jenis')) .'</strong> secara online dengan topik bimbingan : <strong>' . $request->post('topik_bimbingan') . '</strong>';
+        $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> Ingin mengajukan asistensi <strong>'. ucwords(str_replace('-', ' ', $request->post('jenis'))) .'</strong> secara online dengan topik bimbingan : <strong>' . $request->post('topik_bimbingan') . '</strong>';
         $notifikasiDosen->save();
 
         Session::flash('pesan', 'Asistensi Berhasil Diajukan');

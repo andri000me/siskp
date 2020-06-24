@@ -296,7 +296,7 @@ class JadwalUjianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $request->post('id_mahasiswa');
         $notifikasiMahasiswa->link = 'jadwal-ujian';
         $notifikasiMahasiswa->jenis = 'jadwal-ujian';
-        $notifikasiMahasiswa->deskripsi = 'Jadwal ujian <strong> ' . strtoupper($request->post('ujian')) . '</strong> anda telah tersedia';
+        $notifikasiMahasiswa->deskripsi = 'Jadwal ujian <strong> ' . ucwords(str_replace('-', ' ', $request->post('ujian'))) . '</strong> anda telah tersedia';
         $notifikasiMahasiswa->save();
 
         // input dosen penguji
@@ -312,7 +312,7 @@ class JadwalUjianController extends Controller
             $notifikasiDosen->id_dosen = $dospeng['id_dosen'];
             $notifikasiDosen->link = 'mahasiswa/pengujian/' . date('Y', strtotime($waktu_mulai)) . '-' . date('m', strtotime($waktu_mulai));
             $notifikasiDosen->jenis = 'jadwal-ujian';
-            $notifikasiDosen->deskripsi = 'Jadwal menguji ujian <strong> ' . strtoupper($request->post('ujian')) . '</strong> telah tersedia';
+            $notifikasiDosen->deskripsi = 'Jadwal menguji ujian <strong> ' . ucwords(str_replace('-', ' ', $request->post('ujian'))) . '</strong> telah tersedia';
             $notifikasiDosen->save();
         }
         $jadwal->dosenPenguji()->saveMany($penguji);
@@ -436,7 +436,7 @@ class JadwalUjianController extends Controller
         $notifikasiMahasiswa->id_mahasiswa = $request->post('id_mahasiswa');
         $notifikasiMahasiswa->link = 'jadwal-ujian';
         $notifikasiMahasiswa->jenis = 'jadwal-ujian';
-        $notifikasiMahasiswa->deskripsi = 'Jadwal ujian <strong> ' . strtoupper($request->post('ujian')) . '</strong> anda telah tersedia';
+        $notifikasiMahasiswa->deskripsi = 'Jadwal ujian <strong> ' . ucwords(str_replace('-', ' ', $request->post('ujian'))) . '</strong> anda telah tersedia';
         $notifikasiMahasiswa->save();
 
         // input dosen penguji
@@ -452,7 +452,7 @@ class JadwalUjianController extends Controller
             $notifikasiDosen->id_dosen = $dospeng['id_dosen'];
             $notifikasiDosen->link = 'mahasiswa/pengujian';
             $notifikasiDosen->jenis = 'jadwal-ujian';
-            $notifikasiDosen->deskripsi = 'Jadwal menguji ujian <strong> ' . strtoupper($request->post('ujian')) . '</strong> telah tersedia';
+            $notifikasiDosen->deskripsi = 'Jadwal menguji ujian <strong> ' . ucwords(str_replace('-', ' ', $request->post('ujian'))) . '</strong> telah tersedia';
             $notifikasiDosen->save();
 
         }

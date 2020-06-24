@@ -234,7 +234,7 @@ class PersetujuanUjianController extends Controller
             $notifikasiDosen->id_dosen = $dosbing->dosbing_satu_skripsi;
             $notifikasiDosen->link = 'persetujuan-ujian/mahasiswa';
             $notifikasiDosen->jenis = 'persetujuan-ujian';
-            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. strtoupper($request->post('ujian')) .'</strong> secara online.';
+            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. ucwords(str_replace('-', ' ', $request->post('ujian'))) .'</strong> secara online.';
             $notifikasiDosen->save();
             
             // notifikasi dosen pembimbing dua
@@ -242,7 +242,7 @@ class PersetujuanUjianController extends Controller
             $notifikasiDosen->id_dosen = $dosbing->dosbing_dua_skripsi;
             $notifikasiDosen->link = 'persetujuan-ujian/mahasiswa';
             $notifikasiDosen->jenis = 'persetujuan-ujian';
-            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. strtoupper($request->post('ujian')) .'</strong> secara online.';
+            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. ucwords(str_replace('-', ' ', $request->post('ujian'))) .'</strong> secara online.';
             $notifikasiDosen->save();
         }elseif($request->post('ujian') === 'kerja-praktek'){
             $dosbing = \App\DosenPembimbingKp::where('id_mahasiswa', Session::get('id'))->where('id_semester', $semester_aktif->id)->first();
@@ -263,7 +263,7 @@ class PersetujuanUjianController extends Controller
             $notifikasiDosen->id_dosen = $dosbing->dosbing_satu_kp;
             $notifikasiDosen->link = 'persetujuan-ujian/mahasiswa';
             $notifikasiDosen->jenis = 'persetujuan-ujian';
-            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. strtoupper($request->post('ujian')) .'</strong> secara online.';
+            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. ucwords(str_replace('-', ' ', $request->post('ujian'))) .'</strong> secara online.';
             $notifikasiDosen->save();
 
             // notifikasi dosen pembimbing dua
@@ -271,7 +271,7 @@ class PersetujuanUjianController extends Controller
             $notifikasiDosen->id_dosen = $dosbing->dosbing_dua_kp;
             $notifikasiDosen->link = 'persetujuan-ujian/mahasiswa';
             $notifikasiDosen->jenis = 'persetujuan-ujian';
-            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. strtoupper($request->post('ujian')) .'</strong> secara online.';
+            $notifikasiDosen->deskripsi = '<strong> ' . Session::get('nama') . '</strong> meminta persetujuan ujian <strong>'. ucwords(str_replace('-', ' ', $request->post('ujian'))) .'</strong> secara online.';
             $notifikasiDosen->save();
         }
 

@@ -9,13 +9,13 @@
                 @else
                 <div class="alert alert-info">
                     <strong><span class="fa fa-info-circle"></span> Info</strong> 
-                    <br> Bisa digunakan hanya jika anda telah selesai Ujian Sidang Skripsi tapi belum mengupload Laporan dan/atau Jurnal Skripsi yang sudah revisi
+                    <br> Fitur ini hanya bisa digunakan jika anda telah selesai Ujian Sidang Skripsi tapi belum mengupload Laporan dan/atau Jurnal Skripsi yang sudah revisi
                 </div>
                 @endif
 
                <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
-                        <strong class="bg-primary text-light">Detail Revisi Anda</strong>
+                        <strong class="bg-primary text-light">Detail Revisi</strong>
                         
                         @if(!empty($pendaftar) && !empty($riwayat))
                             <a class="text-white" href="{{ url('revisi-skripsi/create') }}"><span class="fa fa-upload"></span> <span class="">Edit Laporan & Jurnal</span></a>

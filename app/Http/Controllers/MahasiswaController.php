@@ -362,7 +362,8 @@ class MahasiswaController extends Controller
     public function nonaktifkanSemuaLulus(Request $request)
     {
         Mahasiswa::where('tahapan_skripsi', 'lulus')->update([
-          'kontrak_skripsi' => 'tidak'
+          'kontrak_skripsi' => 'tidak',
+          'tahapan_kp' => 'lulus'
         ]);
 
         Mahasiswa::where('tahapan_kp', 'lulus')->update([

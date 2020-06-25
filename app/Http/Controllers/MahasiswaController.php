@@ -361,8 +361,13 @@ class MahasiswaController extends Controller
     // pimpinan
     public function nonaktifkanSemuaLulus(Request $request)
     {
+        $prodi_kp = \App\ProdiKp::pluck('id_prodi');
+        
         Mahasiswa::where('tahapan_skripsi', 'lulus')->update([
           'kontrak_skripsi' => 'tidak',
+        ]);
+
+        Mahasiswa::where('tahapan_skripsi', 'lulus')->whereIn('id_prodi', $prodi_kp)->update([
           'tahapan_kp' => 'lulus'
         ]);
 

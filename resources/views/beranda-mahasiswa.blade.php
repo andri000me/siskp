@@ -288,20 +288,20 @@
                                     @if(!$nilai_skripsi->isEmpty()) 
                                         <table class="table table-hover table-striped table-sm">
                                         <thead>
-                                            <th>Seminar Proposal</th>
-                                            <th>Seminar Hasil</th>
-                                            <th>Sidang Skripsi</th>
-                                            <th>Total Nilai</th>
-                                            <th>Huruf</th>
+                                            <th class="text-center">Seminar Proposal</th>
+                                            <th class="text-center">Seminar Hasil</th>
+                                            <th class="text-center">Sidang Skripsi</th>
+                                            <th class="text-center">Total Nilai</th>
+                                            <th class="text-center">Huruf</th>
                                         </thead>
                                         <tbody>
                                             @foreach($nilai_skripsi as $nilai)
                                             <tr>
-                                                <td>{{ $nilai->seminar_proposal }} </td>
-                                                <td>{{ $nilai->seminar_hasil }}</td>
-                                                <td>{{ $nilai->sidang_skripsi }}</td>
-                                                <td>{{ $nilai->total }}</td>
-                                                <td>{{ $nilai->nilai_huruf }}</td>
+                                                <td class="text-center">{{ $nilai->seminar_proposal }} </td>
+                                                <td class="text-center">{{ $nilai->seminar_hasil }}</td>
+                                                <td class="text-center">{{ $nilai->sidang_skripsi }}</td>
+                                                <td class="text-center">{{ $nilai->total }}</td>
+                                                <td class="text-center">{{ $nilai->nilai_huruf }}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -508,20 +508,20 @@
                                     @if(!$nilai_skripsi->isEmpty()) 
                                         <table class="table table-hover table-striped table-sm">
                                         <thead>
-                                            <th>Seminar Proposal</th>
-                                            <th>Seminar Hasil</th>
-                                            <th>Sidang Skripsi</th>
-                                            <th>Total Nilai</th>
-                                            <th>Huruf</th>
+                                            <th class="text-center">Seminar Proposal</th>
+                                            <th class="text-center">Seminar Hasil</th>
+                                            <th class="text-center">Sidang Skripsi</th>
+                                            <th class="text-center">Total Nilai</th>
+                                            <th class="text-center">Huruf</th>
                                         </thead>
                                         <tbody>
                                             @foreach($nilai_skripsi as $nilai)
                                             <tr>
-                                                <td>{{ $nilai->seminar_proposal }} </td>
-                                                <td>{{ $nilai->seminar_hasil }}</td>
-                                                <td>{{ $nilai->sidang_skripsi }}</td>
-                                                <td>{{ $nilai->total }}</td>
-                                                <td>{{ $nilai->nilai_huruf }}</td>
+                                                <td class="text-center">{{ $nilai->seminar_proposal }} </td>
+                                                <td class="text-center">{{ $nilai->seminar_hasil }}</td>
+                                                <td class="text-center">{{ $nilai->sidang_skripsi }}</td>
+                                                <td class="text-center">{{ $nilai->total }}</td>
+                                                <td class="text-center">{{ $nilai->nilai_huruf }}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>

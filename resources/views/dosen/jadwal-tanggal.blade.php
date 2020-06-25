@@ -42,14 +42,12 @@
                             </div>
 
                             <!-- menu large -->
-                            <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                            <div class="col-1 text-center d-none d-lg-flex justify-content-center align-items-center">
+                                <a class="text-primary small" href="{{ url('nilai-ujian/'. $pengujian->id_jadwal_ujian .'/detail') }}">
+                                    <span class="fa fa-info-circle fa-lg"></span>&nbsp; Detail
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'. $pengujian->id_jadwal_ujian .'/detail') }}">Detail Nilai</a>
-                                </div>
                             </div>
+
                         </div>
                     </div>
                     <?php $i++ ?>

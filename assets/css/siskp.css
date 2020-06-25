@@ -87,3 +87,10 @@
 .caret-off::after{
     display: none !important;
 }
+caption{
+  padding-top: 0;
+  padding-bottom: 0.50rem;
+  color: #343a40;
+  text-align: center;
+  caption-side: top;
+}

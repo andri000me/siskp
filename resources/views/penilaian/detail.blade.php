@@ -54,6 +54,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Form Nilai Ujian</caption>
                                 {!! Form::open(['url' => 'nilai-ujian/'. $jadwal->id .'/proposal', 'method' => 'patch']) !!}
                                 {{ csrf_field() }}
                                 <tr>
@@ -102,6 +103,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Form Nilai Ujian</caption>
                                 {!! Form::open(['url' => 'nilai-ujian/'. $jadwal->id .'/proposal', 'method' => 'patch']) !!}
                                 {{ csrf_field() }}
                                 <tr>
@@ -171,6 +173,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Nilai Ujian</caption>
                                     <tr>
                                         <th class="text-center align-middle" rowspan="2">Indikator & Bobot (%)</th>
                                         <th class="text-center align-middle" colspan="4">Skor Penguji</th>
@@ -226,6 +229,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Form Nilai Ujian</caption>
                                 {!! Form::open(['url' => 'nilai-ujian/'. $jadwal->id .'/hasil', 'method' => 'patch']) !!}
                                 {{ csrf_field() }}
                                 <tr>
@@ -274,6 +278,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Form Nilai Ujian</caption>
                                 {!! Form::open(['url' => 'nilai-ujian/'. $jadwal->id .'/hasil', 'method' => 'patch']) !!}
                                 {{ csrf_field() }}
                                 <tr>
@@ -343,6 +348,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                    <caption class="text-center">Nilai Ujian</caption>
                                     <tr>
                                         <th class="text-center align-middle" rowspan="2">Indikator & Bobot (%)</th>
                                         <th class="text-center align-middle" colspan="4">Skor Penguji</th>
@@ -398,6 +404,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Form Nilai Ujian</caption>
                                 {!! Form::open(['url' => 'nilai-ujian/'. $jadwal->id .'/sidang-skripsi', 'method' => 'patch']) !!}
                                 {{ csrf_field() }}
                                 <tr>
@@ -446,6 +453,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                            <caption class="text-center">Form Nilai Ujian</caption>
                                 {!! Form::open(['url' => 'nilai-ujian/'. $jadwal->id .'/sidang-skripsi', 'method' => 'patch']) !!}
                                 {{ csrf_field() }}
                                 <tr>
@@ -515,6 +523,7 @@
                     <div class="card-body border-bottom mb-0 py-2">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-hover table-sm">
+                                <caption class="text-center">Nilai Ujian</caption>
                                     <tr>
                                         <th class="text-center align-middle" rowspan="2">Indikator & Bobot (%)</th>
                                         <th class="text-center align-middle" colspan="4">Skor Penguji</th>
@@ -694,6 +703,47 @@
                                         <br>
                                         @endif
 
+                @endif
+                
+                @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi') || Session::has('mahasiswa'))
+                    @if(!empty($nilai_skripsi)) 
+                        <div class="card-body border table-full-width table-responsive text-nowrap">
+                            <table class="table table-hover table-striped table-sm">
+                                <caption>Hasil Akumulasi Nilai Skripsi</caption>
+                                <thead>
+                                    <th class="text-center">Seminar Proposal</th>
+                                    <th class="text-center">Seminar Hasil</th>
+                                    <th class="text-center">Sidang Skripsi</th>
+                                    <th class="text-center">Total Nilai</th>
+                                    <th class="text-center">Huruf</th>
+                                @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
+                                    <th class="text-center">Aksi</th>
+                                @endif
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">{{ !empty($nilai_skripsi->seminar_proposal) ? $nilai_skripsi->seminar_proposal : '0' }} </td>
+                                        <td class="text-center">{{ !empty($nilai_skripsi->seminar_hasil) ? $nilai_skripsi->seminar_hasil : '0' }}</td>
+                                        <td class="text-center">{{ !empty($nilai_skripsi->sidang_skripsi) ? $nilai_skripsi->sidang_skripsi : '0' }}</td>
+                                        <td class="text-center">{{ $nilai_skripsi->total }}</td>
+                                        <td class="text-center">{{ $nilai_skripsi->nilai_huruf }}</td>
+                                    @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
+                                        <td class="text-center align-middle">
+                                            <div class="dropdown text-center justify-content-center align-items-center">
+                                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="{{ url('nilai-ujian/create-by-admin/' . $jadwal->id_mahasiswa) }}">Input Nilai Skripsi</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    @endif
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 @endif
 
             </div>

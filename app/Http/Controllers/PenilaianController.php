@@ -746,21 +746,25 @@ class PenilaianController extends Controller
             $dosen = \App\PenilaianProposal::where('id_jadwal_ujian', $jadwal->id)->first();
             $penilaian_ujian = \App\PenilaianProposal::where('id_jadwal_ujian', $jadwal->id)->get();
             $dospeng = null;
+            $nilai_skripsi = \App\HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         }elseif($jadwal->ujian === 'hasil'){
             $indikator = \App\IndikatorPenilaian::where('ujian', 'hasil')->first();
             $dosen = \App\PenilaianHasil::where('id_jadwal_ujian', $jadwal->id)->first();
             $penilaian_ujian = \App\PenilaianHasil::where('id_jadwal_ujian', $jadwal->id)->get();
             $dospeng = null;
+            $nilai_skripsi = \App\HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         }elseif($jadwal->ujian === 'sidang-skripsi'){
             $indikator = \App\IndikatorPenilaian::where('ujian', 'sidang-skripsi')->first();
             $dosen = \App\PenilaianSidangSkripsi::where('id_jadwal_ujian', $jadwal->id)->first();
             $penilaian_ujian = \App\PenilaianSidangSkripsi::where('id_jadwal_ujian', $jadwal->id)->get();
             $dospeng = null;
+            $nilai_skripsi = \App\HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         }elseif($jadwal->ujian === 'kerja-praktek'){
             $indikator = \App\IndikatorPenilaian::where('ujian', 'kerja-praktek')->first();
             $dospeng = $jadwal->penilaianKp->groupBy('id_dosen');
             $penilaian_ujian = null;
             $dosen = null;
+            $nilai_skripsi = null;
         }
 
         if(Session::has('dosen')){
@@ -769,7 +773,7 @@ class PenilaianController extends Controller
             else $penguji = false;
         }else $penguji = false;
 
-        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng'));
+        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi'));
     }
 
     // pimpinan

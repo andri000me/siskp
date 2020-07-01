@@ -44,7 +44,7 @@
                             @endif
 
                             <dt>Ujian</dt>
-                            <dd class="text-capitalize">{{ $pendaftar->ujian }}</dd>
+                            <dd class="text-capitalize">{{ str_replace('-', ' ', $pendaftar->ujian) }}</dd>
 
                             <dt>Tahapan Berkas</dt>
                             <dd>

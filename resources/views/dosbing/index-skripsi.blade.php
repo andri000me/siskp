@@ -25,37 +25,52 @@
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                        <li class="nav-item mx-0 px-0">
-                                            <a class="nav-link text-secondary small dropdown-toggle caret-off" href="#"
-                                                data-toggle="dropdown">
-                                                <span class="fa fa-cog"></span>&nbsp; Lainnya
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a href="{{ url('dosen-pembimbing/skripsi/surat-kesediaan/'.$dosbing->id) }}" class="dropdown-item"> Unduh Pernyataan Pembimbing</a>
-                                                
-                                                <a class="dropdown-item" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-proposal/'.$dosbing->id) }}">Unduh Persetujuan Proposal</a>
-                            
-                                                <a class="dropdown-item" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-hasil/'.$dosbing->id) }}">Unduh Persetujuan Hasil</a>
-                                                
-                                                <a class="dropdown-item" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-sidang/'.$dosbing->id) }}">Unduh Persetujuan Sidang Skripsi</a>
-                                            </div>
-                                        </li>
+                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-dark mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-cog"></span>&nbsp; Lainnya</a></li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a href="{{ url('dosen-pembimbing/skripsi/surat-kesediaan/'.$dosbing->id) }}" class="dropdown-item"> Unduh Pernyataan Pembimbing</a>
-                                                
-                                    <a class="dropdown-item" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-proposal/'.$dosbing->id) }}">Unduh Persetujuan Proposal</a>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a href="{{ url('dosen-pembimbing/skripsi/surat-kesediaan/'.$dosbing->id) }}" class="d-block text-dark"><i class="fa fa-fw fa-download"></i> Unduh pernyataan pembimbing</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-proposal/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh persetujuan proposal</a></p>
                             
-                                    <a class="dropdown-item" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-hasil/'.$dosbing->id) }}">Unduh Persetujuan Hasil</a>
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-hasil/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh persetujuan hasil</a></p>
                                                 
-                                    <a class="dropdown-item" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-sidang/'.$dosbing->id) }}">Unduh Persetujuan Sidang Skripsi</a>
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-sidang/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh persetujuan sidang skripsi</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a href="{{ url('dosen-pembimbing/skripsi/surat-kesediaan/'.$dosbing->id) }}" class="d-block text-dark"><i class="fa fa-fw fa-download"></i> Unduh pernyataan pembimbing</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-proposal/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh persetujuan seminar proposal</a></p>
+                            
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-hasil/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh persetujuan seminar hasil</a></p>
+                                                
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/skripsi/surat-persetujuan-sidang/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh persetujuan sidang skripsi</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

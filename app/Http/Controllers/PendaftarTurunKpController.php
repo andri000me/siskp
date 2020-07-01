@@ -77,11 +77,15 @@ class PendaftarTurunKpController extends Controller
 
         // validasi turun kp diterima
         $turun_kp_diterima = PendaftarTurunKp::where('id_mahasiswa', Session::get('id'))->where('tahapan', 'diterima')->first() or null;
-        if(!empty($turun_kp_diterima)) return redirect('pendaftaran/turun-kp')->with('kesalahan', 'Berkas Turun Kerja Praktek anda sebelumnya sudah diterima, silahkan dilanjutkan!');
+        if(!empty($turun_kp_diterima) && $turun_kp_diterima->id_periode_daftar_turun_kp === $periode_aktif->id){
+          return redirect('pendaftaran/turun-kp')->with('kesalahan', 'Berkas Turun Kerja Praktek anda sebelumnya sudah diterima dan anda tidak boleh mendaftar turun KP di periode yang sama lebih dari 1 kali');
+        }
 
         // validasi turun kp diperiksa
         $turun_kp_diperiksa = PendaftarTurunKp::where('id_mahasiswa', Session::get('id'))->where('tahapan', 'diperiksa')->first() or null;
-        if(!empty($turun_kp_diperiksa)) return redirect('pendaftaran/turun-kp')->with('kesalahan', 'Berkas Turun Kerja Praktek anda sebelumnya sedang diperiksa, dimohon untuk menunggu!');
+        if(!empty($turun_kp_diperiksa) && $turun_kp_diperiksa->id_periode_daftar_turun_kp === $periode_aktif->id){
+          return redirect('pendaftaran/turun-kp')->with('kesalahan', 'Berkas Turun Kerja Praktek anda sebelumnya sedang diperiksa dan anda tidak boleh mendaftar turun KP di periode yang sama lebih dari 1 kali');
+        }
 
         $pengaturan = \App\Pengaturan::find(1);
         $bottom_detail = true;

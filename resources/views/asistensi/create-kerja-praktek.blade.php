@@ -4,7 +4,7 @@
 
                 <div class="card mb-3">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
-                        <strong class="bg-primary text-light">Ajukan Asistensi Skripsi</strong>
+                        <strong class="bg-primary text-light">Ajukan Asistensi Kerja Praktek</strong>
                         
                         <a class="text-white d-none d-lg-inline" href="{{ url()->previous() }}">
                             <span class="fa fa-arrow-left"></span> <span class="">Kembali</span>

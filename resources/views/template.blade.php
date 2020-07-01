@@ -1647,7 +1647,7 @@
 
                         <!-- admin samping -->
                         @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'admin') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('dosen') }}" class="{{ (Request::segment(1) === 'admin') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-secret fa-fw"></span> Admin </a></li>
+                            <li class="list-group-item {{ (Request::segment(1) === 'admin') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('admin') }}" class="{{ (Request::segment(1) === 'admin') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-secret fa-fw"></span> Admin </a></li>
                         @endif
 
                         <!-- pengaturan samping -->

@@ -20,7 +20,7 @@
                                 <tbody>
                                     @foreach($peserta_ujian as $peserta)
                                     <tr>
-                                        <td class="text-center align-middle">{{ $peserta->jadwalUjian->mahasiswa->nama }} <br> {{ $peserta->jadwalUjian->mahasiswa->nim }}</td>
+                                        <td class="text-left align-middle">{{ $peserta->jadwalUjian->mahasiswa->nama }} <br> {{ $peserta->jadwalUjian->mahasiswa->nim }}</td>
                                         <td class="text-center align-middle text-capitalize">{{ str_replace('-', ' ', $peserta->jadwalUjian->ujian) }}</td>
                                         <td class="align-middle">{{ tanggal($peserta->jadwalUjian->waktu_mulai) }}</td>
                                     </tr>
@@ -28,7 +28,7 @@
 
                                     @foreach($peserta_ujian_lama as $peserta)
                                     <tr>
-                                        <td class="align-middle text-center">{{ $peserta->nama }} <br> {{ $peserta->nim }}</td>
+                                        <td class="align-middle text-left">{{ $peserta->nama }} <br> {{ $peserta->nim }}</td>
                                         <td class="text-center align-middle text-capitalize">{{ str_replace('-', ' ', $peserta->ujian) }}</td>
                                         <td class="align-middle">{{ tanggal($peserta->tanggal) }}</td>
                                     </tr>

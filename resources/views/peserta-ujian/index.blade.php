@@ -22,8 +22,6 @@
                                 <ul class="nav nav-pills nav-justified d-lg-none">
                                     @if($mahasiswa->pesertaUjian->count() + $mahasiswa->pesertaUjianLama->count())
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-info mx-0 px-0 small" href="{{ url('peserta-ujian/'. $mahasiswa->id ) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
-                                    @else
-                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-secondary mx-0 px-0 small" href="#"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
                                     @endif
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-primary mx-0 px-0 small" href="{{ url('peserta-ujian/lama/'.$mahasiswa->id) }}"><span class="fa fa-plus"></span>&nbsp; Tambah</a></li>
                                 </ul>
@@ -31,18 +29,28 @@
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    @if($mahasiswa->pesertaUjian->count() + $mahasiswa->pesertaUjianLama->count())
-                                        <li class="nav-item "><a class="nav-link text-info small" href="{{ url('peserta-ujian/'. $mahasiswa->id ) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
-                                    @else
-                                        <li class="nav-item "><a class="nav-link text-secondary small" href="#"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
-                                    @endif
-                                        <li class="nav-item "><a class="nav-link text-primary  small" href="{{ url('peserta-ujian/lama/'.$mahasiswa->id) }}"><span class="fa fa-plus"></span>&nbsp; Tambah</a></li>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                        @if($mahasiswa->pesertaUjian->count() + $mahasiswa->pesertaUjianLama->count())
+                                            <p><a class="d-block text-dark" href="{{ url('peserta-ujian/'. $mahasiswa->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+                                        @endif
+
+                                            <p><a class="d-block text-dark" href="{{ url('peserta-ujian/lama/'.$mahasiswa->id) }}"><i class="fa fa-fw fa-plus"></i> Tambah</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <?php $i++ ?>
@@ -63,7 +71,7 @@
                                 <tbody>
                                     @foreach($peserta_ujian as $peserta)
                                     <tr>
-                                        <td class="text-center align-middle">{{ $peserta->jadwalUjian->mahasiswa->nama }} <br> {{ $peserta->jadwalUjian->mahasiswa->nim }}</td>
+                                        <td class="text-left align-middle">{{ $peserta->jadwalUjian->mahasiswa->nama }} <br> {{ $peserta->jadwalUjian->mahasiswa->nim }}</td>
                                         <td class="text-center align-middle text-capitalize">{{ str_replace('-', ' ', $peserta->jadwalUjian->ujian) }}</td>
                                         <td class="align-middle">{{ tanggal($peserta->jadwalUjian->waktu_mulai) }}</td>
                                     </tr>
@@ -71,7 +79,7 @@
 
                                     @foreach($peserta_ujian_lama as $peserta)
                                     <tr>
-                                        <td class="align-middle text-center">{{ $peserta->nama }} <br> {{ $peserta->nim }}</td>
+                                        <td class="align-middle text-left">{{ $peserta->nama }} <br> {{ $peserta->nim }}</td>
                                         <td class="text-center align-middle text-capitalize">{{ str_replace('-', ' ', $peserta->ujian) }}</td>
                                         <td class="align-middle">{{ tanggal($peserta->tanggal) }}</td>
                                     </tr>

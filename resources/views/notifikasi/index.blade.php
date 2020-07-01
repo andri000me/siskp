@@ -4,78 +4,106 @@
                 <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
                         <strong class="bg-primary text-light">Notifikasi</strong>
-                        <div class="dropdown dropleft">
-                        <a class="text-white dropdown-toggle caret-off" href="#" data-toggle="dropdown"><span class="fa fa-ellipsis-h"></span> </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#semuaDibaca">Tandai Semua Sudah Dibaca</a>
-                            <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#hapusDibaca">Hapus Yang Sudah Dibaca</a>
-                            <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#hapusSemua">Hapus Semua</a>
-                        </div>
+                        
+                        <a class="text-white d-lg-none" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet"><span class="fa fa-ellipsis-h"></span></a>
+
+                        <a class="text-white d-none d-lg-inline" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg"><span class="fa fa-ellipsis-h"></span></a>
                     </div>
                 </div>
 
-                <!-- modal semua dibaca -->
-                <div class="modal fade" id="semuaDibaca" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-light">
-                                <h5 class="modal-title"> <i class="fa fa-info"></i> Konfirmasi</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                            </div>
-                            <div class="modal-body text-dark h6">
-                                Yakin semua sudah dibaca ?
-                            </div>
-                            <div class="modal-footer">
-                                {!! Form::open(['url' => 'notifikasi/semua-dibaca']) !!}
-                                    <button type="submit" class="btn btn-link btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
-                                {!! Form::close() !!}
-                                <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#semuaDibaca" data-dismiss="modal"><i class="fa fa-fw fa-check-double"></i> Tandai Semua Sudah Dibaca</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapusDibaca" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus Yang Sudah Dibaca</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapusSemua" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus Semua</a></p>
 
-                <!-- modal hapus dibaca -->
-                <div class="modal fade" id="hapusDibaca" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger text-white">
-                                <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body text-dark h6">
-                                Yakin menghapus semua yang sudah dibaca ?
-                            </div>
-                            <div class="modal-footer">
-                                {!! Form::open(['url' => 'notifikasi/hapus-dibaca']) !!}
-                                    <button type="submit" class="btn btn-link btn-danger btn-sm text-white"><i class="fa fa-trash"></i> Hapus</button>
-                                {!! Form::close() !!}
-                                <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#semuaDibaca" data-dismiss="modal"><i class="fa fa-fw fa-check-double"></i> Tandai Semua Sudah Dibaca</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapusDibaca" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus Yang Sudah Dibaca</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapusSemua" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus Semua</a></p>
 
-                <!-- modal hapus semua -->
-                <div class="modal fade" id="hapusSemua" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger text-white">
-                                <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body text-dark h6">
-                                Yakin menghapus semua notifikasi ?
+
+                            <!-- modal semua dibaca -->
+                            <div class="modal fade" id="semuaDibaca" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Tandai semua notifikasi sudah dibaca ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'notifikasi/semua-dibaca', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                {!! Form::open(['url' => 'notifikasi/hapus-semua']) !!}
-                                    <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                {!! Form::close() !!}
-                                <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+
+                            <!-- modal hapus dibaca -->
+                            <div class="modal fade" id="hapusDibaca" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus semua notifikasi yang sudah dibaca ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'notifikasi/hapus-dibaca', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+
+                            <!-- modal hapus semua -->
+                            <div class="modal fade" id="hapusSemua" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus semua notifikasi yang sudah dibaca ataupun yang belum dibaca ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'notifikasi/hapus-semua', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                 @foreach($daftar_notifikasi as $notif)
                     @if($notif->dibaca === 'ya')

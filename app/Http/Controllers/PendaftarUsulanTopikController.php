@@ -439,12 +439,7 @@ class PendaftarUsulanTopikController extends Controller
     public function perubahan($id)
     {
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
-        $semester_aktif = \App\Semester::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
         $usulan_topik = PendaftarUsulanTopik::findOrFail($id);
-
-        // validasi dosen pembimbing yang aktif di semester ini
-        $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', Session::get('id'))->where('id_semester', $semester_aktif->id)->first() or null;
-        if(empty($dosbing)) return redirect('pendaftaran/usulan-topik')->with('kesalahan', 'Anda Belum Punya Dosen Pembimbing Di Semester Ini!');
 
         $bottom_detail = true;
         return view('pendaftar-usulan-topik.perubahan', compact('usulan_topik', 'bottom_detail'));
@@ -453,23 +448,12 @@ class PendaftarUsulanTopikController extends Controller
     // mahasiswa
     public function updatePerubahan(Request $request, $id)
     {
-        // if(empty($request->post('judul_baru')) || empty($request->post('alasan'))){
-        //     return redirect()->back()->with('kesalahan', 'Kolom Judul dan/atau Alasan wajib diisi!');
-        // }
-
         $judul_baru = $request->post('judul_baru');
-        // $alasan = $request->post('alasan');
 
         $usulan_topik = PendaftarUsulanTopik::findOrFail($id);
         $judul_lama = $usulan_topik->usulan_judul;
         $usulan_topik->usulan_judul = $judul_baru;
         $usulan_topik->save();
-
-        // $semester_aktif = \App\Semester::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first();
-        // $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', Session::get('id'))->where('id_semester', $semester_aktif->id)->first();
-
-        // $pdf = PDF::loadView('pendaftar-usulan-topik.surat-perubahan', compact('dosbing', 'usulan_topik', 'alasan', 'judul_baru', 'judul_lama'));
-        // return $pdf->download('surat perubahan judul skripsi '.$dosbing->mahasiswa->nama.'.pdf');
 
         Session::flash('pesan', 'Judul Skripsi Berhasil Diubah');
         return redirect('pendaftaran/usulan-topik');

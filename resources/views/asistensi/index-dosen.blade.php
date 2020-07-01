@@ -36,12 +36,24 @@
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('asistensi/' . $asistensi->id) }}">Detail</a>
-                                    <a class="dropdown-item" href="{{ url('asistensi/' . $asistensi->id . '/tambah-komentar') }}">Komentar</a>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            
+                                            <p><a class="d-block text-dark" href="{{ url('asistensi/' . $asistensi->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('asistensi/' . $asistensi->id . '/tambah-komentar') }}"><i class="fa fa-fw fa-comments"></i> Komentar</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

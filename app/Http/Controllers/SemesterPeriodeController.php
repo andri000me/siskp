@@ -123,15 +123,6 @@ class SemesterPeriodeController extends Controller
 
     public function storePeriodeDaftarTurunKp(Request $request)
     {
-        $semester = Semester::findOrFail($request->input('id_semester'));
-
-        $this->validate($request, [
-            'nama' => 'required|string|max:100',
-            'waktu_buka' => 'required|date|after_or_equal:'.$semester->waktu_buka,
-            'waktu_tutup' => 'required|date|before_or_equal:'.$semester->waktu_tutup,
-            'id_semester' => 'required|integer'
-        ]);
-        
         PeriodeDaftarTurunKp::create($request->all());
         Session::flash('pesan', '1 Periode Daftar Turun Kerja Praktek berhasil ditambahkan');
         return redirect('semester-periode/periode-daftar-turun-kp');
@@ -148,15 +139,6 @@ class SemesterPeriodeController extends Controller
 
     public function updatePeriodeDaftarTurunKp(Request $request, $id)
     {
-        $semester = Semester::findOrFail($request->input('id_semester'));
-
-        $this->validate($request, [
-            'nama' => 'required|string|max:100',
-            'waktu_buka' => 'required|date|after_or_equal:'.$semester->waktu_buka,
-            'waktu_tutup' => 'required|date|before_or_equal:'.$semester->waktu_tutup,
-            'id_semester' => 'required|integer'
-        ]);
-
         $periode_daftar_turun_kp = PeriodeDaftarTurunKp::findOrFail($id);
         $periode_daftar_turun_kp->update($request->all());
         Session::flash('pesan', '1 Periode Daftar Turun Kerja Praktek berhasil diupdate');
@@ -182,15 +164,6 @@ class SemesterPeriodeController extends Controller
 
     public function storePeriodeDaftarUsulanTopik(Request $request)
     {
-        $semester = Semester::findOrFail($request->input('id_semester'));
-
-        $this->validate($request, [
-            'nama' => 'required|string|max:100',
-            'waktu_buka' => 'required|date|after_or_equal:'.$semester->waktu_buka,
-            'waktu_tutup' => 'required|date|before_or_equal:'.$semester->waktu_tutup,
-            'id_semester' => 'required|integer'
-        ]);
-        
         PeriodeDaftarUsulanTopik::create($request->all());
         Session::flash('pesan', '1 Periode Daftar Usulan Topik berhasil ditambahkan');
         return redirect('semester-periode/periode-daftar-usulan-topik');
@@ -207,15 +180,6 @@ class SemesterPeriodeController extends Controller
 
     public function updatePeriodeDaftarUsulanTopik(Request $request, $id)
     {
-        $semester = Semester::findOrFail($request->input('id_semester'));
-
-        $this->validate($request, [
-            'nama' => 'required|string|max:100',
-            'waktu_buka' => 'required|date|after_or_equal:'.$semester->waktu_buka,
-            'waktu_tutup' => 'required|date|before_or_equal:'.$semester->waktu_tutup,
-            'id_semester' => 'required|integer'
-        ]);
-
         $periode_daftar_usulan_topik = PeriodeDaftarUsulanTopik::findOrFail($id);
         $periode_daftar_usulan_topik->update($request->all());
         Session::flash('pesan', '1 Periode Daftar Usulan Topik berhasil diupdate');
@@ -241,16 +205,6 @@ class SemesterPeriodeController extends Controller
 
     public function storePeriodeDaftarUjian(Request $request)
     {
-        $semester = Semester::findOrFail($request->input('id_semester'));
-
-        $this->validate($request, [
-            'nama' => 'required|string|max:100',
-            'waktu_buka' => 'required|date|after_or_equal:'.$semester->waktu_buka,
-            'waktu_tutup' => 'required|date|before_or_equal:'.$semester->waktu_tutup,
-            'id_semester' => 'required|integer',
-            'nomor_undangan' => 'required|string|max:100',
-        ]);
-
         PeriodeDaftarUjian::create($request->all());
         Session::flash('pesan', '1 Periode Daftar Ujian berhasil ditambahkan');
         return redirect('semester-periode/periode-daftar-ujian');
@@ -267,16 +221,6 @@ class SemesterPeriodeController extends Controller
 
     public function updatePeriodeDaftarUjian(Request $request, $id)
     {
-        $semester = Semester::findOrFail($request->input('id_semester'));
-
-        $this->validate($request, [
-            'nama' => 'required|string|max:100',
-            'waktu_buka' => 'required|date|after_or_equal:'.$semester->waktu_buka,
-            'waktu_tutup' => 'required|date|before_or_equal:'.$semester->waktu_tutup,
-            'id_semester' => 'required|integer',
-            'nomor_undangan' => 'required|string|max:100',
-        ]);
-
         $periode_daftar_ujian = PeriodeDaftarUjian::findOrFail($id);
         $periode_daftar_ujian->update($request->all());
         Session::flash('pesan', '1 Periode Daftar Ujian berhasil diupdate');

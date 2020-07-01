@@ -35,14 +35,14 @@
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
                                     <li class="nav-item mx-0 px-0">
-                                        <a class="nav-link text-primary mx-0 px-0 small" href="{{ url('mahasiswa/pengujian/'. $pengujian->tahun.'-'.$pengujian->bulan) }}"><span class="fa fa-eye"></span>&nbsp; Detail</a>
+                                        <a class="nav-link text-info mx-0 px-0 small" href="{{ url('mahasiswa/pengujian/'. $pengujian->tahun.'-'.$pengujian->bulan) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a>
                                     </li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-primary small" href="{{ url('mahasiswa/pengujian/'. $pengujian->tahun.'-'.$pengujian->bulan) }}">
+                                <a class="text-info small" href="{{ url('mahasiswa/pengujian/'. $pengujian->tahun.'-'.$pengujian->bulan) }}">
                                     <span class="fa fa-info-circle fa-lg"></span>&nbsp; Detail
                                 </a>
                             </div>

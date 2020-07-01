@@ -69,36 +69,61 @@
                 <nav class="navbar mb-2 navbar-expand-lg navbar-light justify-content-between border mb-1 mx-0 mt-0 shadow-sm">
                     <a class="text-dark"><span class="">Total: {{ $total }}</span></a>
                     
-                    <div class="dropdown dropleft">
-                        <a class="text-dark dropdown-toggle caret-off" href="#" data-toggle="dropdown"><span class="fa fa-ellipsis-h"></span> </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#setujui">Setujui Semua</a>
-                            <a class="dropdown-item" href="{{ url('pendaftaran/ujian/' . $id . '/input-by-admin') }}">Input Pendaftar Ujian</a>
-                        </div>
-                    </div>
+                    <a class="text-dark d-lg-none" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet"><span class="fa fa-ellipsis-h"></span></a>
+
+                    <a class="text-dark d-none d-lg-inline" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg"><span class="fa fa-ellipsis-h"></span></a>
                 </nav>
 
-                <!-- modal setujui semua -->
-                <div class="modal fade" id="setujui" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-light">
-                                <h5 class="modal-title"> <i class="fa fa-info"></i> Konfirmasi</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/' . $id . '/input-by-admin') }}"><i class="fa fa-plus fa-fw"></i> Input pendaftar ujian</a></p>
+
+                                            <p><a class="d-block text-dark" style="cursor:pointer" data-toggle="modal" data-target="#setujui" data-dismiss="modal"><i class="fa fa-fw fa-check"></i> Setujui semua berkas</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body text-dark h6">
-                                Yakin Menyetujui semua berkas pada periode ini ?
+                            
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/' . $id . '/input-by-admin') }}"><i class="fa fa-plus fa-fw"></i> Input pendaftar ujian</a></p>
+
+                                            <p><a class="d-block text-dark" style="cursor:pointer" data-toggle="modal" data-target="#setujui" data-dismiss="modal"><i class="fa fa-fw fa-check"></i> Setujui semua berkas</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                {!! Form::open(['url' => 'pendaftaran/ujian/setujui-semua']) !!}
-                                    {!! Form::hidden('id_periode_daftar_ujian', $id) !!}
-                                    <button type="submit" class="btn btn-link btn-primary btn-sm text-light"><i class="fa fa-check"></i> Setujui</button>
-                                {!! Form::close() !!}
-                                <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+
+                            <!-- modal setujui semua -->
+                            <div class="modal fade" id="setujui" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-primary text-center pb-3"> <i class="fa fa-info-circle"></i> Konfirmasi</h5>
+                                            <p>
+                                                Yakin Menyetujui semua berkas pada periode Ujian <strong>{{ $periode->nama }}</strong> ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'pendaftaran/ujian/setujui-semua', 'class' => 'col']) !!}
+                                                    {!! Form::hidden('id_periode_daftar_ujian', $id) !!}
+                                                    <button type="submit" class="btn btn-block btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
@@ -123,7 +148,13 @@
                                     @if($pendaftar->ujian !== 'kerja-praktek')
                                         Judul: {{ !empty($pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul) ? $pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul : '-' }}<br>
                                     @else
-                                        Instansi: {{ !empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi) ? $pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi : $pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi }}<br>
+                                        @if(!empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi))
+                                            Instansi: {{ $pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi }} <br>
+                                        @elseif(!empty($pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi))
+                                            Instansi: {{ $pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi }} <br>
+                                        @else
+                                            Instansi: - <br>
+                                        @endif
                                     @endif
 
                                     @if($pendaftar->tahapan === 'diperiksa')
@@ -141,56 +172,71 @@
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                    <li class="nav-item mx-0 px-0">
-                                            <a class="nav-link text-info mx-0 px-0 small" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}"><span
-                                                    class="fa fa-info-circle"></span>&nbsp;
-                                                Detail</a>
-                                        </li>
-                                        <li class="nav-item mx-0 px-0">
-                                            <a class="nav-link text-secondary small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                                <span class="fa fa-cog"></span>&nbsp; Lainnya
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ url('pendaftaran/ujian/'.$pendaftar->id.'/create-jadwal') }}">Input Jadwal Ujian</a>
-                                                <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}">Hapus</a>
-                                            </div>
-                                        </li>
+                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-dark mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-cog"></span>&nbsp; Lainnya</a></li>
                                 </ul>
                             </div>
 
-                            <!-- modal hapus -->
-                            <div class="modal fade" id="modal{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <!-- menu large -->
+                            <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
+                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                </a>
+                            </div>
+                            
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/'.$pendaftar->id.'/create-jadwal') }}"><i class="fa fa-fw fa-plus"></i> Input jadwal ujian</a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
                                         </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'pendaftaran/ujian/'.$pendaftar->id ,                               'method' => 'delete']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/'.$pendaftar->id.'/create-jadwal') }}"><i class="fa fa-fw fa-plus"></i> Input jadwal ujian</a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- menu large -->
-                            <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}">Detail</a>
-                                    <a class="dropdown-item" href="{{ url('pendaftaran/ujian/'.$pendaftar->id.'/create-jadwal') }}">Input Jadwal Ujian</a>
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}">Hapus</a>
+                            <!-- modal hapus -->
+                            <div class="modal fade" id="modal{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus <strong>{{ $pendaftar->mahasiswa->nama }} ({{ $pendaftar->mahasiswa->nim }})</strong> pada ujian <strong>{{ ucwords(str_replace('-', ' ', $pendaftar->ujian)) }}</strong> dari periode daftar ujian <strong>{{ $pendaftar->periodeDaftarUjian->nama }}</strong> ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'pendaftaran/ujian/'.$pendaftar->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <?php $i++ ?>

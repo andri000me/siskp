@@ -57,31 +57,41 @@
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modalSetujui{{ $i }}">Setujui</a>
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modalTidak{{ $i }}">Tidak Setujui</a>
+                            </div>
+
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-primary" style="cursor:pointer" data-toggle="modal" data-target="#modalSetujui{{ $i }}" data-dismiss="modal"><i class="fa fa-check"></i> Setujui</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modalTidak{{ $i }}" data-dismiss="modal"><i class="fa fa-ban"></i> Tidak Setujui</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- modal setujui -->
                             <div class="modal fade" id="modalSetujui{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-primary text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-info"></i> Konfirmasi</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menyetujui permohonan ujiannya ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'persetujuan-ujian/' . $persetujuan->id . '/disetujui']) !!}
-                                                <button type="submit" class="btn btn-link btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-primary text-center pb-3"> <i class="fa fa-info-circle"></i> Konfirmasi</h5>
+                                            <p>
+                                                Yakin menyetujui permohonan ujian <strong>{{ ucwords(str_replace('-', ' ', $persetujuan->ujian)) }}</strong> dari <strong>{{ $persetujuan->mahasiswa->nama }} ({{ $persetujuan->mahasiswa->nim }})</strong> ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'persetujuan-ujian/' . $persetujuan->id . '/disetujui', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,25 +99,24 @@
 
                             <!-- modal tidak disetujui -->
                             <div class="modal fade" id="modalTidak{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin tidak menyetujui permohonan ujiannya ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'persetujuan-ujian/' . $persetujuan->id . '/tidak-disetujui']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin tidak menyetujui permohonan ujian <strong>{{ ucwords(str_replace('-', ' ', $persetujuan->ujian)) }}</strong> dari <strong>{{ $persetujuan->mahasiswa->nama }} ({{ $persetujuan->mahasiswa->nim }})</strong> ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'persetujuan-ujian/' . $persetujuan->id . '/tidak-disetujui', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <?php $i++ ?>

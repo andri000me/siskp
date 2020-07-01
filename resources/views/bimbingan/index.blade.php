@@ -25,18 +25,15 @@
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-primary mx-0 px-0 small" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
+                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-info mx-0 px-0 small" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                <a class="text-info small" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}">
+                                    <span class="fa fa-info-circle fa-lg"></span> Detail
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}">Detail</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,45 +96,57 @@
                                 </ul>
                             </div>
 
-                            <!-- modal hapus -->
-                            <div class="modal fade" id="modal{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <!-- menu large -->
+                            <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}">
+                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                </a>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'bimbingan/'.$bimbingan->id , 'method' => 'delete']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            
+                                            @if($jenis === 'proposal')
+                                                <p><a class="d-block text-dark" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-proposal') }}"><i class="fa fa-edit"></i> Edit</a></p>
+                                            @elseif($jenis === 'hasil')
+                                                <p><a class="d-block text-dark" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-hasil') }}"><i class="fa fa-edit"></i> Edit</a></p>
+                                            @elseif($jenis === 'sidang-skripsi')
+                                                <p><a class="d-block text-dark" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-sidang-skripsi') }}"><i class="fa fa-edit"></i> Edit</a></p>
+                                            @else
+                                               <p><a class="d-block text-dark" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-kerja-praktek') }}"><i class="fa fa-edit"></i> Edit</a></p>
+                                            @endif
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}" data-dismiss="modal"> <i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- menu large -->
-                            <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
-                                </a>
-                                <div class="dropdown-menu">
-                                    @if($jenis === 'proposal')
-                                    <a class="dropdown-item" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-proposal') }}">Edit</a>
-                                    @elseif($jenis === 'hasil')
-                                    <a class="dropdown-item" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-hasil') }}">Edit</a>
-                                    @elseif($jenis === 'sidang-skripsi')
-                                    <a class="dropdown-item" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-sidang-skripsi') }}">Edit</a>
-                                    @else
-                                    <a class="dropdown-item" href="{{ url('bimbingan/'. $bimbingan->id .'/edit-kerja-praktek') }}">Edit</a>
-                                    @endif
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}">Hapus</a>
+                            <!-- modal hapus -->
+                            <div class="modal fade" id="modal{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus bimbingan ujian <strong>{{ ucwords(str_replace('-', ' ', $bimbingan->bimbingan)) }}</strong> di hari {{ tanggal($bimbingan->waktu) }} pada <strong> {{ $bimbingan->dosen->nama }} </strong> ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'bimbingan/'.$bimbingan->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <?php $i++ ?>
@@ -169,18 +178,15 @@
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-primary mx-0 px-0 small" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
+                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-info mx-0 px-0 small" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                <a class="text-info small" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}">
+                                    <span class="fa fa-info-circle fa-lg"></span> <br> Detail
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('mahasiswa/'.$bimbingan->id_mahasiswa) }}">Detail</a>
-                                </div>
                             </div>
                         </div>
                     </div>

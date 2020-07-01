@@ -112,36 +112,64 @@
                 <nav class="navbar mb-2 navbar-expand-lg navbar-light justify-content-between border mb-1 mx-0 mt-0 shadow-sm">
                     <a class="text-dark"><span class="">Total: {{ number_format($total, 0, ',', '.') }}</span></a>
                     
-                    <div class="dropdown dropleft">
-                        <a class="text-dark dropdown-toggle caret-off" href="#" data-toggle="dropdown"><span class="fa fa-ellipsis-h"></span> </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" class="text-dark" href="{{ url('mahasiswa/import') }}">Import Skripsi & KP</a>
-                            <a class="dropdown-item" class="text-dark" href="{{ url('mahasiswa/import-maba') }}">Import Mahasiswa Baru</a>
-                            <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#non">Off kan status yang telah lulus</a>
-                        </div>
-                    </div>
+                    <a class="text-dark d-lg-none" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetNon"><span class="fa fa-ellipsis-h"></span></a>
+
+                    <a class="text-dark d-none d-lg-inline" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetNonLg"><span class="fa fa-ellipsis-h"></span></a>
                 </nav>
 
-                <!-- modal non aktifkan semua status -->
-                <div class="modal fade" id="non" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-white">
-                                <h5 class="modal-title"> <i class="fa fa-info-circle"></i> Konfirmasi</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetNonLg" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/import') }}"><i class="fa fa-fw fa-upload"></i> Import Mahasiswa Skripsi & KP</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/import-maba') }}"><i class="fa fa-fw fa-plus"></i> Import Mahasiswa Baru </a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#non" data-dismiss="modal"> <i class="fa fa-fw fa-ban"></i> Off kan status mahasiswa yang telah lulus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body text-dark h6">
-                                Yakin menon-aktifkan status Kontrak Skripsi & Kontrak Kerja Praktek semua mahasiswa yang telah lulus ?
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheetNon" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/import') }}"><i class="fa fa-fw fa-upload"></i> Import Mahasiswa Skripsi & KP</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/import-maba') }}"><i class="fa fa-fw fa-plus"></i> Import Mahasiswa Baru </a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#non" data-dismiss="modal"> <i class="fa fa-fw fa-ban"></i> Off kan status yg telah lulus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                {!! Form::open(['url' => 'mahasiswa/nonaktifkan-semua-lulus']) !!}
-                                    <button type="submit" class="btn btn-link btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
-                                {!! Form::close() !!}
-                                <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+
+                            <!-- modal non aktifkan semua status -->
+                            <div class="modal fade" id="non" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menon-aktifkan status Kontrak Skripsi & Kontrak Kerja Praktek semua mahasiswa yang telah lulus ? Mahasiswa yang telah dinonaktifkan statusnya tidak bisa lagi menggunakan sistem dengan optimal
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'mahasiswa/nonaktifkan-semua-lulus', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
@@ -188,65 +216,87 @@
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-info mx-0 px-0 small" href="{{ url('mahasiswa/'. $mahasiswa->id) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
                                         
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-success mx-0 px-0 small" href="{{ url('mahasiswa/'. $mahasiswa->id .'/edit') }}"><span class="fa fa-edit"></span>&nbsp; Edit</a></li>
-                                        
-                                        <li class="nav-item mx-0 px-0">
-                                            <a class="nav-link text-secondary small dropdown-toggle caret-off" href="#"
-                                                data-toggle="dropdown">
-                                                <span class="fa fa-cog"></span>&nbsp; Lainnya
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                @if(blank($mahasiswa->pendaftarUsulanTopik))
-                                                    <a class="dropdown-item" href="{{ url('pendaftaran/usulan-topik/create-by-admin/'.$mahasiswa->id ) }}">Masukan Judul Skripsi</a>
-                                                @endif
-                                                @if(blank($mahasiswa->hasilAkumulasiNilaiSkripsi))
-                                                    <a class="dropdown-item" href="{{ url('nilai-ujian/create-by-admin/'.$mahasiswa->id ) }}">Masukan Nilai Skripsi</a>
-                                                @else
-                                                    <a class="dropdown-item" href="{{ url('nilai-ujian/detail-by-admin/'.$mahasiswa->id ) }}">Lihat Nilai Skripsi</a>
-                                                @endif
-                                                <a class="dropdown-item" href="{{ url('peserta-ujian/'.$mahasiswa->id ) }}">Lihat Peserta Ujian</a>
-                                                <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}">Hapus</a>
-                                            </div>
-                                        </li>
+
+                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-dark mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-cog"></span>&nbsp; Lainnya</a></li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('mahasiswa/'. $mahasiswa->id) }}">Detail</a>
-                                    <a class="dropdown-item" href="{{ url('mahasiswa/'. $mahasiswa->id .'/edit') }}">Edit</a>
+                            </div>
+
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/'. $mahasiswa->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/'. $mahasiswa->id .'/edit') }}"><i class="fa fa-fw fa-edit"></i> Edit</a></p>
+
                                     @if(blank($mahasiswa->pendaftarUsulanTopik))
-                                        <a class="dropdown-item" href="{{ url('pendaftaran/usulan-topik/create-by-admin/'.$mahasiswa->id ) }}">Masukan Judul Skripsi</a>
+                                        <p><a class="d-block text-dark" href="{{ url('pendaftaran/usulan-topik/create-by-admin/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-spell-check"></i> Input Judul Skripsi</a></p>
                                     @endif
                                     @if(blank($mahasiswa->hasilAkumulasiNilaiSkripsi))
-                                        <a class="dropdown-item" href="{{ url('nilai-ujian/create-by-admin/'.$mahasiswa->id ) }}">Masukan Nilai Skripsi</a>
+                                        <p><a class="d-block text-dark" href="{{ url('nilai-ujian/create-by-admin/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-check-double"></i> Input Nilai Skripsi</a></p>
                                     @else
-                                        <a class="dropdown-item" href="{{ url('nilai-ujian/detail-by-admin/'.$mahasiswa->id ) }}">Lihat Nilai Skripsi</a>
+                                        <p><a class="d-block text-dark" href="{{ url('nilai-ujian/detail-by-admin/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-eye"></i> Lihat Nilai Skripsi</a></p>
                                     @endif
-                                    <a class="dropdown-item" href="{{ url('peserta-ujian/'.$mahasiswa->id ) }}">Lihat Peserta Ujian</a>
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}">Hapus</a>
+                                            <p><a class="d-block text-dark" href="{{ url('peserta-ujian/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-street-view"></i> Lihat Peserta Ujian</a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}" data-dismiss="modal"> <i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/'. $mahasiswa->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/'. $mahasiswa->id .'/edit') }}"><i class="fa fa-fw fa-edit"></i> Edit</a></p>
+
+                                    @if(blank($mahasiswa->pendaftarUsulanTopik))
+                                        <p><a class="d-block text-dark" href="{{ url('pendaftaran/usulan-topik/create-by-admin/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-spell-check"></i> Input Judul Skripsi</a></p>
+                                    @endif
+                                    @if(blank($mahasiswa->hasilAkumulasiNilaiSkripsi))
+                                        <p><a class="d-block text-dark" href="{{ url('nilai-ujian/create-by-admin/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-check-double"></i> Input Nilai Skripsi</a></p>
+                                    @else
+                                        <p><a class="d-block text-dark" href="{{ url('nilai-ujian/detail-by-admin/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-eye"></i> Lihat Nilai Skripsi</a></p>
+                                    @endif
+                                            <p><a class="d-block text-dark" href="{{ url('peserta-ujian/'.$mahasiswa->id ) }}"><i class="fa fa-fw fa-street-view"></i> Lihat Peserta Ujian</a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}" data-dismiss="modal"> <i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- modal hapus -->
                             <div class="modal fade" id="hapus{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'mahasiswa/'.$mahasiswa->id , 'method' => 'delete']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus <strong>{{ $mahasiswa->nama }}</strong> sebagai mahasiswa ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'mahasiswa/'.$mahasiswa->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

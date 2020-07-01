@@ -85,30 +85,55 @@
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                    <li class="nav-item mx-0 px-0">
-                                        <a class="nav-link text-secondary small dropdown-toggle caret-off" href="#" data-toggle="dropdown"><span class="fa fa-cog"></span>&nbsp; Lainnya</a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-proposal') }}">Lihat Riwayat Nilai Seminar Proposal</a>
-                                            <a class="dropdown-item" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-hasil') }}">Lihat Riwayat Nilai Seminar Hasil</a>
-                                            <a class="dropdown-item" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-sidang-skripsi') }}">Lihat Riwayat Nilai Sidang Skripsi</a>
-                                            <a class="dropdown-item" href="{{ url('nilai-ujian/create-by-admin/'.$nilai->id_mahasiswa ) }}">Input Nilai Skripsi</a>
-                                        </div>
-                                    </li>    
+                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-dark mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-cog"></span>&nbsp; Lainnya</a></li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-proposal') }}">Lihat Riwayat Nilai Seminar Proposal</a>
-                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-hasil') }}">Lihat Riwayat Nilai Seminar Hasil</a>
-                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-sidang-skripsi') }}">Lihat Riwayat Nilai Sidang Skripsi</a>
-                                    <a class="dropdown-item" href="{{ url('nilai-ujian/create-by-admin/'.$nilai->id_mahasiswa ) }}">Input Nilai Skripsi</a>
+                            </div>
+
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-proposal') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Seminar Proposal</a></p>
+                                            
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-hasil') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Seminar Hasil</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-sidang-skripsi') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Sidang Skripsi</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/create-by-admin/' . $nilai->id_mahasiswa) }}"><i class="fa fa-fw fa-plus"></i> Input Nilai Skripsi</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-proposal') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Seminar Proposal</a></p>
+                                            
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-hasil') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Seminar Hasil</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$nilai->id_mahasiswa.'/detail-sidang-skripsi') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Sidang Skripsi</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/create-by-admin/' . $nilai->id_mahasiswa) }}"><i class="fa fa-fw fa-plus"></i> Input Nilai Skripsi</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <?php $i++ ?>

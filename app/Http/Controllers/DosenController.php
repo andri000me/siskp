@@ -37,7 +37,7 @@ class DosenController extends Controller
         $total_dosen = Dosen::count();
         $filter_dosen = true;
 
-        $daftar_dosen = Dosen::orderBy('nip', 'asc')->paginate(10);
+        $daftar_dosen = Dosen::latest('nip')->paginate(10);
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
 
         return view('dosen.index', compact('daftar_dosen', 'total_dosen', 'daftar_prodi', 'filter_dosen'));

@@ -35,12 +35,9 @@
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                <a class="text-info small" href="{{ url('asistensi/' . $asistensi->id) }}">
+                                    <span class="fa fa-info-circle fa-lg"></span> Detail
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('asistensi/' . $asistensi->id) }}">Detail</a>
-                                </div>
                             </div>
 
                         </div>

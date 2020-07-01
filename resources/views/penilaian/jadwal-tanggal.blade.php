@@ -36,19 +36,16 @@
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
                                     <li class="nav-item mx-0 px-0">
-                                        <a class="nav-link text-primary mx-0 px-0 small" href="{{ url('nilai-ujian/'. $pengujian->id_jadwal_ujian .'/detail') }}"><span class="fa fa-check-double"></span>&nbsp; Detail Nilai</a>
+                                        <a class="nav-link text-info mx-0 px-0 small" href="{{ url('nilai-ujian/'. $pengujian->id_jadwal_ujian .'/detail') }}"><span class="fa fa-info-circle"></span> Detail nilai</a>
                                     </li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
+                                <a class="text-info small" href="{{ url('nilai-ujian/'. $pengujian->id_jadwal_ujian .'/detail') }}">
+                                    <span class="fa fa-info-circle fa-lg"></span> <br> Detail
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'. $pengujian->id_jadwal_ujian .'/detail') }}">Detail Nilai</a>
-                                </div>
                             </div>
                         </div>
                     </div>

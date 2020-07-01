@@ -5,19 +5,46 @@
                 <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
                         <strong class="bg-primary text-light text-capitalize">Asistensi Online Saya</strong>
-
+                        
                         @if(Session::has('bisa_kp'))
-                        <div class="dropdown dropleft">
-                            <a class="text-white dropdown-toggle caret-off" href="#" data-toggle="dropdown"><span class="fa fa-plus"></span> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ url('asistensi/create-skripsi') }}">Skripsi</a>
-                                <a class="dropdown-item" href="{{ url('asistensi/create-kerja-praktek') }}">Kerja Praktek</a>
-                            </div>
-                        </div>
+                        <a class="text-white small d-none d-lg-flex" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg"><span class="fa fa-plus fa-lg"></span></a>
+
+                        <a class="text-white small d-lg-none" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet"><span class="fa fa-plus fa-lg"></span></a>
                         @else
                         <a class="text-white" href="{{ url('asistensi/create-skripsi') }}"><span class="fa fa-plus"></span> <span class=""></span></a>   
-                        @endif                     
+                        @endif
                     </div>
+                        @if(Session::has('bisa_kp'))
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a href="{{ url('asistensi/create-skripsi') }}" class="d-block text-dark"><i class="fa fa-fw fa-comment"></i> Skripsi (Proposal, Hasil atau Sidang)</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('asistensi/create-kerja-praktek') }}"><i class="fa fa-fw fa-comment"></i> Kerja Praktek</a></p>
+                            
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a href="{{ url('asistensi/create-skripsi') }}" class="d-block text-dark"><i class="fa fa-fw fa-comment"></i> Skripsi (Proposal, Hasil atau Sidang)</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('asistensi/create-kerja-praktek') }}"><i class="fa fa-fw fa-comment"></i> Kerja Praktek</a></p>
+                            
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
                     <?php $i=1 ?>
                     @foreach($daftar_asistensi as $asistensi)
@@ -46,32 +73,44 @@
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ url('asistensi/' . $asistensi->id) }}">Detail</a>
-                                    <a class="dropdown-item" href="{{ url('asistensi/' . $asistensi->id . '/tambah-komentar') }}">Komentar</a>
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}">Hapus</a>
-                                </div>
                             </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            
+                                            <p><a class="d-block text-dark" href="{{ url('asistensi/' . $asistensi->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('asistensi/' . $asistensi->id . '/tambah-komentar') }}"><i class="fa fa-fw fa-comments"></i> Komentar</a></p>
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}" data-dismiss="modal"> <i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
 
                             <!-- modal hapus -->
                             <div class="modal fade" id="modal{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'asistensi/'.$asistensi->id , 'method' => 'delete']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus asistensi dengan topik <strong>{{ $asistensi->topik_bimbingan }}</strong> pada dosen <strong>{{ $asistensi->dosen->nama }}</strong> ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'asistensi/'.$asistensi->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

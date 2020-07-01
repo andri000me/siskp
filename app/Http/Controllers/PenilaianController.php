@@ -724,7 +724,6 @@ class PenilaianController extends Controller
         }else $penguji = false;
         
         $bottom_detail = true;
-        // return $nilai_skripsi;
         return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'bottom_detail', 'nilai_skripsi'));
     }
 
@@ -773,7 +772,8 @@ class PenilaianController extends Controller
             else $penguji = false;
         }else $penguji = false;
 
-        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi'));
+        $bottom_detail = true;
+        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi', 'bottom_detail'));
     }
 
     // pimpinan

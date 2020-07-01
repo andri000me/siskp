@@ -217,6 +217,7 @@ Route::prefix('pengaturan')->group(function()
         Route::get('create', 'PengaturanController@createKajur');
         Route::post('/', 'PengaturanController@storeKajur');
         Route::patch('{id}', 'PengaturanController@updateKajur');
+        Route::delete('{id}', 'PengaturanController@destroyKajur');
     });
 
     // prodi

@@ -31,13 +31,13 @@ class PengaturanController extends Controller
 
     public function indexPimpinan()
     {
-        $kajur = Kajur::first() or null;
+        $daftar_kajur = Kajur::latest()->get();
         $bottom_detail = true;
 
-        $daftar_kaprodi = Kaprodi::all();
+        $daftar_kaprodi = Kaprodi::latest()->get();
 
         return view('pengaturan.index-pimpinan', compact(
-            'kajur', 'daftar_kaprodi', 'bottom_detail'
+            'daftar_kajur', 'daftar_kaprodi', 'bottom_detail'
         ));
     }
 
@@ -211,6 +211,14 @@ class PengaturanController extends Controller
         $kaprodi = Kaprodi::findOrFail($id);
         $kaprodi->delete();
         Session::flash('pesan', '1 Kaprodi berhasil dihapus');
+        return redirect('pengaturan/pimpinan');
+    }
+
+    public function destroyKajur($id)
+    {
+        $kajur = Kajur::findOrFail($id);
+        $kajur->delete();
+        Session::flash('pesan', '1 Kajur berhasil dihapus');
         return redirect('pengaturan/pimpinan');
     }
 

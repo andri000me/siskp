@@ -110,19 +110,9 @@
                                                 @endforeach
                                         </td>
                                         <td class="text-center align-middle">
-                                            <div class="dropdown text-center justify-content-center align-items-center">
-                                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
-                                                    <a class="dropdown-item" href="{{ url('jadwal-ujian/administrasi-ujian/'. $jadwal->id ) }}">Unduh Administrasi Ujian</a>
-                                                @elseif($jadwal->ujian === 'kerja-praktek')
-                                                    <a class="dropdown-item" href="{{ url('jadwal-ujian/form-administrasi-ujian-kp/'. $jadwal->id ) }}">Unduh Administrasi Ujian</a>
-                                                @endif
-                                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}">Lihat Nilai Ujian</a>
-                                                </div>
-                                            </div>
+                                            <a class="text-dark text-center small d-none d-lg-block" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}"><span class="fa fa-bars fa-lg"></span></a>
+                                            
+                                            <a class="text-dark text-center small d-lg-none" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-bars fa-lg"></span></a>
                                         </td>
                                     </tr>
 
@@ -135,5 +125,49 @@
                     </div>
                     
                 </div>
-                
+
+                        <?php $i=1 ?>
+                        @foreach($daftar_jadwal as $jadwal)
+
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Ujian</a></p>
+                                            
+                                            @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/administrasi-ujian/'. $jadwal->id ) }}"><i class="fa fa-download"></i> Unduh administrasi ujian</a></p>
+                                            @elseif($jadwal->ujian === 'kerja-praktek')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-administrasi-ujian-kp/'. $jadwal->id ) }}"><i class="fa fa-download"></i> Unduh administrasi ujian</a></p>
+                                            @endif
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Ujian</a></p>
+                                            
+                                            @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/administrasi-ujian/'. $jadwal->id ) }}"><i class="fa fa-download"></i> Unduh administrasi ujian</a></p>
+                                            @elseif($jadwal->ujian === 'kerja-praktek')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-administrasi-ujian-kp/'. $jadwal->id ) }}"><i class="fa fa-download"></i> Unduh administrasi ujian</a></p>
+                                            @endif
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php $i++ ?>
+                        @endforeach
+
 @stop

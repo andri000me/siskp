@@ -44,9 +44,7 @@
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
                                     @if($persetujuan->status_dosbing_dua === 'disetujui' && $persetujuan->status_dosbing_satu === 'disetujui')
-                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-warning mx-0 px-0 small" href="{{ url('persetujuan-ujian/' . $persetujuan->id . '/cetak') }}"><span class="fa fa-download"></span>&nbsp; Unduh</a></li>
-                                    @else
-                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-secondary mx-0 px-0 small"><span class="fa fa-download"></span>&nbsp; Unduh</a></li>
+                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-dark mx-0 px-0 small" href="{{ url('persetujuan-ujian/' . $persetujuan->id . '/cetak') }}"><span class="fa fa-download"></span>&nbsp; Unduh</a></li>
                                     @endif
                                     <li class="nav-item mx-0 px-0"><a class="nav-link text-danger mx-0 px-0 small" data-toggle="modal" data-target="#modal{{ $i }}"><span class="fa fa-trash"></span>&nbsp;Hapus</a></li>    
                                 </ul>
@@ -54,35 +52,43 @@
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    @if($persetujuan->status_dosbing_dua === 'disetujui' && $persetujuan->status_dosbing_satu === 'disetujui')
-                                        <a class="dropdown-item" href="{{ url('persetujuan-ujian/' . $persetujuan->id . '/cetak') }}">Unduh</a>
-                                    @else
-                                        <a class="dropdown-item">Unduh</a>
-                                    @endif
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}">Hapus</a>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            @if($persetujuan->status_dosbing_dua === 'disetujui' && $persetujuan->status_dosbing_satu === 'disetujui')
+                                               <p><a class="d-block text-dark" href="{{ url('persetujuan-ujian/' . $persetujuan->id . '/cetak') }}"><i class="fa fa-download"></i> Unduh</a></p>
+                                            @endif
+
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}" data-dismiss="modal"> <i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- modal hapus -->
                             <div class="modal fade" id="modal{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'persetujuan-ujian/'.$persetujuan->id , 'method' => 'delete']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus permintaan persetujuan ujian <strong>{{ ucwords(str_replace('-', ' ', $persetujuan->ujian)) }}</strong> ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'persetujuan-ujian/'.$persetujuan->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

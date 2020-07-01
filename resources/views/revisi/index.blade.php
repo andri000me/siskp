@@ -18,9 +18,9 @@
                         <strong class="bg-primary text-light">Detail Revisi</strong>
                         
                         @if(!empty($pendaftar) && !empty($riwayat))
-                            <a class="text-white" href="{{ url('revisi-skripsi/create') }}"><span class="fa fa-upload"></span> <span class="">Edit Laporan & Jurnal</span></a>
+                            <a class="text-white" href="{{ url('revisi-skripsi/create') }}"><span class="fa fa-edit"></span> <span class="">Edit</span></a>
                         @elseif(!empty($pendaftar))
-                            <a class="text-white" href="{{ url('revisi-skripsi/create') }}"><span class="fa fa-upload"></span> <span class="">Upload Laporan & Jurnal</span></a>
+                            <a class="text-white" href="{{ url('revisi-skripsi/create') }}"><span class="fa fa-upload"></span> <span class="">Upload</span></a>
                         @endif
                     </div>
 

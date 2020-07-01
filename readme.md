@@ -15,4 +15,15 @@ Sistem Informasi Skripsi dan Kerja Praktek (SISKP) merupakan aplikasi berbasis w
 
 ## Instalasi
 
+- Buatlah beberapa folder dibawah ini
+1. /assets/asistensi
+2. /assets/file
+3. /assets/jurnal
+4. /assets/laporan
+5. /assets/panduan
+6. /assets/persetujuan-kp
+7. /assets/persetujuan-ujian
+8. /assets/plagiasi
+9. /assets/ttd
+
 - Karena SISKP dikembangkan dengan Laravel 5.8 silahkan jalankan dengan perintah php artisan migrate:fresh --seed pada terminal komputer anda.

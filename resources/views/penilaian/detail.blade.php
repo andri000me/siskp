@@ -729,14 +729,7 @@
                                         <td class="text-center">{{ $nilai_skripsi->nilai_huruf }}</td>
                                     @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
                                         <td class="text-center align-middle">
-                                            <div class="dropdown text-center justify-content-center align-items-center">
-                                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ url('nilai-ujian/create-by-admin/' . $jadwal->id_mahasiswa) }}">Input Nilai Skripsi</a>
-                                                </div>
-                                            </div>
+                                            <a class="text-primary" title="Input Nilai Skripsi" href="{{ url('nilai-ujian/create-by-admin/' . $jadwal->id_mahasiswa) }}"><span class="fa fa-plus fa-lg"></span></a>
                                         </td>
                                     @endif
                                     </tr>

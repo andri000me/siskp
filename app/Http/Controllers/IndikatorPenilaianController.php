@@ -17,7 +17,7 @@ class IndikatorPenilaianController extends Controller
     public function index()
     {
         $total = IndikatorPenilaian::all()->count();
-        $daftar_penilaian = IndikatorPenilaian::paginate(10);
+        $daftar_penilaian = IndikatorPenilaian::latest()->paginate(10);
         $bottom_detail = true;
 
         return view('indikator-penilaian.index', compact('daftar_penilaian', 'bottom_detail', 'total'));

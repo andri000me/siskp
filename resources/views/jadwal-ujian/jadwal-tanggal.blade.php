@@ -98,38 +98,11 @@
                                                 {{ $penguji->dospeng }}). {{ $penguji->dosen->nama }} <br>
                                             @endforeach
                                         </td>
-                                        <td class="text-center align-middle">
-                                            <div class="dropdown text-center justify-content-center align-items-center">
-                                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
-                                                    <span class="fa fa-bars fa-lg"></span>&nbsp;
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}">Lihat Nilai Ujian</a>
-                                                    @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
-                                                        
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/form-berita-acara-skripsi/'. $jadwal->id ) }}">Unduh Berita Acara</a>
-                                                                
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/form-berita-acara-skripsi-ttd/'. $jadwal->id ) }}">Unduh Berita Acara (Ada Nilai & TTD)</a>
-
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/administrasi-ujian/'. $jadwal->id ) }}">Unduh Administrasi Ujian</a>
-                                                        
-                                                        @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil')
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/detail-peserta/'. $jadwal->id ) }}">Lihat Peserta Ujian</a>
-                                                        @endif
-                                                    @endif
-                                                                
-                                                    @if($jadwal->ujian === 'kerja-praktek')
-                                                        
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/form-berita-acara-kerja-praktek/'. $jadwal->id ) }}">Unduh Berita Acara</a>
-
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/form-berita-acara-kerja-praktek-ttd/'. $jadwal->id ) }}">Unduh Berita Acara (Ada Nilai & TTD)</a>
-                                                                    
-                                                        <a class="dropdown-item" href="{{ url('jadwal-ujian/form-administrasi-ujian-kp/'. $jadwal->id ) }}">Unduh Administrasi Ujian</a>
-                                                    @endif
-                                                                
-                                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modalHapus{{ $i }}">Hapus</a>
-                                                </div>
-                                            </div>
+                                        <td class="text-center align-middle justify-content-center align-items-center">
+                                            <a class="text-dark text-center small d-none d-lg-block" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}"><span class="fa fa-bars fa-lg"></span></a>
+                                            
+                                            <a class="text-dark text-center small d-lg-none" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-bars fa-lg"></span></a>
+                                            
                                         </td>
                                     </tr>
 
@@ -152,24 +125,94 @@
                         @foreach($daftar_jadwal as $jadwal)
                             <!-- modal hapus -->
                             <div class="modal fade" id="modalHapus{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                        </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'jadwal-ujian/'.$jadwal->id , 'method' => 'delete', 'class' => 'd-inline-block']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus jadwal ujian <strong>{{ ucwords(str_replace('-', ' ', $jadwal->ujian)) }}</strong> dari <strong>{{ $jadwal->mahasiswa->nama }} ({{ $jadwal->mahasiswa->nim }})</strong> ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'jadwal-ujian/'.$jadwal->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Ujian</a></p>
+                                            
+                                            @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-skripsi/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara</a></p>
+                                                                
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-skripsi-ttd/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara (Ada Nilai & TTD)</a></p>
+
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/administrasi-ujian/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Administrasi Ujian</a></p>
+                                                        
+                                                @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil')
+                                                    <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/detail-peserta/'. $jadwal->id ) }}"><i class="fa fa-fw fa-street-view"></i> Detail Peserta Ujian</a></p>
+                                                @endif
+                                            @endif
+                                                                
+                                            @if($jadwal->ujian === 'kerja-praktek')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-kerja-praktek/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara</a></p>
+
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-kerja-praktek-ttd/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara (Ada Nilai & TTD)</a></p>
+                                                                    
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-administrasi-ujian-kp/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Administrasi Ujian</a></p>
+                                            @endif
+                                                                
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modalHapus{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Ujian</a></p>
+                                            
+                                            @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-skripsi/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara</a></p>
+                                                                
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-skripsi-ttd/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara (Ada Nilai & TTD)</a></p>
+
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/administrasi-ujian/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Administrasi Ujian</a></p>
+                                                        
+                                                @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil')
+                                                    <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/detail-peserta/'. $jadwal->id ) }}"><i class="fa fa-fw fa-street-view"></i> Detail Peserta Ujian</a></p>
+                                                @endif
+                                            @endif
+                                                                
+                                            @if($jadwal->ujian === 'kerja-praktek')
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-kerja-praktek/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara</a></p>
+
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-kerja-praktek-ttd/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara (Ada Nilai & TTD)</a></p>
+                                                                    
+                                                <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-administrasi-ujian-kp/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Administrasi Ujian</a></p>
+                                            @endif
+                                                                
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modalHapus{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         <?php $i++ ?>
                         @endforeach
 @stop

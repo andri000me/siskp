@@ -68,34 +68,57 @@
                 <nav class="navbar mb-2 navbar-expand-lg navbar-light justify-content-between border mb-1 mx-0 mt-0 shadow-sm">
                     <a class="text-dark"><span class="">Total: {{ number_format($total, 0, ',', '.') }}</span></a>
                     
-                    <div class="dropdown dropleft">
-                        <a class="text-dark dropdown-toggle caret-off" href="#" data-toggle="dropdown"><span class="fa fa-ellipsis-h"></span> </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#perpanjangYangBelumLulus">Perpanjang yg belum lulus</a>
-                        </div>
-                    </div>
-                </nav>
+                    <a class="text-dark d-lg-none" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetNon"><span class="fa fa-ellipsis-h"></span></a>
 
-                <!-- modal perpanjang yang belum lulus -->
-                <div class="modal fade" id="perpanjangYangBelumLulus" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-white">
-                                <h5 class="modal-title"> <i class="fa fa-info-circle"></i> Konfirmasi</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <a class="text-dark d-none d-lg-inline" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetNonLg"><span class="fa fa-ellipsis-h"></span></a>
+                </nav>
+                
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetNonLg" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" style="cursor:pointer" data-toggle="modal" data-target="#perpanjangYangBelumLulus" data-dismiss="modal"><i class="fa fa-fw fa-user-clock"></i> Perpanjang yang belum lulus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body text-dark h6">
-                                Yakin memperjanjang pembimbing kerja praktek ke semester aktif bagi mahasiswa yang belum lulus di semester ini ?
+
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetNon" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            <p><a class="d-block text-dark" style="cursor:pointer" data-toggle="modal" data-target="#perpanjangYangBelumLulus" data-dismiss="modal"><i class="fa fa-fw fa-user-clock"></i> Perpanjang yang belum lulus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/' . $id . '/perpanjang-belum-lulus']) !!}
-                                    <button type="submit" class="btn btn-link btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
-                                {!! Form::close() !!}
-                                <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+
+                            <!-- modal perpanjang yang belum lulus -->
+                            <div class="modal fade" id="perpanjangYangBelumLulus" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-primary text-center pb-3"> <i class="fa fa-info-circle"></i> Konfirmasi</h5>
+                                            <p>
+                                                Yakin memperpanjang pembimbing kerja praktek ke semester aktif bagi mahasiswa yang belum lulus di semester ini ?
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/' . $id . '/perpanjang-belum-lulus', 'class' => 'col']) !!}
+                                                    {!! Form::hidden('id_semester', $id) !!}
+                                                    <button type="submit" class="btn btn-block btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
@@ -124,81 +147,92 @@
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                        <li class="nav-item mx-0 px-0">
-                                            <a class="nav-link text-secondary small dropdown-toggle caret-off" href="#"
-                                                data-toggle="dropdown">
-                                                <span class="fa fa-cog"></span>&nbsp; Lainnya
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                {{--
-                                                <a class="dropdown-item" href="{{ url('dosen-pembimbing/kerja-praktek/'.$dosbing->id.'/edit') }}">Edit (Dosbing Berhalangan)</a>
-                                                --}}
-
-                                                <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modalPerpanjang{{ $i }}">Perpanjang ke Semester Aktif</a>
-                                                                
-                                                <a class="dropdown-item" href="{{ url('dosen-pembimbing/kerja-praktek/form-surat-persetujuan-kp/'.$dosbing->id) }}">Cetak Surat Persetujuan Ujian Kerja Praktek</a>
-
-                                                <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}">Hapus</a>
-                                            </div>
-                                        </li>
+                                    <li class="nav-item mx-0 px-0"><a class="nav-link text-dark mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-cog"></span>&nbsp; Lainnya</a></li>
                                 </ul>
                             </div>
 
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-dark small dropdown-toggle caret-off" href="#" data-toggle="dropdown">
+                                <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
-                                <div class="dropdown-menu">
-                                    {{--
-                                    <a class="dropdown-item" href="{{ url('dosen-pembimbing/kerja-praktek/'.$dosbing->id.'/edit') }}">Edit (Dosbing Berhalangan)</a>
-                                    --}}
-                                    
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modalPerpanjang{{ $i }}">Perpanjang ke Semester Aktif</a>
-                                                                
-                                    <a class="dropdown-item" href="{{ url('dosen-pembimbing/kerja-praktek/form-surat-persetujuan-kp/'.$dosbing->id) }}">Cetak Surat Persetujuan Ujian Kerja Praktek</a>
-
-                                    <a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}">Hapus</a>
-                                </div>
                             </div>
 
-                            <!-- modal hapus -->
-                            <div class="modal fade" id="hapus{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-danger text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            {{--
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/kerja-praktek/'.$dosbing->id.'/edit') }}"><i class="fa fa-fw fa-edit"></i> Edit</a></p>
+                                            --}}
+                                            <p><a class="d-block text-dark" style="cursor:pointer" data-toggle="modal" data-target="#modalPerpanjang{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-user-clock"></i> Perpanjang ke semester aktif</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/kerja-praktek/form-surat-persetujuan-kp/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh surat persetujuan ujian seminar</a></p>
+                                                                    
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
                                         </div>
-                                        <div class="modal-body text-dark h6">
-                                            Yakin menghapus data ini ? Data yang sudah dihapus tidak bisa dikembalikan.
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/'.$dosbing->id , 'method' => 'delete']) !!}
-                                                <button type="submit" class="btn btn-link btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- modal sheet lg -->
+                            <div class="modal fade" id="sheetLg{{ $i }}" tabindex="-1">
+                                <div class="d-none d-lg-flex modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+                                            {{--
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/kerja-praktek/'.$dosbing->id.'/edit') }}"><i class="fa fa-fw fa-edit"></i> Edit</a></p>
+                                            --}}
+                                            <p><a class="d-block text-dark" style="cursor:pointer" data-toggle="modal" data-target="#modalPerpanjang{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-user-clock"></i> Perpanjang ke semester aktif</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('dosen-pembimbing/kerja-praktek/form-surat-persetujuan-kp/'.$dosbing->id) }}"><i class="fa fa-fw fa-download"></i> Unduh surat persetujuan ujian seminar</a></p>
+                                                                    
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#hapus{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- modal perpanjang -->
-                            <div class="modal fade" id="modalPerpanjang{{ $i }}" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <!-- modal hapus -->
+                            <div class="modal fade" id="hapus{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-primary text-light">
-                                            <h5 class="modal-title"> <i class="fa fa-info"></i> Konfirmasi</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-danger text-center pb-3"> <i class="fa fa-exclamation-triangle"></i> Peringatan</h5>
+                                            <p>
+                                                Yakin menghapus dosen pembimbing dari <strong>{{ $dosbing->mahasiswa->nama }} ({{ $dosbing->mahasiswa->nim }})</strong> ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/'.$dosbing->id , 'method' => 'delete', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-danger btn-sm text-light"><i class="fa fa-trash"></i> Hapus</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
-                                        <div class="modal-body text-dark h6">
-                                            Apakah anda yakin memperpanjang dosen pembimbing kerja praktek ini ke semester aktif ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/'.$dosbing->id .'/perpanjang', 'method' => 'post']) !!}
-                                                <button type="submit" class="btn btn-link btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn btn-link btn-secondary btn-sm text-light" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- modal perpanjang ke semester aktif -->
+                            <div class="modal fade" id="modalPerpanjang{{ $i }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 text-center">
+                                            <h5 class="modal-title text-primary text-center pb-3"> <i class="fa fa-info-circle"></i> Konfirmasi</h5>
+                                            <p>
+                                                Yakin memperpanjang dosen pembimbing dari <strong>{{ $dosbing->mahasiswa->nama }} ({{ $dosbing->mahasiswa->nim }})</strong> ke semester aktif ? Data yang sudah dihapus tidak bisa dikembalikan.
+                                            </p>
+                                            <div class="row">
+                                                <button type="button" class="col btn btn-light btn-sm btn-block text-dark" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                                {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/'.$dosbing->id .'/perpanjang', 'method' => 'post', 'class' => 'col']) !!}
+                                                    <button type="submit" class="btn btn-block btn-primary btn-sm text-light"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                {!! Form::close() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

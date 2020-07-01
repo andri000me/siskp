@@ -40,7 +40,7 @@
 
                             <!-- menu large -->
                             <div class="col-1 text-center d-none d-lg-flex justify-content-center align-items-center">
-                                <a class="text-primary small" href="{{ url('jadwal-ujian/'.$jadwal->tahun.'-'.$jadwal->bulan) }}">
+                                <a class="text-info small" href="{{ url('jadwal-ujian/'.$jadwal->tahun.'-'.$jadwal->bulan) }}">
                                     <span class="fa fa-info-circle fa-lg"></span>&nbsp; Detail
                                 </a>
                             </div>

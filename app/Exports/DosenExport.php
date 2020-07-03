@@ -36,7 +36,7 @@ class DosenExport implements FromQuery, WithMapping, WithHeadings, ShouldAutoSiz
     {
         return [
             $dosen->id,
-            $dosen->nip,
+            "'" . $dosen->nip,
             $dosen->nama,
             !empty($dosen->prodi->nama) ? $dosen->prodi->nama : '-',
             $dosen->status,

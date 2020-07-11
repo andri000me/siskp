@@ -309,14 +309,14 @@
                                                 <tr>
                                                     <th class="text-center align-middle">No</th>
                                                     <th class="text-center align-middle">Dosen</th>
-                                                    <th class="text-center align-middle">Ujian</th>
+                                                    <th class="text-center align-middle">Progres</th>
                                                     <th class="text-center align-middle">Konsultasi</th>
                                                     <th class="text-center align-middle">Waktu</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <?php $i=1 ?>
-                                            @foreach($mahasiswa->bimbingan as $bimbingan)
+                                            @foreach($mahasiswa->bimbingan->sortBy('waktu') as $bimbingan)
                                                 <tr>
                                                     <td class="text-center align-middle">{{ $i }}</td>
                                                     <td class="align-middle">{{ $bimbingan->dosen->nama }} </td>
@@ -361,7 +361,7 @@
                                                     <td class="align-middle">{{ $asistensi->dosen->nama }} </td>
                                                     <td class="align-middle text-capitalize"> {{ str_replace('-', ' ', $asistensi->jenis) }} </td>
                                                     <td class="align-middle"> {{ $asistensi->topik_bimbingan }} </td>
-                                                    <td class="align-middle">{{ $asistensi->detailAsistensi->count() }}</td>
+                                                    <td class="align-middle text-center">{{ $asistensi->detailAsistensi->count() }} Komentar</td>
                                                 </tr>
                                                 <?php $i++ ?>
                                                 @endforeach                                    

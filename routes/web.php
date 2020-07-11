@@ -455,10 +455,14 @@ Route::prefix('persetujuan-ujian')->group(function(){
     Route::get('cari-semua', 'PersetujuanUjianController@cariSemua');
     Route::get('cari-dosen', 'PersetujuanUjianController@cariDosen');
     Route::get('mahasiswa', 'PersetujuanUjianController@indexDosen');
+    Route::get('mahasiswa/{tanggal}', 'PersetujuanUjianController@indexDosenByTanggal');
     Route::get('semua', 'PersetujuanUjianController@indexSemua');
+    Route::get('semua/{tanggal}', 'PersetujuanUjianController@indexSemuaByTanggal');
     Route::get('{id}/cetak', 'PersetujuanUjianController@cetak');
     Route::post('{id}/disetujui', 'PersetujuanUjianController@disetujui');
+    Route::post('{id}/disetujui-admin', 'PersetujuanUjianController@disetujuiAdmin');
     Route::post('{id}/tidak-disetujui', 'PersetujuanUjianController@tidakDisetujui');
+    Route::post('{id}/tidak-disetujui-admin', 'PersetujuanUjianController@tidakDisetujuiAdmin');
 });
 Route::resource('persetujuan-ujian', 'PersetujuanUjianController');
 

@@ -772,8 +772,8 @@ class BerandaController extends Controller
     // no user
     public function tes()
     {
-        $mahasiswa = \App\Mahasiswa::whereNull('id_prodi')->count();
-        return $mahasiswa;
+        $dosen = \App\Dosen::latest('id')->first();
+        return $dosen;
         // return view('tes-import');
     }
 

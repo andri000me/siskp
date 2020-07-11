@@ -60,8 +60,7 @@
                                 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
-                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-primary mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#modalSetujui{{ $i }}"><span class="fa fa-check"></span>&nbsp; Setujui</a></li>                                        
-                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-danger mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#modalTidak{{ $i }}"><span class="fa fa-times"></span>&nbsp; Tidak Disetujui</a></li>
+                                        <li class="nav-item mx-0 px-0"><a class="nav-link text-secondary mx-0 px-0 small" style="cursor:pointer" data-toggle="modal" data-target="#sheet{{ $i }}"><span class="fa fa-cog"></span>&nbsp; Lainnya</a></li>                                        
                                 </ul>
                             </div>
                             
@@ -70,6 +69,28 @@
                                 <a class="text-dark small" href="#" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}">
                                     <span class="fa fa-bars fa-lg"></span>&nbsp;
                                 </a>
+                            </div>
+
+                            <!-- modal sheet -->
+                            <div class="modal fade" id="sheet{{ $i }}" tabindex="-1">
+                                <div class="d-lg-none d-flex modal-dialog" style="position:absolute; bottom:0; width:100%; margin:0; padding:0;">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-dark h6 pb-0">
+
+                                            <p><a class="d-block text-primary" style="cursor:pointer" data-toggle="modal" data-target="#modalSetujuiSatu{{ $i }}" data-dismiss="modal"><i class="fa fa-check"></i> Disetujui oleh {{ !empty($persetujuan->dosbingSatuAproval->nama) ? $persetujuan->dosbingSatuAproval->nama : '-' }}</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modalTidakSatu{{ $i }}" data-dismiss="modal"><i class="fa fa-ban"></i> Tidak Setujui oleh {{ !empty($persetujuan->dosbingSatuAproval->nama) ? $persetujuan->dosbingSatuAproval->nama : '-' }}</a></p>
+
+                                            <hr>
+
+                                            <p><a class="d-block text-primary" style="cursor:pointer" data-toggle="modal" data-target="#modalSetujuiDua{{ $i }}" data-dismiss="modal"><i class="fa fa-check"></i> Disetujui oleh {{ !empty($persetujuan->dosbingDuaAproval->nama) ? $persetujuan->dosbingDuaAproval->nama : '-' }}</a></p>
+                                            
+                                            <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modalTidakDua{{ $i }}" data-dismiss="modal"><i class="fa fa-ban"></i> Tidak Setujui oleh {{ !empty($persetujuan->dosbingDuaAproval->nama) ? $persetujuan->dosbingDuaAproval->nama : '-' }}</a></p>
+
+                                            <button type="button" class="btn btn-light btn-sm text-dark btn-block" data-dismiss="modal"><i class="fa fa-times-circle"></i> Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- modal sheet lg -->

@@ -28,7 +28,7 @@
                                 @endswitch
                                 {{ $persetujuan->tahun }}
                                 </p>
-                                <p class="my-0 py-0 text-capitalize">Total: {{ $persetujuan->total }}</p>
+                                <p class="my-0 py-0 text-capitalize">{{ $persetujuan->total }} Mahasiswa</p>
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">

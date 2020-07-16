@@ -62,6 +62,41 @@
                     </script>
                 </div>
 
+                <!-- statistik tahapan kerja praktek -->
+                <div class="card border mb-2">
+                    <h5 class="card-header bg-primary text-light"><span class="fa fa-chart-line"></span> Pendaftar Ujian 10 Periode Terakhir Berdasarkan Ujian </h5>
+                    <canvas id="pendaftarByUjian"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("pendaftarByUjian");
+                                        var myChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: [
+                                                    'Kerja Praktek', 'Seminar Proposal', 'Seminar Hasil', 'Sidang Skripsi'
+                                                    ],
+                                                datasets: [
+                                                    @foreach($pendaftar_by_ujian as $ujian)
+                                                    {
+                                                        label: "{{ $ujian['periode'] }}",
+                                                        data: [
+                                                            {{ $ujian['kerja-praktek'] }}, 
+                                                            {{ $ujian['proposal'] }}, 
+                                                            {{ $ujian['hasil'] }}, 
+                                                            {{ $ujian['sidang-skripsi'] }}
+                                                        ],
+                                                        borderColor: '#'+(Math.random()*0xFFFFFF<<0).toString(16),
+                                                        fill: false,
+                                                    },
+                                                    @endforeach
+                                                ],
+                                            },
+                                            options: {
+                                                responsive: true
+                                            }
+                                        } );
+                                    </script>
+                </div>
+
                 <!-- statistik pendaftar usulan topik -->
                 <div class="card border mb-2">
                     <h5 class="card-header bg-primary text-light"><span class="fa fa-chart-line"></span> Pendaftar Usulan Topik 10 Periode Terakhir </h5>

@@ -98,8 +98,20 @@ class BerandaController extends Controller
             ];
         }
 
+        // Pendaftar Ujian 10 Periode Terakhir By Ujian
+        $daftar_periode = \App\PeriodeDaftarUjian::limit(10)->orderBy('waktu_buka', 'desc')->get();
+        foreach($daftar_periode as $ujian){
+            $pendaftar_by_ujian[] = [
+                'periode' => $ujian->nama,
+                'kerja-praktek' => \App\PendaftarUjian::where('ujian', 'kerja-praktek')->where('id_periode_daftar_ujian', $ujian->id)->count(),
+                'proposal' => \App\PendaftarUjian::where('ujian', 'proposal')->where('id_periode_daftar_ujian', $ujian->id)->count(),
+                'hasil' => \App\PendaftarUjian::where('ujian', 'hasil')->where('id_periode_daftar_ujian', $ujian->id)->count(),
+                'sidang-skripsi' => \App\PendaftarUjian::where('ujian', 'sidang-skripsi')->where('id_periode_daftar_ujian', $ujian->id)->count(),
+            ];
+        }
+
         return view('beranda-admin', compact(
-            'kp_mahasiswa', 'skripsi_mahasiswa', 'total_mahasiswa', 'dosen_aktif', 'dosen_tidak_aktif', 'dosen_cuti', 'kontrak_skripsi', 'kontrak_kp', 'total_dosen', 'bisa_menguji', 'bisa_membimbing', 'persentase_usulan_topik', 'persentase_ujian', 'telah_lulus', 'sementara_skripsi', 'persentase_turun_kp', 'angkatan' 
+            'kp_mahasiswa', 'skripsi_mahasiswa', 'total_mahasiswa', 'dosen_aktif', 'dosen_tidak_aktif', 'dosen_cuti', 'kontrak_skripsi', 'kontrak_kp', 'total_dosen', 'bisa_menguji', 'bisa_membimbing', 'persentase_usulan_topik', 'persentase_ujian', 'telah_lulus', 'sementara_skripsi', 'persentase_turun_kp', 'angkatan', 'daftar_periode', 'pendaftar_by_ujian' 
         ));
     }
 

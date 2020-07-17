@@ -88,9 +88,8 @@ class PendaftarTurunKpController extends Controller
         }
 
         $pengaturan = \App\Pengaturan::find(1);
-        $bottom_detail = true;
 
-        return view('pendaftar-turun-kp.create', compact('pengaturan', 'bottom_detail'));
+        return view('pendaftar-turun-kp.create', compact('pengaturan'));
     }
 
     // mahasiswa
@@ -170,9 +169,8 @@ class PendaftarTurunKpController extends Controller
         if(Session::get('id') !== $pendaftar->id_mahasiswa){
           return redirect()->back()->with('kesalahan', 'Anda Tidak Boleh Mengedit Berkas Turun Kerja Praktek Mahasiswa Lain!');
         }
-        $bottom_detail = true;
 
-        return view('pendaftar-turun-kp.edit', compact('pendaftar', 'pengaturan', 'bottom_detail'));
+        return view('pendaftar-turun-kp.edit', compact('pendaftar', 'pengaturan'));
     }
 
     // mahasiswa
@@ -229,9 +227,8 @@ class PendaftarTurunKpController extends Controller
     // mahasiswa & pimpinan
     public function show($id)
     {
-        $bottom_detail = true;
         $pendaftar = PendaftarTurunKp::findOrFail($id);
-        return view('pendaftar-turun-kp.detail', compact('pendaftar', 'bottom_detail'));
+        return view('pendaftar-turun-kp.detail', compact('pendaftar'));
     }
 
     // mahasiswa & pimpinan
@@ -422,8 +419,7 @@ class PendaftarTurunKpController extends Controller
       $pendaftar = PendaftarTurunKp::findOrFail($id);
       $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
       $daftar_semester = \App\Semester::pluck('nama', 'id');
-      $bottom_detail = true;
-      return view('dosbing.insert-by-turun-kp', compact('pendaftar', 'daftar_semester', 'daftar_dosen', 'bottom_detail'));
+      return view('dosbing.insert-by-turun-kp', compact('pendaftar', 'daftar_semester', 'daftar_dosen'));
     }
 
     // pimpinan
@@ -442,8 +438,7 @@ class PendaftarTurunKpController extends Controller
     {
         $periode = PeriodeDaftarTurunKp::findOrFail($id);
         $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_kp', 'ya')->pluck('nama', 'id');
-        $bottom_detail = true;
-        return view('pendaftar-turun-kp.input-by-admin', compact('periode', 'bottom_detail', 'daftar_mahasiswa', 'id'));
+        return view('pendaftar-turun-kp.input-by-admin', compact('periode', 'daftar_mahasiswa', 'id'));
     }
 
     // admin

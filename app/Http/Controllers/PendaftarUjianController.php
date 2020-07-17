@@ -70,11 +70,9 @@ class PendaftarUjianController extends Controller
 
         $pengaturan = \App\Pengaturan::find(1);
 
-        $bottom_detail = true;
-
         // validasi mahasiswa kontrak skripsi
         if($mahasiswa->kontrak_skripsi === 'ya' || $mahasiswa->kontrak_kp === 'ya'){
-            return view('pendaftar-ujian.create', compact('pengaturan', 'bottom_detail'));
+            return view('pendaftar-ujian.create', compact('pengaturan'));
         }else{
             return redirect()->back()->with('kesalahan', 'Anda belum mengontrak Mata Kuliah Skripsi dan/atau Kerja Praktek');
         }
@@ -253,13 +251,11 @@ class PendaftarUjianController extends Controller
     // mahasiswa & pimpinan
     public function show($id)
     {
-        $bottom_detail = true; 
-
         $pengaturan = \App\Pengaturan::find(1);
         $pendaftar = PendaftarUjian::findOrFail($id);
         $usulan_topik = \App\PendaftarUsulanTopik::where('id_mahasiswa', $pendaftar->id_mahasiswa)->first();
         $plagiasi = \App\HasilPlagiasi::where('id_pendaftar_ujian', $pendaftar->id)->first();
-        return view('pendaftar-ujian.detail', compact('pendaftar', 'usulan_topik', 'plagiasi', 'pengaturan', 'bottom_detail'));
+        return view('pendaftar-ujian.detail', compact('pendaftar', 'usulan_topik', 'plagiasi', 'pengaturan'));
     }
 
     // mahasiswa
@@ -282,9 +278,7 @@ class PendaftarUjianController extends Controller
           return redirect()->back()->with('kesalahan', 'Anda Tidak Boleh Mengedit Berkas Ujian Mahasiswa Lain!');
         }
 
-        $bottom_detail = true;
-
-        return view('pendaftar-ujian.edit', compact('pendaftar', 'pengaturan', 'bottom_detail'));
+        return view('pendaftar-ujian.edit', compact('pendaftar', 'pengaturan'));
     }
 
     // mahasiswa
@@ -656,9 +650,8 @@ class PendaftarUjianController extends Controller
       }
       
       $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-      $bottom_detail = true;
 
-      return view('jadwal-ujian.insert-by-pendaftar', compact('pendaftar', 'daftar_dosen', 'dosbing', 'jadwal', 'total_penguji', 'bottom_detail'));
+      return view('jadwal-ujian.insert-by-pendaftar', compact('pendaftar', 'daftar_dosen', 'dosbing', 'jadwal', 'total_penguji'));
     }
 
     // pimpinan
@@ -677,8 +670,7 @@ class PendaftarUjianController extends Controller
     {
         $periode = PeriodeDaftarUjian::findOrFail($id);
         $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_skripsi', 'ya')->pluck('nama', 'id');
-        $bottom_detail = true;
-        return view('pendaftar-ujian.input-by-admin', compact('periode', 'bottom_detail', 'daftar_mahasiswa', 'id'));
+        return view('pendaftar-ujian.input-by-admin', compact('periode', 'daftar_mahasiswa', 'id'));
     }
 
     // admin

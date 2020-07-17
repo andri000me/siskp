@@ -37,18 +37,15 @@ class AsistensiController extends Controller
     public function index()
     {
         $daftar_asistensi = Asistensi::where('id_mahasiswa', Session::get('id'))->orderBy('id', 'desc')->paginate(10);
-        $bottom_detail = true;
-        return view('asistensi.index', compact('daftar_asistensi', 'bottom_detail'));
+        return view('asistensi.index', compact('daftar_asistensi'));
     }
 
     // dosen
     public function indexDosen()
     {
         $daftar_asistensi = Asistensi::where('id_dosen', Session::get('id'))->orderBy('id', 'desc')->paginate(10);
-        $total = $daftar_asistensi->count();
-        $bottom_detail = true;
-
-        return view('asistensi.index-dosen', compact('daftar_asistensi', 'total', 'bottom_detail'));
+        $total = Asistensi::where('id_dosen', Session::get('id'))->count();
+        return view('asistensi.index-dosen', compact('daftar_asistensi', 'total'));
     }
 
     // dosen
@@ -107,12 +104,10 @@ class AsistensiController extends Controller
     public function indexSemua()
     {
         $daftar_asistensi = Asistensi::orderBy('id', 'desc')->paginate(10);
-        $total = $daftar_asistensi->count();
+        $total = Asistensi::all()->count();
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
         
-        $bottom_detail = true;
-        
-        return view('asistensi.index-admin', compact('daftar_asistensi', 'total', 'daftar_dosen', 'bottom_detail'));
+        return view('asistensi.index-admin', compact('daftar_asistensi', 'total', 'daftar_dosen'));
     }
 
     // pimpinan
@@ -208,9 +203,8 @@ class AsistensiController extends Controller
         $daftar_dosen = \App\Dosen::whereIn('id', [$dosbing->dosbing_satu_skripsi, $dosbing->dosbing_dua_skripsi])->pluck('nama', 'id');
         
         $pengaturan = \App\Pengaturan::find(1);
-        $bottom_detail = true;
 
-        return view('asistensi.create-skripsi', compact('daftar_dosen', 'pengaturan', 'bottom_detail'));
+        return view('asistensi.create-skripsi', compact('daftar_dosen', 'pengaturan'));
     }
 
     // mahasiswa
@@ -239,9 +233,8 @@ class AsistensiController extends Controller
         $daftar_dosen = \App\Dosen::whereIn('id', [$dosbing->dosbing_satu_kp, $dosbing->dosbing_dua_kp])->pluck('nama', 'id');
         
         $pengaturan = \App\Pengaturan::find(1);
-        $bottom_detail = true;
 
-        return view('asistensi.create-kerja-praktek', compact('daftar_dosen', 'pengaturan', 'bottom_detail'));
+        return view('asistensi.create-kerja-praktek', compact('daftar_dosen', 'pengaturan'));
     }
 
     // mahasiswa
@@ -326,8 +319,7 @@ class AsistensiController extends Controller
         }
 
         $pengaturan = \App\Pengaturan::find(1);
-        $bottom_detail = true;
-        return view('asistensi.tambah-komentar', compact('pengaturan', 'asistensi', 'bottom_detail'));
+        return view('asistensi.tambah-komentar', compact('pengaturan', 'asistensi'));
     }
 
     // mahasiswa & dosen

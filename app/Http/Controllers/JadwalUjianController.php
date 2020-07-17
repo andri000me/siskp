@@ -48,9 +48,7 @@ class JadwalUjianController extends Controller
         // jadwal ujian saya
         $daftar_jadwal = JadwalUjian::where('id_mahasiswa', Session::get('id'))->orderBy('waktu_mulai', 'ASC')->get();
         
-        $bottom_detail = true;
-
-        return view('jadwal-ujian.index', compact('daftar_jadwal', 'bottom_detail', 'daftar_jadwal_bulan_ini', 'total', 'bulan', 'tahun'));
+        return view('jadwal-ujian.index', compact('daftar_jadwal', 'daftar_jadwal_bulan_ini', 'total', 'bulan', 'tahun'));
     }
 
     // mahasiswa
@@ -63,17 +61,14 @@ class JadwalUjianController extends Controller
         $daftar_jadwal_bulan_ini = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'ASC')->paginate(10);
         $total = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->count();
         
-        $bottom_detail = true;
-
-        return view('jadwal-ujian.index-dosen', compact('bottom_detail', 'daftar_jadwal_bulan_ini', 'total', 'bulan', 'tahun'));
+        return view('jadwal-ujian.index-dosen', compact('daftar_jadwal_bulan_ini', 'total', 'bulan', 'tahun'));
     }
 
     // pimpinan
     public function semuaJadwal(Request $request)
     {
-        $daftar_jadwal = JadwalUjian::selectRaw('MONTH(waktu_mulai) bulan, YEAR(waktu_mulai) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(60)->get();
-        $bottom_detail = true;
-        return view('jadwal-ujian.semua', compact('daftar_jadwal', 'bottom_detail'));
+        $daftar_jadwal = JadwalUjian::selectRaw('MONTH(waktu_mulai) bulan, YEAR(waktu_mulai) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
+        return view('jadwal-ujian.semua', compact('daftar_jadwal'));
     }
 
     // pimpinan & mahasiswa
@@ -244,17 +239,15 @@ class JadwalUjianController extends Controller
     public function createPeserta($id)
     {
         $jadwal = \App\JadwalUjian::findOrFail($id);
-        $bottom_detail = true;
         $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_skripsi', 'ya')->pluck('nama', 'id');
-        return view('jadwal-ujian.create-peserta', compact('jadwal', 'daftar_mahasiswa', 'bottom_detail'));
+        return view('jadwal-ujian.create-peserta', compact('jadwal', 'daftar_mahasiswa'));
     }
 
     // mahasiswa & pimpinan
     public function detailPeserta($id)
     {
-        $bottom_detail = true;
         $jadwal = \App\JadwalUjian::findOrFail($id);
-        return view('jadwal-ujian.detail-peserta', compact('jadwal', 'bottom_detail'));
+        return view('jadwal-ujian.detail-peserta', compact('jadwal'));
     }
 
     // pimpinan
@@ -540,32 +533,28 @@ class JadwalUjianController extends Controller
     public function formBeritaAcaraSkripsi($id)
     {
         $jadwal = JadwalUjian::findOrFail($id);
-        $bottom_detail = true;
-        return view('jadwal-ujian.form-berita-acara-skripsi', compact('jadwal', 'bottom_detail'));
+        return view('jadwal-ujian.form-berita-acara-skripsi', compact('jadwal'));
     }
 
     // pimpinan
     public function formBeritaAcaraSkripsiTtd($id)
     {
         $jadwal = JadwalUjian::findOrFail($id);
-        $bottom_detail = true;
-        return view('jadwal-ujian.form-berita-acara-skripsi-ttd', compact('jadwal', 'bottom_detail'));
+        return view('jadwal-ujian.form-berita-acara-skripsi-ttd', compact('jadwal'));
     }
 
     // pimpinan
     public function formBeritaAcaraKp($id)
     {
         $jadwal = JadwalUjian::findOrFail($id);
-        $bottom_detail = true;
-        return view('jadwal-ujian.form-berita-acara-kerja-praktek', compact('jadwal', 'bottom_detail'));
+        return view('jadwal-ujian.form-berita-acara-kerja-praktek', compact('jadwal'));
     }
 
     // pimpinan
     public function formBeritaAcaraKpTtd($id)
     {
         $jadwal = JadwalUjian::findOrFail($id);
-        $bottom_detail = true;
-        return view('jadwal-ujian.form-berita-acara-kerja-praktek-ttd', compact('jadwal', 'bottom_detail'));
+        return view('jadwal-ujian.form-berita-acara-kerja-praktek-ttd', compact('jadwal'));
     }
 
     // pimpinan
@@ -703,8 +692,7 @@ class JadwalUjianController extends Controller
     public function formAdministrasiUjianKp($id)
     {
         $jadwal = JadwalUjian::findOrFail($id);
-        $bottom_detail = true;
-        return view('jadwal-ujian.form-administrasi-ujian-kp', compact('jadwal', 'bottom_detail'));
+        return view('jadwal-ujian.form-administrasi-ujian-kp', compact('jadwal'));
     }
 
     // mahasiswa & pimpinan

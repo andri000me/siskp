@@ -29,18 +29,16 @@ class BimbinganController extends Controller
         elseif($request->segment(2) === 'sidang-skripsi') $jenis = 'sidang-skripsi';
         else $jenis = 'kerja-praktek';
         
-        $bottom_detail = true;
-
         if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi') || Session::has('dosen')){
             $daftar_bimbingan = Bimbingan::with('mahasiswa')->where('bimbingan', $jenis)->selectRaw('id_mahasiswa, count(*) AS total')->groupBy('id_mahasiswa')->paginate(10);
             if(Session::has('dosen')){
                 $daftar_masbing = Bimbingan::with('mahasiswa')->where('bimbingan', $jenis)->where('id_dosen', Session::get('id'))->selectRaw('id_mahasiswa, count(*) AS total')->groupBy('id_mahasiswa')->paginate(10);
-                return view('bimbingan.index', compact('daftar_bimbingan', 'daftar_masbing', 'jenis', 'bottom_detail'));
+                return view('bimbingan.index', compact('daftar_bimbingan', 'daftar_masbing', 'jenis'));
             }
-            return view('bimbingan.index', compact('daftar_bimbingan', 'jenis', 'bottom_detail'));
+            return view('bimbingan.index', compact('daftar_bimbingan', 'jenis'));
         }elseif(Session::has('mahasiswa')){
             $daftar_bimbingan = Bimbingan::where('id_mahasiswa', Session::get('id'))->where('bimbingan', $jenis)->get();
-            return view('bimbingan.index', compact('daftar_bimbingan', 'jenis', 'bottom_detail'));
+            return view('bimbingan.index', compact('daftar_bimbingan', 'jenis'));
         }
     }
 
@@ -81,8 +79,7 @@ class BimbinganController extends Controller
             $daftar_dosen = \App\Dosen::whereIn('id', [$dosbing->dosbing_satu_kp, $dosbing->dosbing_dua_kp])->pluck('nama', 'id');
         }
 
-        $bottom_detail = true;
-        return view('bimbingan.create', compact('daftar_dosen', 'bottom_detail'));
+        return view('bimbingan.create', compact('daftar_dosen'));
     }
 
     // mahasiswa
@@ -173,8 +170,7 @@ class BimbinganController extends Controller
             }
             $daftar_dosen = \App\Dosen::whereIn('id', [$dosbing->dosbing_satu_kp, $dosbing->dosbing_dua_kp])->pluck('nama', 'id');
         }
-        $bottom_detail = true;
-        return view('bimbingan.edit', compact('daftar_dosen', 'bimbingan', 'bottom_detail'));
+        return view('bimbingan.edit', compact('daftar_dosen', 'bimbingan'));
     }
 
     // mahasiswa

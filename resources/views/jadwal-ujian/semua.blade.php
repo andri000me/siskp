@@ -2,7 +2,7 @@
 @section('main')
 
                 <div class="card">
-                    <h6 class="card-header bg-primary font-weight-bold text-light">Semua Jadwal Ujian</h6>
+                    <h6 class="card-header bg-primary font-weight-bold text-light">Jadwal Ujian 2 Tahun Terakhir</h6>
                     
                     <?php $i=1 ?>
                     @foreach($daftar_jadwal as $jadwal)

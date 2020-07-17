@@ -47,9 +47,8 @@ class MahasiswaController extends Controller
     // pimpinan
     public function show(Mahasiswa $mahasiswa)
     {
-      $bottom_detail = true;
       $bisa_kp = \App\ProdiKp::where('id_prodi', $mahasiswa->id_prodi)->first() or null;
-      return view('mahasiswa.detail', compact('mahasiswa', 'bisa_kp', 'bottom_detail'));
+      return view('mahasiswa.detail', compact('mahasiswa', 'bisa_kp'));
     }
 
     // pimpinan
@@ -219,9 +218,7 @@ class MahasiswaController extends Controller
 
       if(blank($semua_prodi)) return redirect()->back()->with('kesalahan', 'Program Studi Harus Dimasukan Terlebih Dahulu Sebelum Mengimport Mahasiswa!');
 
-      $bottom_detail = true;
-
-      return view('mahasiswa.import', compact('bottom_detail'));
+      return view('mahasiswa.import');
     }
 
     // pimpinan
@@ -231,9 +228,7 @@ class MahasiswaController extends Controller
 
       if(blank($semua_prodi)) return redirect()->back()->with('kesalahan', 'Program Studi Harus Dimasukan Terlebih Dahulu Sebelum Mengimport Mahasiswa!');
 
-      $bottom_detail = true;
-
-      return view('mahasiswa.import-maba', compact('bottom_detail'));
+      return view('mahasiswa.import-maba');
     }
 
     // pimpinan
@@ -326,8 +321,7 @@ class MahasiswaController extends Controller
       }
       $daftar_prodi = \App\Prodi::pluck('nama', 'id');
       $daftar_dosen = \App\Dosen::where('status', 'aktif')->pluck('nama', 'id');
-      $bottom_detail = true;
-      return view('mahasiswa.edit', compact('mahasiswa', 'daftar_prodi', 'daftar_dosen', 'bottom_detail'));
+      return view('mahasiswa.edit', compact('mahasiswa', 'daftar_prodi', 'daftar_dosen'));
     }
 
     // mahasiswa & pimpinan

@@ -3,7 +3,7 @@
 
                 <div class="card">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
-                        <strong class="bg-primary text-light">Persetujuan Ujian 12 Bulan Terakhir</strong>
+                        <strong class="bg-primary text-light">Persetujuan Ujian 10 Bulan Terakhir</strong>
                     </div>
 
                 <!-- jika data ada -->

@@ -23,13 +23,11 @@ class PesertaUjianController extends Controller
     {
         if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')){
             $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_skripsi', 'ya')->orderBy('nama', 'asc')->paginate(10);
-            $bottom_detail = true;
-            return view('peserta-ujian.index', compact('daftar_mahasiswa', 'bottom_detail'));
+            return view('peserta-ujian.index', compact('daftar_mahasiswa'));
         }elseif(Session::has('mahasiswa')){
             $peserta_ujian = \App\PesertaUjian::where('id_mahasiswa', Session::get('id'))->get();
             $peserta_ujian_lama = \App\PesertaUjianLama::where('id_mahasiswa', Session::get('id'))->get();
-            $bottom_detail = true;
-            return view('peserta-ujian.index', compact('peserta_ujian', 'peserta_ujian_lama', 'bottom_detail'));
+            return view('peserta-ujian.index', compact('peserta_ujian', 'peserta_ujian_lama'));
         }
     }
 
@@ -37,8 +35,7 @@ class PesertaUjianController extends Controller
     public function createPesertaLama($id)
     {
         $mahasiswa = \App\Mahasiswa::find($id);
-        $bottom_detail = true;
-        return view('peserta-ujian.create', compact('mahasiswa', 'bottom_detail'));
+        return view('peserta-ujian.create', compact('mahasiswa'));
     }
 
     // pimpinan
@@ -65,8 +62,7 @@ class PesertaUjianController extends Controller
         $mahasiswa = \App\Mahasiswa::find($id);
         $peserta_ujian = \App\PesertaUjian::where('id_mahasiswa', $id)->get();
         $peserta_ujian_lama = \App\PesertaUjianLama::where('id_mahasiswa', $id)->get();
-        $bottom_detail = true;
-        return view('peserta-ujian.detail', compact('peserta_ujian', 'peserta_ujian_lama', 'mahasiswa', 'bottom_detail'));
+        return view('peserta-ujian.detail', compact('peserta_ujian', 'peserta_ujian_lama', 'mahasiswa'));
     }
     
 }

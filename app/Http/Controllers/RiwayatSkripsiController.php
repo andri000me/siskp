@@ -37,9 +37,8 @@ class RiwayatSkripsiController extends Controller
     {
         $pengaturan = \App\Pengaturan::find(1);
         $mahasiswa = \App\Mahasiswa::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('riwayat-skripsi.detail-riwayat-skripsi', compact('mahasiswa', 'pengaturan', 'bottom_detail'));
+        return view('riwayat-skripsi.detail-riwayat-skripsi', compact('mahasiswa', 'pengaturan'));
     }
 
     // pengguna
@@ -130,8 +129,7 @@ class RiwayatSkripsiController extends Controller
         $pengaturan = \App\Pengaturan::find(1);
         $mahasiswa = \App\Mahasiswa::find($id);
         $judul = \App\PendaftarUsulanTopik::where('id_mahasiswa', $id)->first();
-        $bottom_detail = true;
-        return view('revisi.edit-skripsi', compact('pengaturan', 'mahasiswa', 'judul', 'bottom_detail'));
+        return view('revisi.edit-skripsi', compact('pengaturan', 'mahasiswa', 'judul'));
     }
 
     // admin

@@ -35,17 +35,15 @@ class DosenPembimbingController extends Controller
         $total_periode_kosong = DosenPembimbingSkripsi::whereNull('id_semester')->count();
         $total = \App\Semester::all()->count() + 1;
         $daftar_semester = \App\Semester::orderBy('waktu_tutup', 'desc')->paginate(10);
-        $bottom_detail = true;
-        return view('dosbing.semua-skripsi', compact('daftar_semester', 'total_periode_kosong', 'bottom_detail', 'total'));
+        return view('dosbing.semua-skripsi', compact('daftar_semester', 'total_periode_kosong', 'total'));
     }
 
     // pimpinan
     public function semuaKp()
     {
         $daftar_semester = \App\Semester::orderBy('waktu_tutup', 'desc')->paginate(10);
-        $bottom_detail = true;
         $total = \App\Semester::all()->count();
-        return view('dosbing.semua-kp', compact('daftar_semester', 'bottom_detail', 'total'));
+        return view('dosbing.semua-kp', compact('daftar_semester', 'total'));
     }
 
     // pimpinan
@@ -374,8 +372,7 @@ class DosenPembimbingController extends Controller
         $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_skripsi', 'ya')->pluck('nama', 'id');
         $daftar_semester = \App\Semester::pluck('nama', 'id');
         $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-        $bottom_detail = true;
-        return view('dosbing.create-skripsi', compact('daftar_mahasiswa', 'daftar_semester', 'daftar_dosen', 'bottom_detail'));
+        return view('dosbing.create-skripsi', compact('daftar_mahasiswa', 'daftar_semester', 'daftar_dosen'));
     }
     
     // pimpinan
@@ -384,8 +381,7 @@ class DosenPembimbingController extends Controller
         $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_kp', 'ya')->pluck('nama', 'id');
         $daftar_semester = \App\Semester::pluck('nama', 'id');
         $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-        $bottom_detail = true;
-        return view('dosbing.create-kp', compact('daftar_mahasiswa', 'daftar_semester', 'daftar_dosen', 'bottom_detail'));
+        return view('dosbing.create-kp', compact('daftar_mahasiswa', 'daftar_semester', 'daftar_dosen'));
     }
 
     // pimpinan
@@ -576,8 +572,7 @@ class DosenPembimbingController extends Controller
         $daftar_semester = \App\Semester::pluck('nama', 'id');
         $dosen_sekarang = \App\Dosen::whereIn('id', [$dosbing->dosbingSatuSkripsi->id, $dosbing->dosbingDuaSkripsi->id])->pluck('nama', 'id');
         $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->whereNotIn('id', [$dosbing->dosbingSatuSkripsi->id, $dosbing->dosbingDuaSkripsi->id])->pluck('nama', 'id');
-        $bottom_detail = true;
-        return view('dosbing.edit-skripsi', compact('dosbing', 'daftar_semester', 'daftar_dosen', 'dosen_sekarang', 'bottom_detail'));
+        return view('dosbing.edit-skripsi', compact('dosbing', 'daftar_semester', 'daftar_dosen', 'dosen_sekarang'));
     }
 
     // pimpinan
@@ -756,8 +751,7 @@ class DosenPembimbingController extends Controller
     {
         $dosbing = DosenPembimbingSkripsi::findOrFail($id);
         $judul = \App\PendaftarUsulanTopik::where('id_mahasiswa', $dosbing->id_mahasiswa)->where('tahapan', 'diterima')->first();
-        $bottom_detail = true;
-        return view('dosbing.form-surat-penunjukan', compact('dosbing', 'judul', 'bottom_detail'));
+        return view('dosbing.form-surat-penunjukan', compact('dosbing', 'judul'));
     }
 
     // mahasiswa & pimpinan
@@ -815,8 +809,7 @@ class DosenPembimbingController extends Controller
     public function formSuratPersetujuanKp($id)
     {
         $dosbing = DosenPembimbingKp::findOrFail($id);
-        $bottom_detail = true;
-        return view('dosbing.form-surat-persetujuan-kp', compact('dosbing', 'bottom_detail'));
+        return view('dosbing.form-surat-persetujuan-kp', compact('dosbing'));
     }
 
     // mahasiswa & pimpinan
@@ -835,8 +828,7 @@ class DosenPembimbingController extends Controller
     {
         $daftar_dosbing = DosenPembimbingSkripsi::where('id_mahasiswa', Session::get('id'))->orderBy('id_semester', 'desc')->get();
         $daftar_dosbing_berhalangan = \App\DosbingBerhalangan::where('id_mahasiswa', Session::get('id'))->where('ujian', 'skripsi')->orderBy('id_semester','desc')->get();
-        $bottom_detail = true;
-        return view('dosbing.index-skripsi', compact('daftar_dosbing', 'daftar_dosbing_berhalangan', 'bottom_detail'));
+        return view('dosbing.index-skripsi', compact('daftar_dosbing', 'daftar_dosbing_berhalangan'));
     }
 
     // mahasiswa
@@ -844,8 +836,7 @@ class DosenPembimbingController extends Controller
     {
         $daftar_dosbing = DosenPembimbingKp::where('id_mahasiswa', Session::get('id'))->orderBy('id_semester', 'desc')->get();
         $daftar_dosbing_berhalangan = \App\DosbingBerhalangan::where('id_mahasiswa', Session::get('id'))->where('ujian', 'kerja-praktek')->orderBy('id_semester','desc')->get();
-        $bottom_detail = true;
-        return view('dosbing.index-kp', compact('daftar_dosbing', 'daftar_dosbing_berhalangan', 'bottom_detail'));
+        return view('dosbing.index-kp', compact('daftar_dosbing', 'daftar_dosbing_berhalangan'));
     }
 
     // pimpinan

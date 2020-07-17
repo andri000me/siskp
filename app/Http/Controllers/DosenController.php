@@ -70,10 +70,8 @@ class DosenController extends Controller
               $query->whereNotIn('tahapan_skripsi', ['lulus']);
             })->count();
           
-            $bottom_detail = true;
-
             return view('dosen.detail', compact(
-                'dosen', 'total_maspa_skripsi', 'total_masbing_skripsi', 'total_maspa_kp', 'total_masbing_kp', 'bottom_detail'
+                'dosen', 'total_maspa_skripsi', 'total_masbing_skripsi', 'total_maspa_kp', 'total_masbing_kp'
             ));
     }
 
@@ -805,9 +803,7 @@ class DosenController extends Controller
     {
       $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
 
-      $bottom_detail = true;
-
-      return view('dosen.pengujian', compact('daftar_pengujian', 'bottom_detail'));
+      return view('dosen.pengujian', compact('daftar_pengujian'));
     }
 
     // dosen
@@ -818,9 +814,7 @@ class DosenController extends Controller
         
         $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'desc')->get();
 
-        $bottom_detail = true;
-        
-        return view('dosen.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal', 'bottom_detail'));
+        return view('dosen.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal'));
     }
 
     // dosen

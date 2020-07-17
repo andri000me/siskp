@@ -25,9 +25,7 @@ class AdminController extends Controller
 
     public function create()
     {
-        $bottom_detail = true;
-
-        return view('admin.create', compact('bottom_detail'));
+        return view('admin.create');
     }
 
     public function store(AdminRequest $request)
@@ -41,9 +39,7 @@ class AdminController extends Controller
 
     public function edit(Admin $admin)
     {
-        $bottom_detail = true;
-
-        return view('admin.edit', compact('admin', 'bottom_detail'));
+        return view('admin.edit', compact('admin'));
     }
 
     public function update(AdminRequest $request, Admin $admin)

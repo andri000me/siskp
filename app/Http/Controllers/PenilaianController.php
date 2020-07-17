@@ -125,9 +125,8 @@ class PenilaianController extends Controller
         $daftar_nilai_kp = NilaiUjianKp::orderBy('id', 'desc')->paginate(10);
         $total = NilaiUjianKp::all()->count();
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
-        $bottom_detail = true;
 
-        return view('penilaian.index-kerja-praktek', compact('daftar_nilai_kp', 'total', 'daftar_prodi', 'bottom_detail'));
+        return view('penilaian.index-kerja-praktek', compact('daftar_nilai_kp', 'total', 'daftar_prodi'));
     }
 
     // dosen
@@ -135,9 +134,7 @@ class PenilaianController extends Controller
     {
         $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
 
-        $bottom_detail = true;
-
-        return view('penilaian.dosen', compact('daftar_pengujian', 'bottom_detail'));
+        return view('penilaian.dosen', compact('daftar_pengujian'));
     }
 
     // dosen
@@ -148,9 +145,7 @@ class PenilaianController extends Controller
         
         $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'ASC')->get();
 
-        $bottom_detail = true;
-        
-        return view('penilaian.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal', 'bottom_detail'));
+        return view('penilaian.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal'));
     }
 
     // dosen
@@ -723,8 +718,7 @@ class PenilaianController extends Controller
             else $penguji = false;
         }else $penguji = false;
         
-        $bottom_detail = true;
-        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'bottom_detail', 'nilai_skripsi'));
+        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi'));
     }
 
     // pimpinan
@@ -772,25 +766,22 @@ class PenilaianController extends Controller
             else $penguji = false;
         }else $penguji = false;
 
-        $bottom_detail = true;
-        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi', 'bottom_detail'));
+        return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi'));
     }
 
     // pimpinan
     public function detailByAdmin($id)
     {
         $nilai_skripsi = HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $id)->first();
-        $bottom_detail = true;
 
-        return view('penilaian.detail-by-admin', compact('nilai_skripsi', 'bottom_detail'));
+        return view('penilaian.detail-by-admin', compact('nilai_skripsi'));
     }
 
     // pimpinan
     public function createByAdmin($id)
     {
-        $bottom_detail = true;
         $mahasiswa = \App\Mahasiswa::findOrFail($id);
-        return view('penilaian.create-by-admin', compact('mahasiswa', 'bottom_detail'));
+        return view('penilaian.create-by-admin', compact('mahasiswa'));
     }
 
     // pimpinan

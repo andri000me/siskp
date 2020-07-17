@@ -22,52 +22,44 @@ class PengaturanController extends Controller
     public function indexUmum()
     {
         $pengaturan = Pengaturan::first();
-        $bottom_detail = true;
 
         return view('pengaturan.index-umum', compact(
-            'pengaturan', 'bottom_detail'
+            'pengaturan'
         ));
     }
 
     public function indexPimpinan()
     {
         $daftar_kajur = Kajur::latest()->get();
-        $bottom_detail = true;
-
         $daftar_kaprodi = Kaprodi::latest()->get();
 
         return view('pengaturan.index-pimpinan', compact(
-            'daftar_kajur', 'daftar_kaprodi', 'bottom_detail'
+            'daftar_kajur', 'daftar_kaprodi'
         ));
     }
 
     public function indexProdi()
     {
         $daftar_prodi = Prodi::all();
-        $bottom_detail = true;
-
         $daftar_prodi_kp = ProdiKp::all();
         
         return view('pengaturan.index-prodi', compact(
-            'daftar_prodi', 'daftar_prodi_kp', 'bottom_detail'
+            'daftar_prodi', 'daftar_prodi_kp'
         ));
     }
 
     public function indexPenilaian()
     {
         $daftar_penilaian = IndikatorPenilaian::all();
-        $bottom_detail = true;
-
         return view('pengaturan.index-penilaian', compact(
-            'daftar_penilaian', 'bottom_detail'
+            'daftar_penilaian'
         ));
     }
 
     // program Studi
     public function createProdi()
     {
-        $bottom_detail = true;
-        return view('pengaturan.create-prodi', compact('bottom_detail'));
+        return view('pengaturan.create-prodi');
     }
 
     public function storeProdi(Request $request)
@@ -83,9 +75,8 @@ class PengaturanController extends Controller
 
     public function editProdi($id)
     {
-        $bottom_detail = true;
         $prodi = Prodi::findOrFail($id);
-        return view('pengaturan.edit-prodi', compact('prodi', 'bottom_detail'));
+        return view('pengaturan.edit-prodi', compact('prodi'));
     }
 
     public function updateProdi(Request $request, $id)
@@ -112,9 +103,8 @@ class PengaturanController extends Controller
     public function createKajur()
     {
         $daftar_dosen = Dosen::pluck('nama', 'id');
-        $bottom_detail = true;
 
-        return view('pengaturan.tambah-kajur', compact('daftar_dosen', 'bottom_detail'));
+        return view('pengaturan.tambah-kajur', compact('daftar_dosen'));
     }
     
     public function storeKajur(Request $request)
@@ -138,9 +128,8 @@ class PengaturanController extends Controller
     {
         $kajur = Kajur::findOrFail($id);
         $daftar_dosen = Dosen::pluck('nama', 'id');
-        $bottom_detail = true;
 
-        return view('pengaturan.edit-kajur', compact('kajur', 'daftar_dosen', 'bottom_detail'));
+        return view('pengaturan.edit-kajur', compact('kajur', 'daftar_dosen'));
     }
 
     public function updateKajur(Request $request, $id)
@@ -162,9 +151,7 @@ class PengaturanController extends Controller
     {
         $daftar_dosen = Dosen::pluck('nama', 'id');
         $daftar_prodi = Prodi::pluck('nama', 'id');
-        $bottom_detail = true;
-
-        return view('pengaturan.create-kaprodi', compact('daftar_dosen', 'daftar_prodi', 'bottom_detail'));
+        return view('pengaturan.create-kaprodi', compact('daftar_dosen', 'daftar_prodi'));
     }
 
     public function storeKaprodi(Request $request)
@@ -186,9 +173,8 @@ class PengaturanController extends Controller
         $daftar_dosen = Dosen::pluck('nama', 'id');
         $daftar_prodi = Prodi::pluck('nama', 'id');
         $kaprodi = Kaprodi::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('pengaturan.edit-kaprodi', compact('kaprodi', 'daftar_dosen', 'daftar_prodi', 'bottom_detail'));
+        return view('pengaturan.edit-kaprodi', compact('kaprodi', 'daftar_dosen', 'daftar_prodi'));
     }
 
     public function updateKaprodi(Request $request, $id)
@@ -225,9 +211,8 @@ class PengaturanController extends Controller
     // prodi_kp
     public function createProdiKp()
     {
-        $bottom_detail = true;
         $daftar_prodi = Prodi::pluck('nama', 'id');
-        return view('pengaturan.create-prodi-kp', compact('daftar_prodi', 'bottom_detail'));
+        return view('pengaturan.create-prodi-kp', compact('daftar_prodi'));
     }
 
     public function storeProdiKp(Request $request)
@@ -245,9 +230,8 @@ class PengaturanController extends Controller
     {
         $daftar_prodi = Prodi::pluck('nama', 'id');
         $prodi_kp = ProdiKp::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('pengaturan.edit-prodi-kp', compact('prodi_kp', 'daftar_prodi', 'bottom_detail'));
+        return view('pengaturan.edit-prodi-kp', compact('prodi_kp', 'daftar_prodi'));
     }
 
     public function updateProdiKp(Request $request, $id)

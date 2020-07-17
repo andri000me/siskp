@@ -18,15 +18,13 @@ class IndikatorPenilaianController extends Controller
     {
         $total = IndikatorPenilaian::all()->count();
         $daftar_penilaian = IndikatorPenilaian::latest()->paginate(10);
-        $bottom_detail = true;
 
-        return view('indikator-penilaian.index', compact('daftar_penilaian', 'bottom_detail', 'total'));
+        return view('indikator-penilaian.index', compact('daftar_penilaian', 'total'));
     }
 
     public function create()
     {
-        $bottom_detail = true;
-        return view('indikator-penilaian.create', compact('bottom_detail'));
+        return view('indikator-penilaian.create');
     }
 
     public function store(Request $request)
@@ -52,9 +50,8 @@ class IndikatorPenilaianController extends Controller
     public function edit($id)
     {
         $penilaian = IndikatorPenilaian::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('indikator-penilaian.edit', compact('penilaian', 'bottom_detail'));
+        return view('indikator-penilaian.edit', compact('penilaian'));
     }
 
     public function update(Request $request, $id)

@@ -524,10 +524,8 @@ class BerandaController extends Controller
               $query->whereNotIn('tahapan_skripsi', ['lulus']);
             })->count();
         
-            $bottom_detail = true;
-
             return view('dosen.detail', compact(
-                'dosen', 'total_maspa_skripsi', 'total_masbing_skripsi', 'total_maspa_kp', 'total_masbing_kp', 'bottom_detail'
+                'dosen', 'total_maspa_skripsi', 'total_masbing_skripsi', 'total_maspa_kp', 'total_masbing_kp'
             ));
 
         }elseif(Session::has('admin')){
@@ -625,20 +623,17 @@ class BerandaController extends Controller
     // mahasiswa
     public function indexRevisi()
     {
-        $bottom_detail = true;
-
         $pendaftar = \App\PendaftarUjian::where('ujian', 'sidang-skripsi')->where('id_mahasiswa', Session::get('id'))->get()->last();
         $riwayat = \App\RiwayatSkripsi::where('id_mahasiswa', Session::get('id'))->get()->last();
-        return view('revisi.index', compact('pendaftar', 'riwayat', 'bottom_detail'));
+        return view('revisi.index', compact('pendaftar', 'riwayat'));
     }
 
     // mahasiswa
     public function createRevisi()
     {
         $pengaturan = \App\Pengaturan::find(1);
-        $bottom_detail = true;
         
-        return view('revisi.create', compact('pengaturan', 'bottom_detail'));
+        return view('revisi.create', compact('pengaturan'));
     }
 
     // mahasiswa
@@ -688,9 +683,8 @@ class BerandaController extends Controller
     {
         $pengaturan = \App\Pengaturan::find(1);
         $revisi = \App\RiwayatSkripsi::find($id);
-        $bottom_detail = true;
         
-        return view('revisi.edit', compact('pengaturan', 'revisi', 'bottom_detail'));
+        return view('revisi.edit', compact('pengaturan', 'revisi'));
     }
 
     // mahasiswa

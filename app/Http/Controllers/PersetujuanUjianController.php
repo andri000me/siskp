@@ -28,8 +28,7 @@ class PersetujuanUjianController extends Controller
     public function index()
     {
         $daftar_persetujuan = PersetujuanUjian::where('id_mahasiswa', Session::get('id'))->orderBy('id', 'desc')->paginate(10);
-        $bottom_detail = true;
-        return view('persetujuan-ujian.index', compact('daftar_persetujuan', 'bottom_detail'));
+        return view('persetujuan-ujian.index', compact('daftar_persetujuan'));
     }
 
     // dosen
@@ -37,9 +36,7 @@ class PersetujuanUjianController extends Controller
     {
         $daftar_persetujuan = PersetujuanUjian::where('dosbing_satu_aproval', Session::get('id'))->orWhere('dosbing_dua_aproval', Session::get('id'))->selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(12)->get();
         
-        $bottom_detail = true;
-
-        return view('persetujuan-ujian.index-dosen', compact('daftar_persetujuan', 'bottom_detail'));
+        return view('persetujuan-ujian.index-dosen', compact('daftar_persetujuan'));
     }
 
     public function indexDosenByTanggal($tanggal)
@@ -51,9 +48,7 @@ class PersetujuanUjianController extends Controller
 
         $total = PersetujuanUjian::where('dosbing_satu_aproval', Session::get('id'))->orWhere('dosbing_dua_aproval', Session::get('id'))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'desc')->count();
 
-        $bottom_detail = true;
-        
-        return view('persetujuan-ujian.detail-tanggal-dosen', compact('daftar_persetujuan', 'bulan', 'tahun', 'tanggal', 'bottom_detail', 'total'));
+        return view('persetujuan-ujian.detail-tanggal-dosen', compact('daftar_persetujuan', 'bulan', 'tahun', 'tanggal', 'total'));
     }
 
     // dosen
@@ -128,10 +123,9 @@ class PersetujuanUjianController extends Controller
     // pimpinan
     public function indexSemua()
     {
-        $daftar_persetujuan = PersetujuanUjian::selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(12)->get();
+        $daftar_persetujuan = PersetujuanUjian::selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(10)->get();
 
-        $bottom_detail = true;
-        return view('persetujuan-ujian.index-admin', compact('daftar_persetujuan', 'bottom_detail'));
+        return view('persetujuan-ujian.index-admin', compact('daftar_persetujuan'));
     }
 
     public function indexSemuaByTanggal($tanggal)
@@ -143,9 +137,7 @@ class PersetujuanUjianController extends Controller
 
         $total = PersetujuanUjian::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'desc')->count();
 
-        $bottom_detail = true;
-        
-        return view('persetujuan-ujian.detail-tanggal-admin', compact('daftar_persetujuan', 'bulan', 'tahun', 'tanggal', 'bottom_detail', 'total'));
+        return view('persetujuan-ujian.detail-tanggal-admin', compact('daftar_persetujuan', 'bulan', 'tahun', 'tanggal', 'total'));
     }
 
     // pimpinan
@@ -219,8 +211,7 @@ class PersetujuanUjianController extends Controller
     // mahasiswa
     public function create()
     {
-        $bottom_detail = true;
-        return view('persetujuan-ujian.create', compact('bottom_detail'));
+        return view('persetujuan-ujian.create');
     }
 
     // mahasiswa

@@ -23,10 +23,9 @@ class SemesterPeriodeController extends Controller
         $daftar_semester = Semester::orderBy('id', 'desc')->paginate(10);
         
         $total = Semester::all()->count();
-        $bottom_detail = true;
         
         return view('semester-periode.index-semester', compact(
-            'daftar_semester', 'semester_aktif', 'total', 'bottom_detail' 
+            'daftar_semester', 'semester_aktif', 'total' 
         ));
     }
 
@@ -34,10 +33,9 @@ class SemesterPeriodeController extends Controller
     {
         $daftar_periode_daftar_turun_kp = PeriodeDaftarTurunKp::orderBy('id', 'desc')->paginate(10);
         $total = PeriodeDaftarTurunKp::all()->count(10);
-        $bottom_detail = true;
 
         return view('semester-periode.index-periode-daftar-turun-kp', compact(
-            'daftar_periode_daftar_turun_kp', 'total', 'bottom_detail' 
+            'daftar_periode_daftar_turun_kp', 'total' 
         ));
     }
 
@@ -45,29 +43,26 @@ class SemesterPeriodeController extends Controller
     {
         $daftar_periode_daftar_usulan_topik = PeriodeDaftarUsulanTopik::orderBy('id', 'desc')->paginate(10);
         $total = PeriodeDaftarUsulanTopik::all()->count();
-        $bottom_detail = true;
 
         return view('semester-periode.index-periode-daftar-usulan-topik', compact(
-            'daftar_periode_daftar_usulan_topik', 'total', 'bottom_detail'
+            'daftar_periode_daftar_usulan_topik', 'total'
         ));
     }
 
     public function indexPeriodeDaftarUjian()
     {
         $total = PeriodeDaftarUjian::all()->count();
-        $bottom_detail = true;
 
         $daftar_periode_daftar_ujian = PeriodeDaftarUjian::orderBy('id', 'desc')->paginate(10);
 
         return view('semester-periode.index-periode-daftar-ujian', compact(
-            'daftar_periode_daftar_ujian', 'total', 'bottom_detail'  
+            'daftar_periode_daftar_ujian', 'total'  
         ));
     }
 
     public function createSemester()
     {
-        $bottom_detail = true;
-        return view('semester-periode.create-semester', compact('bottom_detail'));
+        return view('semester-periode.create-semester');
     }
 
     public function storeSemester(Request $request)
@@ -86,9 +81,8 @@ class SemesterPeriodeController extends Controller
     public function editSemester($id)
     {
         $semester = Semester::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('semester-periode.edit-semester', compact('semester', 'bottom_detail'));
+        return view('semester-periode.edit-semester', compact('semester'));
     }
 
     public function updateSemester(Request $request, $id)
@@ -116,9 +110,7 @@ class SemesterPeriodeController extends Controller
     public function createPeriodeDaftarTurunKp()
     {
         $daftar_semester = Semester::pluck('nama', 'id');
-        $bottom_detail = true;
-
-        return view('semester-periode.create-periode-daftar-turun-kp', compact('daftar_semester', 'bottom_detail'));
+        return view('semester-periode.create-periode-daftar-turun-kp', compact('daftar_semester'));
     }
 
     public function storePeriodeDaftarTurunKp(Request $request)
@@ -132,9 +124,8 @@ class SemesterPeriodeController extends Controller
     {
         $daftar_semester = Semester::pluck('nama', 'id');
         $periode_daftar_turun_kp = PeriodeDaftarTurunKp::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('semester-periode.edit-periode-daftar-turun-kp', compact('daftar_semester', 'periode_daftar_turun_kp', 'bottom_detail'));
+        return view('semester-periode.edit-periode-daftar-turun-kp', compact('daftar_semester', 'periode_daftar_turun_kp'));
     }
 
     public function updatePeriodeDaftarTurunKp(Request $request, $id)
@@ -157,9 +148,8 @@ class SemesterPeriodeController extends Controller
     public function createPeriodeDaftarUsulanTopik()
     {
         $daftar_semester = Semester::pluck('nama', 'id');
-        $bottom_detail = true;
 
-        return view('semester-periode.create-periode-daftar-usulan-topik', compact('daftar_semester', 'bottom_detail'));
+        return view('semester-periode.create-periode-daftar-usulan-topik', compact('daftar_semester'));
     }
 
     public function storePeriodeDaftarUsulanTopik(Request $request)
@@ -173,9 +163,8 @@ class SemesterPeriodeController extends Controller
     {
         $daftar_semester = Semester::pluck('nama', 'id');
         $periode_daftar_usulan_topik = PeriodeDaftarUsulanTopik::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('semester-periode.edit-periode-daftar-usulan-topik', compact('daftar_semester', 'periode_daftar_usulan_topik', 'bottom_detail'));
+        return view('semester-periode.edit-periode-daftar-usulan-topik', compact('daftar_semester', 'periode_daftar_usulan_topik'));
     }
 
     public function updatePeriodeDaftarUsulanTopik(Request $request, $id)
@@ -198,9 +187,8 @@ class SemesterPeriodeController extends Controller
     public function createPeriodeDaftarUjian()
     {
         $daftar_semester = Semester::pluck('nama', 'id');
-        $bottom_detail = true;
 
-        return view('semester-periode.create-periode-daftar-ujian', compact('daftar_semester', 'bottom_detail'));
+        return view('semester-periode.create-periode-daftar-ujian', compact('daftar_semester'));
     }
 
     public function storePeriodeDaftarUjian(Request $request)
@@ -214,9 +202,8 @@ class SemesterPeriodeController extends Controller
     {
         $daftar_semester = Semester::pluck('nama', 'id');
         $periode_daftar_ujian = PeriodeDaftarUjian::findOrFail($id);
-        $bottom_detail = true;
 
-        return view('semester-periode.edit-periode-daftar-ujian', compact('daftar_semester', 'periode_daftar_ujian', 'bottom_detail'));
+        return view('semester-periode.edit-periode-daftar-ujian', compact('daftar_semester', 'periode_daftar_ujian'));
     }
 
     public function updatePeriodeDaftarUjian(Request $request, $id)

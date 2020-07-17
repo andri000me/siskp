@@ -83,9 +83,8 @@ class PendaftarUsulanTopikController extends Controller
 
 
         $pengaturan = \App\Pengaturan::findOrFail(1);
-        $bottom_detail = true;
 
-        return view('pendaftar-usulan-topik.create', compact('pengaturan', 'bottom_detail'));
+        return view('pendaftar-usulan-topik.create', compact('pengaturan'));
     }
 
     // mahasiswa
@@ -179,8 +178,7 @@ class PendaftarUsulanTopikController extends Controller
     // mahasiswa & pimpinan
     public function show(PendaftarUsulanTopik $usulan_topik)
     {
-        $bottom_detail = true;
-        return view('pendaftar-usulan-topik.detail', compact('usulan_topik', 'bottom_detail'));
+        return view('pendaftar-usulan-topik.detail', compact('usulan_topik'));
     }
 
     // mahasiswa
@@ -191,9 +189,8 @@ class PendaftarUsulanTopikController extends Controller
         }
 
         $pengaturan = \App\Pengaturan::findOrFail(1);
-        $bottom_detail = true;
 
-        return view('pendaftar-usulan-topik.edit', compact('usulan_topik', 'pengaturan', 'bottom_detail'));
+        return view('pendaftar-usulan-topik.edit', compact('usulan_topik', 'pengaturan'));
     }
 
     // mahasiswa
@@ -441,8 +438,7 @@ class PendaftarUsulanTopikController extends Controller
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
         $usulan_topik = PendaftarUsulanTopik::findOrFail($id);
 
-        $bottom_detail = true;
-        return view('pendaftar-usulan-topik.perubahan', compact('usulan_topik', 'bottom_detail'));
+        return view('pendaftar-usulan-topik.perubahan', compact('usulan_topik'));
     }
 
     // mahasiswa
@@ -471,11 +467,10 @@ class PendaftarUsulanTopikController extends Controller
     // pimpinan
     public function createByAdmin($id)
     {
-        $bottom_detail = true;
         $mahasiswa = \App\Mahasiswa::findOrFail($id);
         $daftar_periode_daftar_usulan_topik = \App\PeriodeDaftarUsulanTopik::pluck('nama', 'id');
         
-        return view('pendaftar-usulan-topik.create-by-admin', compact('mahasiswa', 'daftar_periode_daftar_usulan_topik', 'bottom_detail'));
+        return view('pendaftar-usulan-topik.create-by-admin', compact('mahasiswa', 'daftar_periode_daftar_usulan_topik'));
     }
 
     // pimpinan
@@ -513,8 +508,7 @@ class PendaftarUsulanTopikController extends Controller
       $pendaftar = PendaftarUsulanTopik::findOrFail($id);
       $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
       $daftar_semester = \App\Semester::pluck('nama', 'id');
-      $bottom_detail = true;
-      return view('dosbing.insert-by-usulan-topik', compact('pendaftar', 'daftar_semester', 'daftar_dosen', 'bottom_detail'));
+      return view('dosbing.insert-by-usulan-topik', compact('pendaftar', 'daftar_semester', 'daftar_dosen'));
     }
 
     // pimpinan
@@ -533,8 +527,7 @@ class PendaftarUsulanTopikController extends Controller
     {
         $periode = PeriodeDaftarUsulanTopik::findOrFail($id);
         $daftar_mahasiswa = \App\Mahasiswa::where('kontrak_skripsi', 'ya')->pluck('nama', 'id');
-        $bottom_detail = true;
-        return view('pendaftar-usulan-topik.input-by-admin', compact('periode', 'bottom_detail', 'daftar_mahasiswa', 'id'));
+        return view('pendaftar-usulan-topik.input-by-admin', compact('periode', 'daftar_mahasiswa', 'id'));
     }
 
     // admin

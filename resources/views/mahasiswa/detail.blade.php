@@ -67,7 +67,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-12">
                                             <label for="">Tahapan Skripsi</label>
-                                            {!! Form::select('tahapan_skripsi', ['persiapan' => 'Persiapan', 'pendaftaran_topik' => 'Pendaftaran Topik', 'penyusunan_propoasl' => 'Penyusunan Proposal', 'pendaftaran_proposal' => 'Pendaftaran Proposal', 'ujian_seminar_proposal' => 'Ujian Seminar Proposal', 'penulisan_skripsi' => 'Penulisan Skripsi', 'pendaftaran_hasil' => 'Pendaftaran Hasil', 'ujian_seminar_hasil' => 'Ujian Seminar Hasil', 'revisi_skripsi' => 'Revisi Skripsi', 'pendaftaran_sidang_skripsi' => 'Pendaftaran Sidang Skripsi', 'ujian_sidang_skripsi' => 'Ujian Sidang Skripsi', 'lulus' => 'Lulus'], $mahasiswa->tahapan_skripsi, ['class' => 'custom-select']) !!}
+                                            {!! Form::select('tahapan_skripsi', ['persiapan' => 'Persiapan', 'pendaftaran_topik' => 'Pendaftaran Topik', 'penyusunan_proposal' => 'Penyusunan Proposal', 'pendaftaran_proposal' => 'Pendaftaran Proposal', 'ujian_seminar_proposal' => 'Ujian Seminar Proposal', 'penulisan_skripsi' => 'Penulisan Skripsi', 'pendaftaran_hasil' => 'Pendaftaran Hasil', 'ujian_seminar_hasil' => 'Ujian Seminar Hasil', 'revisi_skripsi' => 'Revisi Skripsi', 'pendaftaran_sidang_skripsi' => 'Pendaftaran Sidang Skripsi', 'ujian_sidang_skripsi' => 'Ujian Sidang Skripsi', 'lulus' => 'Lulus'], $mahasiswa->tahapan_skripsi, ['class' => 'custom-select']) !!}
                                         </div>
                                     </div>
                                     <div class="form-row">

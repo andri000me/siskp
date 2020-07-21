@@ -72,45 +72,60 @@ class DosenPembimbingController extends Controller
         $id_semester = trim($request->input('id_semester'));
         $dosbing_dua_skripsi = trim($request->input('dosbing_dua_skripsi'));
         $dosbing_satu_skripsi = trim($request->input('dosbing_satu_skripsi'));
+        $tahapan_skripsi = trim($request->input('tahapan_skripsi'));
 
-      if(!empty($nama) || !empty($nim) || !empty($angkatan) || !empty($dosbing_satu_skripsi) || !empty($dosbing_dua_skripsi)){
+      if(!empty($nama) || !empty($nim) || !empty($angkatan) || !empty($dosbing_satu_skripsi) || !empty($dosbing_dua_skripsi) || !empty($tahapan_skripsi)){
 
           if(!empty($nama)){
-            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $tahapan_skripsi){
                 $query->where('nama', 'like', '%' . $nama . '%');
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+                (!empty($tahapan_skripsi)) ? $query->where('tahapan_skripsi', $tahapan_skripsi) : '';
             });
             (!empty($dosbing_satu_skripsi)) ? $query->where('dosbing_satu_skripsi', $dosbing_satu_skripsi) : '';
             (!empty($dosbing_dua_skripsi)) ? $query->where('dosbing_dua_skripsi', $dosbing_dua_skripsi) : '';
           }elseif(!empty($nim)){
-            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $tahapan_skripsi){
                 $query->where('nim', 'like', '%' . $nim . '%');
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+                (!empty($tahapan_skripsi)) ? $query->where('tahapan_skripsi', $tahapan_skripsi) : '';
+              });
+            (!empty($dosbing_satu_skripsi)) ? $query->where('dosbing_satu_skripsi', $dosbing_satu_skripsi) : '';
+            (!empty($dosbing_dua_skripsi)) ? $query->where('dosbing_dua_skripsi', $dosbing_dua_skripsi) : '';
+          }elseif(!empty($tahapan_skripsi)){
+            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $tahapan_skripsi){
+                $query->where('tahapan_skripsi', $tahapan_skripsi);
+                (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+                (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
               });
             (!empty($dosbing_satu_skripsi)) ? $query->where('dosbing_satu_skripsi', $dosbing_satu_skripsi) : '';
             (!empty($dosbing_dua_skripsi)) ? $query->where('dosbing_dua_skripsi', $dosbing_dua_skripsi) : '';
           }elseif(!empty($angkatan)){
-            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $tahapan_skripsi){
                 $query->where('angkatan', $angkatan);
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_skripsi)) ? $query->where('tahapan_skripsi', $tahapan_skripsi) : '';
               });
             (!empty($dosbing_satu_skripsi)) ? $query->where('dosbing_satu_skripsi', $dosbing_satu_skripsi) : '';
             (!empty($dosbing_dua_skripsi)) ? $query->where('dosbing_dua_skripsi', $dosbing_dua_skripsi) : '';
           }elseif(!empty($dosbing_satu_skripsi)){
-            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_satu_skripsi', $dosbing_satu_skripsi)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_satu_skripsi', $dosbing_satu_skripsi)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $tahapan_skripsi){
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_skripsi)) ? $query->where('tahapan_skripsi', $tahapan_skripsi) : '';
               });
             (!empty($dosbing_dua_skripsi)) ? $query->where('dosbing_dua_skripsi', $dosbing_dua_skripsi) : '';
           }elseif(!empty($dosbing_dua_skripsi)){
-            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_dua_skripsi', $dosbing_dua_skripsi)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+            $query = DosenPembimbingSkripsi::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_dua_skripsi', $dosbing_dua_skripsi)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $tahapan_skripsi){
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_skripsi)) ? $query->where('tahapan_skripsi', $tahapan_skripsi) : '';
               });
             (!empty($dosbing_satu_skripsi)) ? $query->where('dosbing_satu_skripsi', $dosbing_satu_skripsi) : '';
           }
@@ -122,6 +137,7 @@ class DosenPembimbingController extends Controller
           $pagination = (!empty($nama)) ? $daftar_dosbing->appends(['nama' => $nama]) : '';
           $pagination = (!empty($nim)) ? $daftar_dosbing->appends(['nim' => $nim]) : '';
           $pagination = (!empty($angkatan)) ? $daftar_dosbing->appends(['angkatan' => $angkatan]) : '';
+          $pagination = (!empty($tahapan_skripsi)) ? $daftar_dosbing->appends(['tahapan_skripsi' => $tahapan_skripsi]) : '';
           $pagination = (!empty($dosbing_satu_skripsi)) ? $daftar_dosbing->appends(['dosbing_satu_skripsi' => $dosbing_satu_skripsi]) : '';
           $pagination = (!empty($dosbing_dua_skripsi)) ? $daftar_dosbing->appends(['dosbing_dua_skripsi' => $dosbing_dua_skripsi]) : '';
           $pagination = (!empty($id_semester)) ? $daftar_dosbing->appends(['id_semester' => $id_semester]) : '';
@@ -133,7 +149,7 @@ class DosenPembimbingController extends Controller
         
         $filter_dosbing_skripsi = true;
 
-        return view('dosbing.daftar-semester-skripsi', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'dosbing_dua_skripsi', 'nim', 'angkatan', 'dosbing_satu_skripsi', 'id_semester', 'id', 'semester', 'daftar_dosbing_berhalangan', 'filter_dosbing_skripsi'));
+        return view('dosbing.daftar-semester-skripsi', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'tahapan_skripsi', 'dosbing_dua_skripsi', 'nim', 'angkatan', 'dosbing_satu_skripsi', 'id_semester', 'id', 'semester', 'daftar_dosbing_berhalangan', 'filter_dosbing_skripsi'));
       }
         return redirect('dosen-pembimbing/skripsi/semester/' . $id_semester);
     }
@@ -271,59 +287,76 @@ class DosenPembimbingController extends Controller
         $id_semester = trim($request->input('id_semester'));
         $dosbing_dua_kp = trim($request->input('dosbing_dua_kp'));
         $dosbing_satu_kp = trim($request->input('dosbing_satu_kp'));
+        $tahapan_kp = trim($request->input('tahapan_kp'));
 
-      if(!empty($nama) || !empty($lokasi) || !empty($nim) || !empty($angkatan) || !empty($dosbing_satu_kp) || !empty($dosbing_dua_kp)){
+      if(!empty($nama) || !empty($lokasi) || !empty($nim) || !empty($angkatan) || !empty($dosbing_satu_kp) || !empty($dosbing_dua_kp) || !empty($tahapan_kp)){
 
           if(!empty($nama)){
-            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
                 $query->where('nama', 'like', '%' . $nama . '%');
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($lokasi)) ? $query->where('lokasi', 'like', '%' . $lokasi . '%') : '';
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+                (!empty($tahapan_kp)) ? $query->where('tahapan_kp', $tahapan_kp) : '';
             });
             (!empty($dosbing_satu_kp)) ? $query->where('dosbing_satu_kp', $dosbing_satu_kp) : '';
             (!empty($dosbing_dua_kp)) ? $query->where('dosbing_dua_kp', $dosbing_dua_kp) : '';
           }elseif(!empty($nim)){
-            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
                 $query->where('nim', 'like', '%' . $nim . '%');
                 (!empty($lokasi)) ? $query->where('lokasi', 'like', '%' . $lokasi . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+                (!empty($tahapan_kp)) ? $query->where('tahapan_kp', $tahapan_kp) : '';
               });
             (!empty($dosbing_satu_kp)) ? $query->where('dosbing_satu_kp', $dosbing_satu_kp) : '';
             (!empty($dosbing_dua_kp)) ? $query->where('dosbing_dua_kp', $dosbing_dua_kp) : '';
           }elseif(!empty($angkatan)){
-            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
                 $query->where('angkatan', $angkatan);
                 (!empty($lokasi)) ? $query->where('lokasi', 'like', '%' . $lokasi . '%') : '';
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_kp)) ? $query->where('tahapan_kp', $tahapan_kp) : '';
+              });
+            (!empty($dosbing_satu_kp)) ? $query->where('dosbing_satu_kp', $dosbing_satu_kp) : '';
+            (!empty($dosbing_dua_kp)) ? $query->where('dosbing_dua_kp', $dosbing_dua_kp) : '';
+          }elseif(!empty($tahapan_kp)){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
+                $query->where('tahapan_kp', $tahapan_kp);
+                (!empty($lokasi)) ? $query->where('lokasi', 'like', '%' . $lokasi . '%') : '';
+                (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
+                (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
               });
             (!empty($dosbing_satu_kp)) ? $query->where('dosbing_satu_kp', $dosbing_satu_kp) : '';
             (!empty($dosbing_dua_kp)) ? $query->where('dosbing_dua_kp', $dosbing_dua_kp) : '';
           }elseif(!empty($lokasi)){
-            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
                 $query->where('lokasi', 'like', '%' . $lokasi . '%');
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_kp)) ? $query->where('tahapan_kp', $tahapan_kp) : '';
               });
             (!empty($dosbing_satu_kp)) ? $query->where('dosbing_satu_kp', $dosbing_satu_kp) : '';
             (!empty($dosbing_dua_kp)) ? $query->where('dosbing_dua_kp', $dosbing_dua_kp) : '';
           }elseif(!empty($dosbing_satu_kp)){
-            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_satu_kp', $dosbing_satu_kp)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_satu_kp', $dosbing_satu_kp)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
                 (!empty($lokasi)) ? $query->where('lokasi', 'like', '%' . $lokasi . '%') : '';
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_kp)) ? $query->where('tahapan_kp', $tahapan_kp) : '';
               });
             (!empty($dosbing_dua_kp)) ? $query->where('dosbing_dua_kp', $dosbing_dua_kp) : '';
           }elseif(!empty($dosbing_dua_kp)){
-            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_dua_kp', $dosbing_dua_kp)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi){
+            $query = DosenPembimbingKp::with('mahasiswa')->where('id_semester', $id_semester)->where('dosbing_dua_kp', $dosbing_dua_kp)->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan, $lokasi, $tahapan_kp){
                 (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
                 (!empty($lokasi)) ? $query->where('lokasi', 'like', '%' . $lokasi . '%') : '';
                 (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
                 (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($tahapan_kp)) ? $query->where('tahapan_kp', $tahapan_kp) : '';
               });
             (!empty($dosbing_satu_kp)) ? $query->where('dosbing_satu_kp', $dosbing_satu_kp) : '';
           }
@@ -335,6 +368,7 @@ class DosenPembimbingController extends Controller
           $pagination = (!empty($nama)) ? $daftar_dosbing->appends(['nama' => $nama]) : '';
           $pagination = (!empty($nim)) ? $daftar_dosbing->appends(['nim' => $nim]) : '';
           $pagination = (!empty($angkatan)) ? $daftar_dosbing->appends(['angkatan' => $angkatan]) : '';
+          $pagination = (!empty($tahapan_kp)) ? $daftar_dosbing->appends(['tahapan_kp' => $tahapan_kp]) : '';
           $pagination = (!empty($lokasi)) ? $daftar_dosbing->appends(['lokasi' => $lokasi]) : '';
           $pagination = (!empty($dosbing_satu_kp)) ? $daftar_dosbing->appends(['dosbing_satu_kp' => $dosbing_satu_kp]) : '';
           $pagination = (!empty($dosbing_dua_kp)) ? $daftar_dosbing->appends(['dosbing_dua_kp' => $dosbing_dua_kp]) : '';
@@ -347,7 +381,7 @@ class DosenPembimbingController extends Controller
         
         $filter_dosbing_kp = true;
 
-        return view('dosbing.daftar-semester-kp', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'dosbing_dua_kp', 'nim', 'angkatan', 'dosbing_satu_kp', 'id_semester', 'id', 'semester', 'lokasi', 'daftar_dosbing_berhalangan', 'filter_dosbing_kp'));
+        return view('dosbing.daftar-semester-kp', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'tahapan_kp', 'dosbing_dua_kp', 'nim', 'angkatan', 'dosbing_satu_kp', 'id_semester', 'id', 'semester', 'lokasi', 'daftar_dosbing_berhalangan', 'filter_dosbing_kp'));
       }
         return redirect('dosen-pembimbing/kerja-praktek/semester/' . $id_semester);
     }

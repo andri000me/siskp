@@ -100,4 +100,8 @@ class Mahasiswa extends Model
         return $this->hasMany('App\PersetujuanUjian', 'id_mahasiswa');
     }
 
+    // accessor nama mahasiswa dengan format Capitalize
+    public function getNamaAttribute($value){
+        return ucwords(strtolower($value));
+    }
 }

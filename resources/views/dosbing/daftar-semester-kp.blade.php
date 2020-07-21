@@ -13,17 +13,13 @@
                     @endif
                         {!! Form::open(['url' => 'dosen-pembimbing/kerja-praktek/semester/'. $id .'/cari', 'method' => 'get']) !!}
                             <div class="form-row">
-                                <div class="form-group col-4">
+                                <div class="form-group col-6">
                                     <label for="">Nama</label>
                                     {!! Form::text('nama', (!empty($nama) ? $nama : null), ['class' => 'form-control']) !!}
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-6">
                                     <label for="">NIM</label>
                                     {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="">Angkatan</label>
-                                    {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             
@@ -33,10 +29,27 @@
                                     {!! Form::text('lokasi', (!empty($lokasi) ? $lokasi : null), ['class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group col-4">
+                                    <label for="">Angkatan</label>
+                                    {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="">Tahapan Kerja Praktek</label>
+                                    {!! Form::select('tahapan_kp', [
+                                    'persiapan' => 'Persiapan',
+                                    'pendaftaran' => 'Pendaftaran Ujian',
+                                    'ujian_seminar' => 'Ujian Seminar',
+                                    'revisi' => 'Revisi',
+                                    'lulus' => 'Lulus'
+                                    ], (!empty($tahapan_kp) ? $tahapan_kp : null), ['placeholder' => 'Tahapan Kerja Praktek', 'class' => 'custom-select']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
                                     <label for="">Pembimbing Utama</label>
                                     {!! Form::select('dosbing_satu_kp', $daftar_dosen, (!empty($dosbing_satu_kp) ? $dosbing_satu_kp : null), ['placeholder' => 'Pembimbing Utama', 'class' => 'custom-select dosen', 'style' => 'width:100%']) !!}
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-6">
                                     <label for="">Pembimbing Pendamping</label>
                                     {!! Form::select('dosbing_dua_kp', $daftar_dosen, (!empty($dosbing_dua_kp) ? $dosbing_dua_kp : null), ['placeholder' => 'Pembimbing Pendamping', 'class' => 'custom-select dosen', 'style' => 'width:100%']) !!}
                                 </div>

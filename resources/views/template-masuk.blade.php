@@ -236,17 +236,20 @@
     <!-- Footer Umum -->
     <nav class="nav justify-content-center py-0 border-top bg-primary">
     @endif
+        
+        <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
+        
         <a class="nav-link text-light text-center" href="https://ft.ung.ac.id/informatika/index.html" target="_blank"><i class="far fa-copyright"></i>
             2020 
             @if(date('Y') !== '2020')
                 - {{ date('Y') }}
             @endif
               Teknik Informatika Universitas Negeri Gorontalo</a>
-        <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
         
-        <a class="nav-link text-light text-center" href="https://facebook.com/adnan.indrakasim" target="_blank"><span class="fa fa-code text-white"></span> with <span class="fa fa-heart text-white"></span> & <span class="fa fa-mug-hot text-white"></span> by Adnan Kasim</a>
-
         <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">Versi {{ env('APP_VER') }}</a>
+
+        <a class="nav-link text-light text-center" href="https://facebook.com/adnan.indrakasim" target="_blank"><span class="fa fa-code text-white"></span> with <span class="fa fa-heart text-white"></span> & <span class="fa fa-mug-hot text-white"></span> by Adnan Kasim</a>
+        
     </nav>
 
     <!-- Optional JavaScript -->

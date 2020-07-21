@@ -943,16 +943,33 @@
             {!! Form::open(['url' => 'dosen-pembimbing/skripsi/semester/'. $id .'/cari', 'method' => 'get']) !!}
                 {!! Form::hidden('id_semester', $id) !!}
                 <div class="form-row">
-                    <div class="form-group col-12">
+                    <div class="form-group col-6">
                         <label for="">Nama</label>
                         {!! Form::text('nama', (!empty($nama) ? $nama : null), ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="">NIM</label>
+                        {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
             
                 <div class="form-row">
                     <div class="form-group col-6">
-                        <label for="">NIM</label>
-                        {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
+                        <label for="">Tahapan Skripsi</label>
+                        {!! Form::select('tahapan_skripsi', [
+                                    'persiapan' => 'Persiapan',
+                                    'pendaftaran_topik' => 'Pendaftaran Topik',
+                                    'penyusunan_proposal' => 'Penyusunan Proposal',
+                                    'pendaftaran_proposal' => 'Pendaftaran Proposal',
+                                    'ujian_seminar_proposal' => 'Ujian Seminar Proposal',
+                                    'penulisan_skripsi' => 'Penulisan Skripsi',
+                                    'pendaftaran_hasil' => 'Pendaftaran Hasil',
+                                    'ujian_seminar_hasil' => 'Ujian Seminar Hasil',
+                                    'revisi_skripsi' => 'Revis Skripsi',
+                                    'pendaftaran_sidang_skripsi' => 'Pendaftaran Sidang Skripsi',
+                                    'ujian_sidang_skripsi' => 'Ujian Sidang Skripsi',
+                                    'lulus' => 'Lulus'
+                                    ], (!empty($tahapan_skripsi) ? $tahapan_skripsi : null), ['placeholder' => 'Tahapan Skripsi', 'class' => 'form-control']) !!}
                     </div>
                     <div class="form-group col-6">
                         <label for="">Angkatan</label>
@@ -1079,6 +1096,19 @@
                     </div>
                 </div>
             
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <label for="">Tahapan Kerja Praktek</label>
+                        {!! Form::select('tahapan_kp', [
+                                    'persiapan' => 'Persiapan',
+                                    'pendaftaran' => 'Pendaftaran Ujian',
+                                    'ujian_seminar' => 'Ujian Seminar',
+                                    'revisi' => 'Revisi',
+                                    'lulus' => 'Lulus'
+                                    ], (!empty($tahapan_kp) ? $tahapan_kp : null), ['placeholder' => 'Tahapan Kerja Praktek', 'class' => 'form-control']) !!}
+                    </div>
+                </div>
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">NIM</label>
@@ -1687,6 +1717,8 @@
     <!-- Footer dashboard -->
     <nav class="nav justify-content-center py-0 mb-5 mb-lg-0 border-top bg-primary">
     
+        <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
+
         <a class="nav-link text-light text-center" href="https://ft.ung.ac.id/informatika/index.html" target="_blank"><i class="far fa-copyright"></i>
             2020  
             @if(date('Y') !== '2020')
@@ -1695,11 +1727,9 @@
 
              Teknik Informatika Universitas Negeri Gorontalo</a>
         
-        <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
-        
-        <a class="nav-link text-light text-center" href="https://facebook.com/adnan.indrakasim" target="_blank"><span class="fa fa-code text-white"></span> with <span class="fa fa-heart text-white"></span> & <span class="fa fa-mug-hot text-white"></span> by Adnan Kasim</a>
-
         <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">Versi {{ env('APP_VER') }}</a>
+
+        <a class="nav-link text-light text-center" href="https://facebook.com/adnan.indrakasim" target="_blank"><span class="fa fa-code text-white"></span> with <span class="fa fa-heart text-white"></span> & <span class="fa fa-mug-hot text-white"></span> by Adnan Kasim</a>
     </nav>
 
     <!-- Optional JavaScript -->

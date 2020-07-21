@@ -143,7 +143,12 @@
                             <div class="col-12 col-lg-11">
                                 <p class="card-title font-weight-bold text-truncate my-0 py-0">{{ $i }}). {{ !empty($pendaftar->mahasiswa->nama) ? $pendaftar->mahasiswa->nama : '-' }} ({{ !empty($pendaftar->mahasiswa->nim) ? $pendaftar->mahasiswa->nim : '-' }})</p>
                                 <p class="my-0 py-0 text-capitalize text-truncate">
-                                    {{ str_replace('-', ' ', $pendaftar->ujian) }} <br>
+                                    @if($pendaftar->ujian !== 'sidang-skripsi')
+                                        Ujian Seminar {{ str_replace('-', ' ', $pendaftar->ujian) }}
+                                    @else
+                                        Ujian {{ str_replace('-', ' ', $pendaftar->ujian) }} 
+                                    @endif
+                                    <br>
                                     
                                     @if($pendaftar->ujian !== 'kerja-praktek')
                                         Judul: {{ !empty($pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul) ? $pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul : '-' }}<br>
@@ -165,6 +170,24 @@
                                         <span class="text-danger"><i class="fa fa-times"></i> Ditolak</span>
                                     @elseif($pendaftar->tahapan === 'dibatalkan')
                                         <span class="text-warning"><i class="fa fa-ban"></i> Dibatalkan</span>
+                                    @endif
+                                    <br>
+                                    @if($pendaftar->ujian !== 'kerja-praktek')
+                                        Pembimbing Skripsi: <br>
+                                        @if(!blank($pendaftar->mahasiswa->dosenPembimbingSkripsi))
+                                            1). {{ !empty($pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingSatuSkripsi->nama) ? $pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingSatuSkripsi->nama : '-' }} <br>
+                                            2). {{ !empty($pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama) ? $pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama : '-' }}
+                                        @else
+                                            - 
+                                        @endif
+                                    @else
+                                        Pembimbing KP: <br>
+                                        @if(!blank($pendaftar->mahasiswa->dosenPembimbingKp))
+                                            1). {{ !empty($pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingSatuKp->nama) ?  $pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingSatuKp->nama : '-' }} <br>
+                                            2). {{ !empty($pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingDuaKp->nama) ?   $pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingDuaKp->nama : '-' }}
+                                        @else
+                                            - 
+                                        @endif
                                     @endif
                                     <br>
                                     <span class="small"><em>{{ selisih_waktu($pendaftar->created_at) }}</em></span>

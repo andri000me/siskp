@@ -156,6 +156,14 @@
                                         <span class="text-warning"><i class="fa fa-ban"></i> Dibatalkan</span>
                                     @endif
                                     <br>
+                                    Pembimbing Skripsi: <br>
+                                    @if(!blank($pendaftar->mahasiswa->dosenPembimbingSkripsi))
+                                    1). {{ !empty($pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingSatuSkripsi->nama) ? $pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingSatuSkripsi->nama : '-' }} <br>
+                                    2). {{ !empty($pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama) ? $pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama : '-' }}
+                                    @else
+                                    - 
+                                    @endif
+                                    <br>
                                     <span class="small"><em>{{ selisih_waktu($pendaftar->created_at) }}</em></span>
                                 </p>
 

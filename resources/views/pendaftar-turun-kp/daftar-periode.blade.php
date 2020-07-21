@@ -157,6 +157,14 @@
                                         <span class="text-warning"><i class="fa fa-ban"></i> Dibatalkan</span>
                                     @endif
                                     <br>
+                                    Pembimbing KP: <br>
+                                    @if(!blank($pendaftar->mahasiswa->dosenPembimbingKp))
+                                    1). {{ !empty($pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingSatuKp->nama) ? $pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingSatuKp->nama : '-' }} <br>
+                                    2). {{ !empty($pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingDuaKp->nama) ? $pendaftar->mahasiswa->dosenPembimbingKp->last()->dosbingDuaKp->nama : '-' }}
+                                    @else
+                                    - 
+                                    @endif
+                                    <br>
                                     <span class="small"><em>{{ selisih_waktu($pendaftar->created_at) }}</em></span>
                                 </p>
 

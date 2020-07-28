@@ -83,6 +83,7 @@
                                         <th class="text-center align-middle">Ujian</th>
                                         <th class="text-center align-middle">Tempat & Waktu</th>
                                         <th class="text-center align-middle">Dosen Penguji</th>
+                                        <th class="text-center align-middle">Judul</th>
                                         <th class="text-center align-middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -100,6 +101,13 @@
                                             @foreach($jadwal->dosenPenguji as $penguji)
                                                 {{ $penguji->dospeng }}). {{ $penguji->dosen->nama }} <br>
                                             @endforeach
+                                        </td>
+                                        <td class="text-left align-middle">
+                                        @if($jadwal->ujian !== 'kerja-praktek')
+                                            {!! Str::title(wordwrap($jadwal->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul, 40, "<br>", true)) !!}
+                                        @else
+                                            {!! !empty((Str::title(wordwrap($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null; })->last()->judul_laporan_kp, 40, "<br>", true)))) ? Str::title(wordwrap($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->last()->judul_laporan_kp, 40, "<br>", true)) : Str::title(wordwrap($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->first()->judul_laporan_kp, 40, "<br>", true)) !!}
+                                        @endif
                                         </td>
                                         <td class="text-center align-middle justify-content-center align-items-center">
                                             <a class="text-dark text-center small d-none d-lg-block" style="cursor:pointer" data-toggle="modal" data-target="#sheetLg{{ $i }}"><span class="fa fa-bars fa-lg"></span></a>

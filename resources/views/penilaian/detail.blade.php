@@ -29,10 +29,15 @@
                                 2). {{ !empty($jadwal->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama) ? $jadwal->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama : '-' }} <br>
                             </dd>
                             @else
+                            <dt>Judul</dt>
+                            <dd>
+                                {!! !empty($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null; })->last()->judul_laporan_kp) ? $jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->last()->judul_laporan_kp : $jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->first()->judul_laporan_kp !!}
+                            </dd>
+
                             <dt>Instansi</dt>
                             <dd>{{ !empty($jadwal->mahasiswa->pendaftarTurunKp->last()->instansi) ? $jadwal->mahasiswa->pendaftarTurunKp->last()->instansi : $jadwal->mahasiswa->dosenPembimbingKp->last()->lokasi }}</dd>
 
-                            <dt>Alamat</dt>
+                            <dt>Alamat instansi</dt>
                             <dd>{{ !empty($jadwal->mahasiswa->pendaftarTurunKp->last()->alamat) ? $jadwal->mahasiswa->pendaftarTurunKp->last()->alamat : '-' }}</dd>
 
                             <dt>Dosen Pembimbing Kerja Praktek</dt>

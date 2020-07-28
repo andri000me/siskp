@@ -34,6 +34,7 @@
                                         <th class="text-center align-middle">Ujian</th>
                                         <th class="text-center align-middle">Tempat & Waktu</th>
                                         <th class="text-center align-middle">Dosen Penguji</th>
+                                        <th class="text-center align-middle">Judul</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,6 +51,13 @@
                                             @foreach($jadwal->dosenPenguji as $penguji)
                                                 {{ $penguji->dospeng }}). {{ $penguji->dosen->nama }} <br>
                                             @endforeach
+                                        </td>
+                                        <td class="text-left align-middle">
+                                        @if($jadwal->ujian !== 'kerja-praktek')
+                                            {!! Str::title(wordwrap($jadwal->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul, 40, "<br>", true)) !!}
+                                        @else
+                                            {!! !empty((Str::title(wordwrap($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null; })->last()->judul_laporan_kp, 40, "<br>", true)))) ? Str::title(wordwrap($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->last()->judul_laporan_kp, 40, "<br>", true)) : Str::title(wordwrap($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->first()->judul_laporan_kp, 40, "<br>", true)) !!}
+                                        @endif
                                         </td>
                                     </tr>
                                     <?php $i++ ?>

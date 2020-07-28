@@ -32,7 +32,7 @@
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Program Studi</label>
-                                    {!! Form::select('id_prodi', $daftar_prodi, (!empty($prodi) ? $prodi : null), ['placeholder' => 'Daftar Program Studi', 'class' => 'form-control']) !!}
+                                    {!! Form::select('id_prodi', $daftar_prodi, (!empty($prodi) ? $prodi : null), ['placeholder' => 'Daftar Program Studi', 'class' => 'custom-select']) !!}
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="">Ujian</label>
@@ -41,8 +41,11 @@
                             </div>
                         
                             <div class="form-row">
-                                <div class="col-12">
+                                <div class="col-10">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
+                                </div>
+                                <div class="col-2">
+                                    <a href="{{ url('jadwal-ujian/'. $tahun . '-' . $bulan .'/export')  }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                             </div>
                         {!! Form::close() !!}
@@ -150,6 +153,8 @@
                                         <div class="modal-body text-dark h6 pb-0">
                                             <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Ujian</a></p>
                                             
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/'.$jadwal->id_mahasiswa) }}"><i class="fa fa-fw fa-info-circle"></i> Detail Mahasiswa</a></p>
+
                                             @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
                                                 <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-skripsi/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara</a></p>
                                                                 
@@ -184,6 +189,8 @@
                                     <div class="modal-content">
                                         <div class="modal-body text-dark h6 pb-0">
                                             <p><a class="d-block text-dark" href="{{ url('nilai-ujian/'.$jadwal->id.'/detail') }}"><i class="fa fa-fw fa-check-double"></i> Detail Nilai Ujian</a></p>
+
+                                            <p><a class="d-block text-dark" href="{{ url('mahasiswa/'.$jadwal->id_mahasiswa) }}"><i class="fa fa-fw fa-info-circle"></i> Detail Mahasiswa</a></p>
                                             
                                             @if($jadwal->ujian === 'proposal' || $jadwal->ujian === 'hasil' || $jadwal->ujian === 'sidang-skripsi')
                                                 <p><a class="d-block text-dark" href="{{ url('jadwal-ujian/form-berita-acara-skripsi/'. $jadwal->id ) }}"><i class="fa fa-fw fa-download"></i> Unduh Berita Acara</a></p>

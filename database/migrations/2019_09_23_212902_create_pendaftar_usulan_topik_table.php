@@ -22,6 +22,9 @@ class CreatePendaftarUsulanTopikTable extends Migration
             $table->text('tahapan_penelitian')->nullable();
             $table->timestamps();
 
+            $table->string('skor_kompetensi', 100)->nullable();   
+            $table->string('file_sertifikat_kompetensi', 100)->nullable();
+
             $table->enum('tahapan', [
                 'diperiksa', 'diterima', 'ditolak', 'dibatalkan'
             ])->default('diperiksa');

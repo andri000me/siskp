@@ -20,8 +20,13 @@ class CreatePendaftarUjianTable extends Migration
             ])->default('diperiksa');
             $table->string('keterangan', 255)->nullable();
             
+            $table->text('judul_laporan_kp')->nullable();
+
             $table->string('file_laporan', 100)->nullable();   
-            $table->string('file_lembar_persetujuan', 100)->nullable();   
+            $table->string('file_lembar_persetujuan', 100)->nullable();
+            
+            $table->string('skor_toefl', 100)->nullable();   
+            $table->string('file_sertifikat_toefl', 100)->nullable();
             
             // foreign key
             $table->bigInteger('id_mahasiswa')->unsigned()->nullable();

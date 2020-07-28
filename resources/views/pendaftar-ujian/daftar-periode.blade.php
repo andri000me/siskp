@@ -153,13 +153,7 @@
                                     @if($pendaftar->ujian !== 'kerja-praktek')
                                         Judul: {{ !empty($pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul) ? $pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul : '-' }}<br>
                                     @else
-                                        @if(!empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi))
-                                            Instansi: {{ $pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi }} <br>
-                                        @elseif(!empty($pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi))
-                                            Instansi: {{ $pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi }} <br>
-                                        @else
-                                            Instansi: - <br>
-                                        @endif
+                                        Judul: {{ !empty($pendaftar->judul_laporan_kp) ? $pendaftar->judul_laporan_kp : '-' }}<br>
                                     @endif
 
                                     @if($pendaftar->tahapan === 'diperiksa')

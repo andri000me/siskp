@@ -10,6 +10,8 @@ use Session;
 use DB;
 use PDF;
 use Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\JadwalUjianExport;
 
 class JadwalUjianController extends Controller
 {
@@ -710,6 +712,14 @@ class JadwalUjianController extends Controller
         $pdf = PDF::loadView('jadwal-ujian/administrasi-ujian-kerja-praktek', compact('jadwal', 'dosbing', 'judul', 'nomor', 'daftar_indikator', 'dospeng', 'pendaftar', 'kaprodi'));
         
         return $pdf->download('Administrasi Ujian '.$jadwal->ujian.' - '.$jadwal->mahasiswa->nama.'.pdf');
+    }
+
+    public function jadwalByTanggalExport(Request $request, $tanggal)
+    {
+        $bulan = date('m', strtotime($tanggal));
+        $tahun = date('Y', strtotime($tanggal));
+
+        return Excel::download(new JadwalUjianExport($bulan, $tahun), 'SISKP - Export Jadwal Ujian.xlsx');
     }
 
 }

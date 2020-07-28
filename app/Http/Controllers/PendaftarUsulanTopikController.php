@@ -90,7 +90,16 @@ class PendaftarUsulanTopikController extends Controller
     // mahasiswa
     public function store(Request $request)
     {
+        $pengaturan = \App\Pengaturan::find(1);
+        
+        if($pengaturan->skor_sertifikat_kompetensi === 'wajib') $validasi_pengaturan = 'required';
+        elseif($pengaturan->skor_sertifikat_kompetensi === 'tidak-wajib' || $pengaturan->skor_sertifikat_kompetensi === 'hilangkan'){
+          $validasi_pengaturan = 'sometimes';
+        }
+
         $validasi = Validator::make($request->all(), [
+            'file_sertifikat_kompetensi' => $validasi_pengaturan . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
+            'skor_kompetensi' =>  $validasi_pengaturan . '|string',
             'usulan_topik' => 'required|string',
             'usulan_judul' => 'required|string',
             'alternatif_judul' => 'required|string',
@@ -112,8 +121,14 @@ class PendaftarUsulanTopikController extends Controller
             return redirect()->back()->withInput()->withErrors($validasi);
         }
 
+        if($request->hasFile('file_sertifikat_kompetensi')){
+            $input['file_sertifikat_kompetensi'] = $this->uploadFile($request);
+        }
+
         // simpan usulan topik
         $pendaftar = new PendaftarUsulanTopik;
+        if($request->hasFile('file_sertifikat_kompetensi')) $pendaftar->file_sertifikat_kompetensi = $input['file_sertifikat_kompetensi'];
+        if($request->post('skor_kompetensi')) $pendaftar->skor_kompetensi = $request->post('skor_kompetensi');
         $pendaftar->usulan_topik = $request->post('usulan_topik');
         $pendaftar->usulan_judul = $request->post('usulan_judul');
         $pendaftar->alternatif_judul = $request->post('alternatif_judul');
@@ -178,7 +193,8 @@ class PendaftarUsulanTopikController extends Controller
     // mahasiswa & pimpinan
     public function show(PendaftarUsulanTopik $usulan_topik)
     {
-        return view('pendaftar-usulan-topik.detail', compact('usulan_topik'));
+        $pengaturan = \App\Pengaturan::find(1);
+        return view('pendaftar-usulan-topik.detail', compact('usulan_topik', 'pengaturan'));
     }
 
     // mahasiswa
@@ -200,7 +216,16 @@ class PendaftarUsulanTopikController extends Controller
           return redirect()->back()->with('kesalahan', 'Anda Tidak Boleh Memperbaharui Berkas Usulan Topik Mahasiswa Lain!');
         }
 
+        $pengaturan = \App\Pengaturan::find(1);
+        
+        if($pengaturan->skor_sertifikat_kompetensi === 'wajib') $validasi_pengaturan = 'required';
+        elseif($pengaturan->skor_sertifikat_kompetensi === 'tidak-wajib' || $pengaturan->skor_sertifikat_kompetensi === 'hilangkan'){
+          $validasi_pengaturan = 'sometimes';
+        }
+
         $validasi = Validator::make($request->all(), [
+            'file_sertifikat_kompetensi' => $validasi_pengaturan . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
+            'skor_kompetensi' =>  $validasi_pengaturan . '|string',
             'usulan_topik' => 'required|string',
             'usulan_judul' => 'required|string',
             'alternatif_judul' => 'required|string',
@@ -222,6 +247,13 @@ class PendaftarUsulanTopikController extends Controller
             return redirect()->back()->withInput()->withErrors($validasi);
         }
 
+        if($request->hasFile('file_sertifikat_kompetensi')){
+            $this->hapusFile($usulan_topik);
+            $input['file_sertifikat_kompetensi'] = $this->uploadFile($request);
+        }
+        
+        if($request->hasFile('file_sertifikat_kompetensi')) $usulan_topik->file_sertifikat_kompetensi = $input['file_sertifikat_kompetensi'];
+        if($request->post('skor_kompetensi')) $usulan_topik->skor_kompetensi = $request->post('skor_kompetensi');
         $usulan_topik->usulan_topik = $request->post('usulan_topik');
         $usulan_topik->usulan_judul = $request->post('usulan_judul');
         $usulan_topik->alternatif_judul = $request->post('alternatif_judul');
@@ -261,7 +293,8 @@ class PendaftarUsulanTopikController extends Controller
         $mahasiswa->save();
 
         $id_periode = $usulan_topik->id_periode_daftar_usulan_topik;
-
+        
+        $this->hapusFile($usulan_topik);
         $usulan_topik->delete();
         Session::flash('pesan', '1 Pendaftar Usulan Topik Berhasil Dihapus');
         if(Session::has('mahasiswa')) return redirect('pendaftaran/usulan-topik');
@@ -575,5 +608,29 @@ class PendaftarUsulanTopikController extends Controller
         Session::flash('pesan', 'Anda berhasil menginput 1 mahasiswa');
         return redirect('pendaftaran/usulan-topik/periode/' . $request->post('id_periode_daftar_usulan_topik'));
     }
+
+    private function uploadFile(Request $request){
+        $file = $request->file('file_sertifikat_kompetensi');
+        $ext = $file->getClientOriginalExtension();
+        if($request->file('file_sertifikat_kompetensi')->isValid()){
+          $file_name = date('YmdHis').".$ext";
+          $upload_path = 'assets/sertifikat-kompetensi';
+          $request->file('file_sertifikat_kompetensi')->move($upload_path, $file_name);
+          return $file_name;
+        }
+        return false;
+    }
+
+    private function hapusFile($pendaftar){
+      $file = 'assets/sertifikat-kompetensi/'.$pendaftar->file_sertifikat_kompetensi;
+      if(file_exists($file) && isset($pendaftar->file_sertifikat_kompetensi)){
+      $delete = unlink($file);
+        if($delete){
+          return true;
+        }
+        return false;
+      }
+    }
+
 
 }

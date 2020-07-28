@@ -45,7 +45,7 @@
                             <dt>Tahapan Penelitian</dt>
                             <dd>{!! $pendaftar->tahapan_penelitian !!}</dd>
 
-                            <dt>Tahapan Berkas</dt>
+                            <dt>Tahapan Berkas (dari Admin)</dt>
                             <dd>
                                 @if($pendaftar->tahapan === 'ditolak')
                                 <span class="text-danger"> <i class="fa fa-ban"></i> Ditolak </span>

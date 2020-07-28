@@ -1208,6 +1208,48 @@
     
     </nav>
 
+<!-- filter menu ujian kerja praktek -->
+@elseif(Request::segment('1') === 'nilai-ujian' && isset($filter_ujian_kp))
+    <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
+    
+        <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
+
+        <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
+
+        <button class="navbar-toggler d-lg-none border-0 text-dark small" type="button" data-toggle="collapse" data-target="#filterBottom"><span class="fa fa-search fa-sm small"></span> <small style="font-size: .8rem;">Cari</small> </button>
+
+        <div class="collapse navbar-collapse pb-2" id="filterBottom">
+            {!! Form::open(['url' => 'nilai-ujian/kerja-praktek/cari', 'method' => 'get']) !!}
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <label for="">Nama</label>
+                        {!! Form::text('nama', (!empty($nama) ? $nama : null), ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                            
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="">Angkatan</label>
+                        {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="">NIM</label>
+                        {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+            
+                <div class="form-row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
+                            Cari</button>
+                    </div>
+                </div>
+            
+            {!! Form::close() !!}
+        </div>
+    
+    </nav>
+
 <!-- filter menu jadwal ujian -->
 @elseif(Request::segment('1') === 'jadwal-ujian' && isset($filter_jadwal_ujian))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
@@ -1250,10 +1292,13 @@
                 </div>
             
                 <div class="form-row">
-                    <div class="col-12">
+                    <div class="col-7">
                         <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
                             Cari</button>
                     </div>
+                    <div class="col-5">
+                                    <a href="{{ url('jadwal-ujian/'. $tahun . '-' . $bulan .'/export')  }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
+                                </div>
                 </div>
             
             {!! Form::close() !!}
@@ -1770,6 +1815,44 @@
             var fileName = e.target.files[0].name;
             $('#targetTiga').html(fileName);
         });
+
+        // form pendaftar ujian
+        $("#judulLaporanKp").hide();
+        $(".formToefl").hide();
+        
+        $("#formUjian" ).change(function() {
+            let formUjian = $("#formUjian").val();
+            
+            if(formUjian === 'kerja-praktek'){
+                $("#judulLaporanKp").show(2000);
+                $(".formToefl").hide(2000);
+            }else if(formUjian === 'proposal'){
+                $("#judulLaporanKp").hide(2000);
+                $(".formToefl").hide(2000);
+            }else if(formUjian === 'hasil'){
+                $("#judulLaporanKp").hide(2000);
+                $(".formToefl").hide(2000);
+            }else if(formUjian === 'sidang-skripsi'){
+                $("#judulLaporanKp").hide(2000);
+                $(".formToefl").show(2000);
+            }
+        });
+
+            let formUjian = $("#formUjian").val();
+            if(formUjian === 'kerja-praktek'){
+                $("#judulLaporanKp").show(2000);
+                $(".formToefl").hide(2000);
+            }else if(formUjian === 'proposal'){
+                $("#judulLaporanKp").hide(2000);
+                $(".formToefl").hide(2000);
+            }else if(formUjian === 'hasil'){
+                $("#judulLaporanKp").hide(2000);
+                $(".formToefl").hide(2000);
+            }else if(formUjian === 'sidang-skripsi'){
+                $("#judulLaporanKp").hide(2000);
+                $(".formToefl").show(2000);
+            }
+
     });
     </script>
     

@@ -67,7 +67,7 @@
                             <dt>Dosen Pendamping Akademik</dt>
                             <dd>{{ !empty($pendaftar->mahasiswa->dosen->nama) ? $pendaftar->mahasiswa->dosen->nama : '-' }}</dd>
                         
-                            <dt>Tahapan Berkas</dt>
+                            <dt>Tahapan Berkas (dari Admin)</dt>
                             @if($pendaftar->tahapan === 'diperiksa')
                             <dd class="text-dark text-capitalize"><i class="fa fa-hourglass-half"></i> Diperiksa</dd>
                             @elseif($pendaftar->tahapan === 'diterima')
@@ -78,9 +78,10 @@
                             <span class="text-danger text-capitalize"><i class="fa fa-ban"></i> Dibatalkan</span>
                             @endif
                             
-                            <dt>Keterangan Validasi</dt>
+                            <dt>Keterangan Validasi (dari Admin) </dt>
                             <dd class="text-dark">{{ $pendaftar->keterangan }}</dd>
 
+                        @if($pengaturan->scan_persetujuan_kantor !== 'hilangkan')
                             <!-- file laporan -->
                             <dt>File Lembar Persetujuan 
                                 @if(isset($pendaftar->file_lembar_persetujuan))
@@ -96,7 +97,8 @@
                             @else
                             <dd><span class="fa fa-info-circle"></span> Belum ada data</dd>
                             @endif
-
+                        @endif
+                        
                             <dt>Waktu Daftar</dt>
                             <dd>{{ selisih_waktu($pendaftar->created_at) }}</dd>                       
                         </dl>

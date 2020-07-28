@@ -83,6 +83,7 @@ Route::prefix('jadwal-ujian')->group(function(){
     Route::get('tambah-peserta/{id}', 'JadwalUjianController@createPeserta');
     Route::get('cetak/{tanggal}', 'JadwalUjianController@cetak');
     Route::get('{tanggal}/cari', 'JadwalUjianController@jadwalByTanggalCari');
+    Route::get('{tanggal}/export', 'JadwalUjianController@jadwalByTanggalExport');
     Route::get('{tanggal}', 'JadwalUjianController@jadwalByTanggal');
     Route::delete('jadwal-ujian/peserta/{id}', 'JadwalUjianController@destroyPeserta');
     Route::get('detail/{id}', 'JadwalUjianController@show');
@@ -247,14 +248,17 @@ Route::prefix('pengaturan')->group(function()
         Route::delete('{id}', 'PengaturanController@destroyProdiKp');
     });
 
-    // minimal referensi utama
-    Route::patch('referensi-utama/{id}', 'PengaturanController@updateReferensiUtama');
+    // usulan topik
+    Route::patch('usulan-topik/{id}', 'PengaturanController@updateUsulanTopik');
 
     // maximal file upload
     Route::patch('max-file/{id}', 'PengaturanController@updateMaxFile');
 
-    // panduan
-    Route::patch('panduan/{id}', 'PengaturanController@updatePanduan');
+    // turun kp
+    Route::patch('turun-kp/{id}', 'PengaturanController@updateTurunKp');
+
+    // ujian
+    Route::patch('ujian/{id}', 'PengaturanController@updateUjian');
 
     // penilaian
     Route::prefix('penilaian')->group(function(){
@@ -402,7 +406,10 @@ Route::prefix('nilai-ujian')->group(function(){
     Route::get('skripsi/cari', 'PenilaianController@indexSkripsiCari');
     Route::get('skripsi/export', 'PenilaianController@indexSkripsiExport');
     Route::get('skripsi', 'PenilaianController@indexSkripsi');
+
+    Route::get('kerja-praktek/cari', 'PenilaianController@indexKerjaPraktekCari');
     Route::get('kerja-praktek', 'PenilaianController@indexKerjaPraktek');
+    
     Route::get('dosen/cari', 'PenilaianController@dosenCari');
     Route::get('dosen/export', 'PenilaianController@dosenExport');
     

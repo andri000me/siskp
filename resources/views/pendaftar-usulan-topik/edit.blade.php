@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="card-body border-bottom py-2">
-                        {!! Form::model($usulan_topik, ['method' => 'patch', 'action' =>   ['PendaftarUsulanTopikController@update', $usulan_topik->id]]) !!}
+                        {!! Form::model($usulan_topik, ['method' => 'patch', 'files' => true, 'action' =>   ['PendaftarUsulanTopikController@update', $usulan_topik->id]]) !!}
                             @include('pendaftar-usulan-topik.form')
                         {!! Form::close() !!}
                     </div>

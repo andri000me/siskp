@@ -45,10 +45,10 @@ class PendaftarUjianExport implements FromQuery, WithMapping, WithHeadings, Shou
         return [
             !empty($data->mahasiswa->nim) ? $data->mahasiswa->nim : '-',
             !empty($data->mahasiswa->nama) ? $data->mahasiswa->nama : '-',
-            !empty($data->mahasiswa->pendaftarUsulanTopik->pluck('usulan_judul')->last()) ? $data->mahasiswa->pendaftarUsulanTopik->pluck('usulan_judul')->last() : '-',
+            ucwords($data->ujian),
+            ($data->ujian !== 'kerja-praktek') ? $data->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul : $data->mahasiswa->pendaftarUjian->last()->judul_laporan_kp,
             !empty($data->mahasiswa->angkatan) ? $data->mahasiswa->angkatan : '-',
             !empty($data->mahasiswa->prodi->nama) ? $data->mahasiswa->prodi->nama : '-',
-            $data->ujian,
             $data->tahapan,
             !empty($data->periodeDaftarUjian->nama) ? $data->periodeDaftarUjian->nama : '-',
             'Hari ' . $data->created_at->formatLocalized("%A, %d %B %Y") . ' Pukul ' . $data->created_at->formatLocalized("%H:%M:%S") . ' WITA'
@@ -60,10 +60,10 @@ class PendaftarUjianExport implements FromQuery, WithMapping, WithHeadings, Shou
         return [
             'NIM',
             'Nama',
-            'Judul Skripsi',
+            'Ujian',
+            'Judul',
             'Angkatan',
             'Program Studi',
-            'Ujian',
             'Tahapan',
             'Periode',
             'Waktu Upload'

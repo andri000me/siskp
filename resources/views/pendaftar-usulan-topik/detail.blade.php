@@ -91,7 +91,28 @@
                             <dt>Periode Usulan Topik</dt>
                             <dd>{{ !empty($usulan_topik->periodeDaftarUsulanTopik->nama) ? $usulan_topik->periodeDaftarUsulanTopik->nama : '-' }}</dd>
 
-                            <dt>Tahapan Berkas</dt>
+                        @if($pengaturan->skor_sertifikat_kompetensi !== 'hilangkan')
+                            <dt>Skor Kompetensi Keahlian</dt>
+                            <dd>{{ !empty($usulan_topik->skor_kompetensi) ? $usulan_topik->skor_kompetensi : '-' }}</dd>
+
+                            <!-- file laporan -->
+                            <dt>File Sertifikat Keahlian
+                                @if(isset($usulan_topik->file_sertifikat_kompetensi))
+                            <small><a href="{{ asset('assets/sertifikat-kompetensi/'.$usulan_topik->file_sertifikat_kompetensi) }}">Download</a> </small> 
+                            @endif
+                            </dt>
+                            <!-- Jika file ada -->
+                            @if(isset($usulan_topik->file_sertifikat_kompetensi))
+                            <dd class="embed-responsive"  style="height: 75vh">
+                                <embed src="{{ asset('assets/sertifikat-kompetensi/'.$usulan_topik->file_sertifikat_kompetensi) }}" type="application/pdf">
+                            </dd>
+                            <!-- jika file kosong -->
+                            @else
+                            <dd><span class="fa fa-info-circle"></span> Belum ada data</dd>
+                            @endif
+                        @endif
+
+                            <dt>Tahapan Berkas (dari Admin)</dt>
                             @if($usulan_topik->tahapan === 'diperiksa')
                             <dd class="text-dark text-capitalize"><i class="fa fa-hourglass-half"></i> Diperiksa</dd>
                             @elseif($usulan_topik->tahapan === 'diterima')
@@ -102,7 +123,7 @@
                             <span class="text-danger text-capitalize"><i class="fa fa-ban"></i> Dibatalkan</span>
                             @endif
                             
-                            <dt>Keterangan Validasi</dt>
+                            <dt>Keterangan Validasi (dari Admin)</dt>
                             <dd class="text-dark">{{ $usulan_topik->keterangan }}</dd>
 
                             <!-- referensi utama -->

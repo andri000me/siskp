@@ -70,7 +70,7 @@
                                 <p class="my-0 py-0 text-capitalize text-truncate">
                                     {{ str_replace('-', ' ', $pendaftar->ujian) }} <br>
                                     
-                                    {{ !empty($pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul) ? $pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul : '-'}}<br>
+                                    {{ ($pendaftar->ujian === 'kerja-praktek') ? $pendaftar->judul_laporan_kp :  $pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul}}<br>
                                     
                                     @if($pendaftar->tahapan === 'diperiksa')
                                         <span class="text-dark"> <i class="fa fa-hourglass-half"></i> Diperiksa</span>
@@ -98,7 +98,7 @@
                             <!-- menu large -->
                             <div class="col-1 dropdown dropleft text-center d-none d-lg-flex justify-content-center align-items-center">
                                 <a class="text-info small" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}">
-                                    <span class="fa fa-info-circle fa-lg"></span> Detail
+                                    <span class="fa fa-info-circle fa-lg"></span> &nbsp; Detail
                                 </a>
                             </div>
                         </div>
@@ -148,7 +148,10 @@
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-info mx-0 px-0 small" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}"><span class="fa fa-info-circle"></span>&nbsp; Detail</a></li>
                                         
                                         @if($pendaftar->tahapan === 'diperiksa')
+                                        
+                                        {{--
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-success mx-0 px-0 small" href="{{ url('pendaftaran/ujian/'. $pendaftar->id .'/edit') }}"><span class="fa fa-edit"></span>&nbsp; Edit</a></li>
+                                        --}}
 
                                         <li class="nav-item mx-0 px-0"><a class="nav-link text-danger mx-0 px-0 small" data-toggle="modal" data-target="#modal{{ $i }}"><span class="fa fa-trash"></span>&nbsp;Hapus</a></li>    
                                         @endif
@@ -170,8 +173,11 @@
                                             <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/'.$pendaftar->id) }}"><i class="fa fa-fw fa-info-circle"></i> Detail</a></p>
 
                                             @if($pendaftar->tahapan === 'diperiksa')
+                                            
+                                            {{--
                                             <p><a class="d-block text-dark" href="{{ url('pendaftaran/ujian/'. $pendaftar->id .'/edit') }}"><i class="fa fa-fw fa-edit"></i> Edit</a></p>
-
+                                            --}}
+                                            
                                             <p><a class="d-block text-danger" style="cursor:pointer" data-toggle="modal" data-target="#modal{{ $i }}" data-dismiss="modal"><i class="fa fa-fw fa-trash"></i> Hapus</a></p>
                                             @endif
 

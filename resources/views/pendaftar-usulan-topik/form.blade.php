@@ -76,7 +76,32 @@
                                     {!! Form::textarea('tahapan_penelitian', null, ['class' => 'form-control borang' ]) !!}
                                 </div>
                             </div>
+                        
+                        @if($pengaturan->skor_sertifikat_kompetensi !== 'hilangkan')
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                    <label>Skor Kompetensi<sup>5</sup> </label>
+                                    {!! Form::text('skor_kompetensi', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    <small class="form-text text-muted">
+                                        <sup>5</sup> Skor nilai yang anda dapatkan saat mengikuti ujian kompetensi
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                    <label> Scan Sertifikat Kompetensi<sup>6</sup> </label>
+                                    <div class="custom-file">
+                                        <label class="custom-file-label" id="targetSatu"> Pilih File </label>
+                                        {!! Form::file('file_sertifikat_kompetensi', ['class' => 'custom-file-input', 'id' => 'fileSatu']) !!}
+                                        <small class="form-text text-muted">
+                                            <sup>6</sup> ({{ ucwords($pengaturan->skor_sertifikat_kompetensi) }}) Sertifikat yang anda dapatkan saat mengikuti ujian kompetensi, bertipe .pdf & ukuran max {{ $pengaturan->max_file_upload / 1024 }} Mb
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
+                            <hr>
                         @if(!empty($usulan_topik))
                             <?php $i=1 ?>
                             @foreach($usulan_topik->referensiUtama as $referensi)

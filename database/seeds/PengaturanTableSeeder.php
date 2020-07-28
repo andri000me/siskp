@@ -10,8 +10,7 @@ class PengaturanTableSeeder extends Seeder
             [
                 'min_referensi_utama' => '3',
                 
-                'max_file_upload' => '10240',
-                'panduan_siskp' => 'Panduan-SISKP.pdf',
+                'max_file_upload' => '8192',
                 
                 'created_at' => now(),
                 'updated_at' => now()

@@ -121,10 +121,13 @@
                                 2). {{ !empty($pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama) ? $pendaftar->mahasiswa->dosenPembimbingSkripsi->last()->dosbingDuaSkripsi->nama : '-'}} <br>
                             </dd>
                         @else
+                            <dt>Judul Laporan</dt>
+                            <dd>{{ !empty($pendaftar->judul_laporan_kp) ? $pendaftar->judul_laporan_kp : '-' }}</dd>
+
                             <dt>Instansi</dt>
                             <dd>{{ !empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi) ? $pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi : $pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi }}</dd>
 
-                            <dt>Alamat</dt>
+                            <dt>Alamat Instansi</dt>
                             <dd>{{ !empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->alamat) ? $pendaftar->mahasiswa->pendaftarTurunKp->last()->alamat : '-' }}</dd>
 
                             <dt>Dosen Pembimbing Kerja Praktek</dt>
@@ -134,7 +137,7 @@
                             </dd>
                         @endif
 
-                            <dt>Tahapan Berkas</dt>
+                            <dt>Tahapan Berkas (dari Admin)</dt>
                             @if($pendaftar->tahapan === 'diperiksa')
                             <dd class="text-dark text-capitalize"><i class="fa fa-hourglass-half"></i> Diperiksa</dd>
                             @elseif($pendaftar->tahapan === 'diterima')
@@ -145,9 +148,31 @@
                             <span class="text-danger text-capitalize"><i class="fa fa-ban"></i> Dibatalkan</span>
                             @endif
                             
-                            <dt>Keterangan Validasi</dt>
+                            <dt>Keterangan Validasi (dari Admin)</dt>
                             <dd class="text-dark">{{ $pendaftar->keterangan }}</dd>
 
+                        @if($pengaturan->skor_sertifikat_toefl !== 'hilangkan' && $pendaftar->ujian === 'sidang-skripsi')
+                            <dt>Skor TOEFL</dt>
+                            <dd class="text-dark">{{ $pendaftar->skor_toefl }}</dd>
+
+                            <!-- file sertifikat toefl -->
+                            <dt>File Sertifikat TOEFL 
+                                @if(isset($pendaftar->file_sertifikat_toefl))
+                            <small><a href="{{ asset('assets/sertifikat-toefl/'.$pendaftar->file_sertifikat_toefl) }}">Download</a> </small> 
+                            @endif
+                            </dt>
+                            <!-- Jika file ada -->
+                            @if(isset($pendaftar->file_sertifikat_toefl))
+                            <dd class="embed-responsive"  style="height: 75vh">
+                                <embed src="{{ asset('assets/sertifikat-toefl/'.$pendaftar->file_sertifikat_toefl) }}" type="application/pdf">
+                            </dd>
+                            <!-- jika file kosong -->
+                            @else
+                            <dd><span class="fa fa-info-circle"></span> Belum ada data</dd>
+                            @endif
+                        @endif
+                        
+                        @if($pengaturan->file_laporan !== 'hilangkan')
                             <!-- file laporan -->
                             <dt>File Laporan 
                                 @if(isset($pendaftar->file_laporan))
@@ -163,7 +188,9 @@
                             @else
                             <dd><span class="fa fa-info-circle"></span> Belum ada data</dd>
                             @endif
+                        @endif
 
+                        @if($pengaturan->persetujuan_ujian !== 'hilangkan')
                             <!-- file lembar persetujuan -->
                             <dt>File Scan Lembar Persetujuan 
                                 @if(isset($pendaftar->file_lembar_persetujuan))
@@ -179,6 +206,7 @@
                             @else
                             <dd><span class="fa fa-info-circle"></span> Belum ada data</dd>
                             @endif
+                        @endif
 
                         @if($plagiasi)
                             <!-- persentase plagiasi -->

@@ -101,10 +101,15 @@ class PendaftarTurunKpController extends Controller
 
         $pengaturan = \App\Pengaturan::find(1);
 
+        if($pengaturan->scan_persetujuan_kantor === 'wajib') $validasi_scan_persetujuan_kantor = 'required';
+        elseif($pengaturan->scan_persetujuan_kantor === 'tidak-wajib' || $pengaturan->scan_persetujuan_kantor === 'hilangkan'){
+          $validasi_scan_persetujuan_kantor = 'sometimes';
+        }
+         
         $validasi = Validator::make($request->all(), [
             'instansi' => 'required|string',
             'alamat' => 'required|string',
-            'file_lembar_persetujuan' => 'sometimes|mimes:pdf|max:' . $pengaturan->max_file_upload
+            'file_lembar_persetujuan' => $validasi_scan_persetujuan_kantor . '|mimes:pdf|max:' . $pengaturan->max_file_upload
         ]);
 
         if($validasi->fails()){
@@ -182,10 +187,15 @@ class PendaftarTurunKpController extends Controller
 
         $pengaturan = \App\Pengaturan::find(1);
 
+        if($pengaturan->scan_persetujuan_kantor === 'wajib') $validasi_scan_persetujuan_kantor = 'required';
+        elseif($pengaturan->scan_persetujuan_kantor === 'tidak-wajib' || $pengaturan->scan_persetujuan_kantor === 'hilangkan'){
+          $validasi_scan_persetujuan_kantor = 'sometimes';
+        }
+
         $validasi = Validator::make($request->all(), [
             'instansi' => 'required|string',
             'alamat' => 'required|string',
-            'file_lembar_persetujuan' => 'sometimes|mimes:pdf|max:' . $pengaturan->max_file_upload
+            'file_lembar_persetujuan' => $validasi_scan_persetujuan_kantor . '|mimes:pdf|max:' . $pengaturan->max_file_upload
         ]);
 
         if($validasi->fails()){
@@ -228,7 +238,8 @@ class PendaftarTurunKpController extends Controller
     public function show($id)
     {
         $pendaftar = PendaftarTurunKp::findOrFail($id);
-        return view('pendaftar-turun-kp.detail', compact('pendaftar'));
+        $pengaturan = \App\Pengaturan::find(1);
+        return view('pendaftar-turun-kp.detail', compact('pendaftar', 'pengaturan'));
     }
 
     // mahasiswa & pimpinan
@@ -243,6 +254,7 @@ class PendaftarTurunKpController extends Controller
         $id_periode = $pendaftar->id_periode_daftar_turun_kp;
 
         $this->hapusFile($pendaftar);
+        
         $pendaftar->delete();
         Session::flash('pesan', 'Pendaftaran Turun Kerja Praktek Berhasil Dihapus');
         if(Session::has('mahasiswa')) return redirect('pendaftaran/turun-kp');

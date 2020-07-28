@@ -254,13 +254,14 @@ class PengaturanController extends Controller
         return redirect('pengaturan/prodi');
     }
 
-    // total referensi utama
-    public function updateReferensiUtama(Request $request, $id)
+    // usulan topik
+    public function updateUsulanTopik(Request $request, $id)
     {
         $pengaturan = Pengaturan::findOrFail($id);
         $pengaturan->min_referensi_utama = $request->post('min_referensi_utama');
+        $pengaturan->skor_sertifikat_kompetensi = $request->post('skor_sertifikat_kompetensi');
         $pengaturan->save();
-        Session::flash('pesan', 'Minimal Referensi Utama berhasil diupdate');
+        Session::flash('pesan', 'Pengaturan Usulan Topik berhasil diupdate');
         return redirect('pengaturan/umum');
     }
 
@@ -275,52 +276,26 @@ class PengaturanController extends Controller
     }
 
     // pimpinan
-    public function updatePanduan(Request $request, $id)
+    public function updateTurunKp(Request $request, $id)
     {
-        $pengaturan = \App\Pengaturan::find($id);
-
-        $validasi = Validator::make($request->all(), [
-          'panduan_siskp' => 'required|mimes:pdf|max:' . $pengaturan->max_file_upload
-        ]);        
-
-        if($validasi->fails()){
-          return redirect()->back()->withInput()->withErrors($validasi);
-        }
-
-        $input = $request->all();
-        
-        if($request->hasFile('panduan_siskp')){
-            $this->hapusPanduan($pengaturan);
-            $input['panduan_siskp'] = $this->uploadPanduan($request);
-        }
-
-        $pengaturan->update($input);
-        
-        Session::flash('pesan', 'Panduan SISKP Berhasil Diperbaharui!');
-        return redirect()->back();
+        $pengaturan = Pengaturan::findOrFail($id);
+        $pengaturan->scan_persetujuan_kantor = $request->post('scan_persetujuan_kantor');
+        $pengaturan->save();
+        Session::flash('pesan', 'Pengaturan Turun Kerja Praktek berhasil diupdate');
+        return redirect('pengaturan/umum');
     }
 
-    private function uploadPanduan(Request $request){
-        $file = $request->file('panduan_siskp');
-        $ext = $file->getClientOriginalExtension();
-        if($request->file('panduan_siskp')->isValid()){
-          $file_name = 'Panduan-SISKP-' . date('F') . '-' . date('Y') . ".$ext";
-          $upload_path = 'assets/panduan';
-          $request->file('panduan_siskp')->move($upload_path, $file_name);
-          return $file_name;
-        }
-        return false;
+    // pimpinan
+    public function updateUjian(Request $request, $id)
+    {
+        $pengaturan = Pengaturan::findOrFail($id);
+        $pengaturan->skor_sertifikat_toefl = $request->post('skor_sertifikat_toefl');
+        $pengaturan->file_laporan = $request->post('file_laporan');
+        $pengaturan->persetujuan_ujian = $request->post('persetujuan_ujian');
+        $pengaturan->save();
+        Session::flash('pesan', 'Pengaturan Ujian berhasil diupdate');
+        return redirect('pengaturan/umum');
     }
 
-    private function hapusPanduan($panduan){
-      $file = 'assets/panduan/'.$panduan->panduan_siskp;
-      if(file_exists($file) && isset($panduan->panduan_siskp)){
-      $delete = unlink($file);
-        if($delete){
-          return true;
-        }
-        return false;
-      }
-    }
 
 }

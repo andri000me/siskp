@@ -20,7 +20,7 @@
                         @if($pendaftar->ujian !== 'kerja-praktek')
                             Judul: {{ !empty($pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul) ? $pendaftar->mahasiswa->pendaftarUsulanTopik->last()->usulan_judul : '-' }}.
                         @else
-                            Instansi: {{ !empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi) ? $pendaftar->mahasiswa->pendaftarTurunKp->last()->instansi : $pendaftar->mahasiswa->dosenPembimbingKp->last()->lokasi }}.
+                            Judul: {{ $pendaftar->judul_laporan_kp }}.
                         @endif
                         @if($pendaftar->tahapan === 'ditolak')
                         <br> <span class="text-danger"> <i class="fa fa-ban"></i> Ditolak </span>

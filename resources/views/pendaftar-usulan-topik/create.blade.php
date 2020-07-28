@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="card-body border-bottom py-2">
-                        {!! Form::open(['url' => 'pendaftaran/usulan-topik']) !!}
+                        {!! Form::open(['url' => 'pendaftaran/usulan-topik', 'files' => true]) !!}
                             {{ csrf_field() }}
                             {!! Form::hidden('id_periode_daftar_usulan_topik', Request::get('id')) !!}
                             @include('pendaftar-usulan-topik.form')

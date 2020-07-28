@@ -82,17 +82,46 @@ class PendaftarUjianController extends Controller
     public function store(Request $request)
     {
         $pengaturan = \App\Pengaturan::find(1);
-
         $id_periode = $request->get('id');
+
+        if($pengaturan->file_laporan === 'wajib') $validasi_file_laporan = 'required';
+        elseif($pengaturan->file_laporan === 'tidak-wajib' || $pengaturan->file_laporan === 'hilangkan'){
+          $validasi_file_laporan = 'sometimes';
+        }
+
+        if($pengaturan->persetujuan_ujian === 'wajib') $validasi_persetujuan_ujian = 'required';
+        elseif($pengaturan->persetujuan_ujian === 'tidak-wajib' || $pengaturan->persetujuan_ujian === 'hilangkan'){
+          $validasi_persetujuan_ujian = 'sometimes';
+        }
 
         $validasi = Validator::make($request->all(), [
           'ujian' => 'required|in:proposal,hasil,kerja-praktek,sidang-skripsi',
-          'file_laporan' => 'sometimes|mimes:pdf|max:' . $pengaturan->max_file_upload,
-          'file_lembar_persetujuan' => 'sometimes|mimes:pdf|max:' . $pengaturan->max_file_upload
+          'file_laporan' => $validasi_file_laporan . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
+          'file_lembar_persetujuan' => $validasi_persetujuan_ujian . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
         ]);        
 
         if($validasi->fails()){
           return redirect()->back()->withInput()->withErrors($validasi);
+        }
+
+        if($request->post('ujian') === 'sidang-skripsi'){
+            if($pengaturan->skor_sertifikat_toefl === 'wajib') $validasi_skor_sertifikat_toefl = 'required';
+            elseif($pengaturan->skor_sertifikat_toefl === 'tidak-wajib' || $pengaturan->skor_sertifikat_toefl === 'hilangkan'){
+                $validasi_skor_sertifikat_toefl = 'sometimes';
+            }
+
+            $validasi = Validator::make($request->all(), [
+                'file_sertifikat_toefl' => $validasi_skor_sertifikat_toefl . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
+                'skor_toefl' => $validasi_skor_sertifikat_toefl . '|string'
+            ]);        
+
+            if($validasi->fails()){
+                return redirect()->back()->withInput()->withErrors($validasi);
+            }    
+        }
+
+        if($request->post('ujian') === 'kerja-praktek' && empty($request->post('judul_laporan_kp'))){
+            return redirect()->back()->with('kesalahan', 'Untuk mendaftar ujian kerja praktek, wajib memasukan judul laporan kerja praktek!');
         }
 
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
@@ -220,11 +249,17 @@ class PendaftarUjianController extends Controller
         if($request->hasFile('file_lembar_persetujuan')){
             $input['file_lembar_persetujuan'] = $this->uploadPersetujuan($request);
         }
+        if($request->hasFile('file_sertifikat_toefl')){
+            $input['file_sertifikat_toefl'] = $this->uploadSertifikat($request);
+        }
 
         $pendaftar = new PendaftarUjian;
         $pendaftar->ujian = $request->post('ujian');
         if($request->hasFile('file_lembar_persetujuan')) $pendaftar->file_lembar_persetujuan = $input['file_lembar_persetujuan'];
         if($request->hasFile('file_laporan')) $pendaftar->file_laporan = $input['file_laporan'];
+        if($request->hasFile('file_sertifikat_toefl')) $pendaftar->file_sertifikat_toefl = $input['file_sertifikat_toefl'];
+        if($request->post('skor_toefl')) $pendaftar->skor_toefl = $request->post('skor_toefl');
+        if($request->post('ujian') === 'kerja-praktek') $pendaftar->judul_laporan_kp = $request->post('judul_laporan_kp');
         $pendaftar->id_periode_daftar_ujian = $request->post('id_periode_daftar_ujian');
         $pendaftar->id_mahasiswa = $input['id_mahasiswa'];
         $pendaftar->save();
@@ -286,14 +321,44 @@ class PendaftarUjianController extends Controller
     {
         $pengaturan = \App\Pengaturan::find(1);
 
+        if($pengaturan->file_laporan === 'wajib') $validasi_file_laporan = 'required';
+        elseif($pengaturan->file_laporan === 'tidak-wajib' || $pengaturan->file_laporan === 'hilangkan'){
+          $validasi_file_laporan = 'sometimes';
+        }
+
+        if($pengaturan->persetujuan_ujian === 'wajib') $validasi_persetujuan_ujian = 'required';
+        elseif($pengaturan->persetujuan_ujian === 'tidak-wajib' || $pengaturan->persetujuan_ujian === 'hilangkan'){
+          $validasi_persetujuan_ujian = 'sometimes';
+        }
+
         $validasi = Validator::make($request->all(), [
           'ujian' => 'required|in:proposal,hasil,kerja-praktek,sidang-skripsi',
-          'file_laporan' => 'sometimes|mimes:pdf|max:'. $pengaturan->max_file_upload,
-          'file_lembar_persetujuan' => 'sometimes|mimes:pdf|max:'. $pengaturan->max_file_upload
+          'file_laporan' => $validasi_file_laporan . '|mimes:pdf|max:'. $pengaturan->max_file_upload,
+          'file_lembar_persetujuan' => $validasi_persetujuan_ujian . '|mimes:pdf|max:'. $pengaturan->max_file_upload
         ]);
 
         if($validasi->fails()){
           return redirect()->back()->withInput()->withErrors($validasi);
+        }
+
+        if($request->post('ujian') === 'sidang-skripsi'){
+            if($pengaturan->skor_sertifikat_toefl === 'wajib') $validasi_skor_sertifikat_toefl = 'required';
+            elseif($pengaturan->skor_sertifikat_toefl === 'tidak-wajib' || $pengaturan->skor_sertifikat_toefl === 'hilangkan'){
+                $validasi_skor_sertifikat_toefl = 'sometimes';
+            }
+
+            $validasi = Validator::make($request->all(), [
+                'file_sertifikat_toefl' => $validasi_skor_sertifikat_toefl . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
+                'skor_toefl' => $validasi_skor_sertifikat_toefl . '|string'
+            ]);        
+
+            if($validasi->fails()){
+                return redirect()->back()->withInput()->withErrors($validasi);
+            }    
+        }
+
+        if($request->post('ujian') === 'kerja-praktek' && empty($request->post('judul_laporan_kp'))){
+            return redirect()->back()->with('kesalahan', 'Untuk mendaftar ujian kerja praktek, wajib memasukan judul laporan kerja praktek!');
         }
 
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
@@ -353,12 +418,17 @@ class PendaftarUjianController extends Controller
           $this->hapusFile($pendaftar);
           $input['file_laporan'] = $this->uploadFile($request);
         }
-
         if($request->hasFile('file_lembar_persetujuan')){
           $this->hapusPersetujuan($pendaftar);
           $input['file_lembar_persetujuan'] = $this->uploadPersetujuan($request);
         }
-
+        if($request->hasFile('file_sertifikat_toefl')){
+            $this->hapusSertifikat($pendaftar);
+            $input['file_sertifikat_toefl'] = $this->uploadSertifikat($request);
+        }
+        if($request->post('skor_toefl')) $input['skor_toefl'] = $request->post('skor_toefl');
+        if($request->post('ujian') === 'kerja-praktek') $input['judul_laporan_kp'] = $request->post('judul_laporan_kp');
+        
         $pendaftar->update($input);
 
         Session::flash('pesan', 'Pendaftar Ujian Berhasil Diperbaharui!');
@@ -377,6 +447,9 @@ class PendaftarUjianController extends Controller
         $id_periode = $pendaftar->id_periode_daftar_ujian;
 
         $this->hapusFile($pendaftar);
+        $this->hapusPersetujuan($pendaftar);
+        $this->hapusSertifikat($pendaftar);
+
         $pendaftar->delete();
         Session::flash('pesan', 'Pendaftaran Ujian Berhasil Dihapus');
         if(Session::has('mahasiswa')) return redirect('pendaftaran/ujian');
@@ -535,6 +608,29 @@ class PendaftarUjianController extends Controller
     private function hapusPersetujuan($pendaftar){
       $file = 'assets/persetujuan-ujian/'.$pendaftar->file_lembar_persetujuan;
       if(file_exists($file) && isset($pendaftar->file_lembar_persetujuan)){
+      $delete = unlink($file);
+        if($delete){
+          return true;
+        }
+        return false;
+      }
+    }
+
+    private function uploadSertifikat(Request $request){
+        $file = $request->file('file_sertifikat_toefl');
+        $ext = $file->getClientOriginalExtension();
+        if($request->file('file_sertifikat_toefl')->isValid()){
+          $file_name = date('YmdHis').".$ext";
+          $upload_path = 'assets/sertifikat-toefl';
+          $request->file('file_sertifikat_toefl')->move($upload_path, $file_name);
+          return $file_name;
+        }
+        return false;
+    }
+
+    private function hapusSertifikat($pendaftar){
+      $file = 'assets/sertifikat-toefl/'.$pendaftar->file_sertifikat_toefl;
+      if(file_exists($file) && isset($pendaftar->file_sertifikat_toefl)){
       $delete = unlink($file);
         if($delete){
           return true;

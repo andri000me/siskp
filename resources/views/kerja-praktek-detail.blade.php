@@ -24,7 +24,7 @@
                             <dt>Alamat</dt>
                             <dd class="text-capitalize">{{ $pendaftar->alamat }}</dd>
 
-                            <dt>Tahapan Berkas</dt>
+                            <dt>Tahapan Berkas (dari Admin)</dt>
                             <dd>
                                 @if($pendaftar->tahapan === 'ditolak')
                                 <span class="text-danger"> <i class="fa fa-ban"></i> Ditolak </span>

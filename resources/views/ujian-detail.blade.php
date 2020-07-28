@@ -24,6 +24,10 @@
 
                             <dt>Alamat</dt>
                             <dd>{{ !empty($pendaftar->mahasiswa->pendaftarTurunKp->last()->alamat) ? $pendaftar->mahasiswa->pendaftarTurunKp->last()->alamat : '-' }}</dd>
+                            
+                            <dt>Judul Laporan</dt>
+                            <dd>{{ $pendaftar->judul_laporan_kp }}</dd>
+
                             @endif
 
                             <dt>Dosen Pendamping Akademik</dt>

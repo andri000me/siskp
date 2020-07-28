@@ -11,14 +11,35 @@ class CreatePengaturanTable extends Migration
         Schema::create('pengaturan', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            // total referensi jurnal terkait
-            $table->string('min_referensi_utama', 3);
-
-            // max size file laporan
             $table->string('max_file_upload', 10);
 
-            // panduan siskp
-            $table->string('panduan_siskp', 100);
+            // pendaftar usulan topik
+            $table->string('min_referensi_utama', 3);
+
+            $table->enum('skor_sertifikat_kompetensi', [
+                'wajib', 'tidak-wajib', 'hilangkan'
+            ])->default('hilangkan');
+
+
+            // pendaftar turun kp 
+            $table->enum('scan_persetujuan_kantor', [
+                'wajib', 'tidak-wajib', 'hilangkan'
+            ])->default('hilangkan');
+            
+
+            // pendaftar ujian
+            $table->enum('skor_sertifikat_toefl', [
+                'wajib', 'tidak-wajib', 'hilangkan'
+            ])->default('hilangkan');
+
+            $table->enum('file_laporan', [
+                'wajib', 'tidak-wajib', 'hilangkan'
+            ])->default('hilangkan');
+
+            $table->enum('persetujuan_ujian', [
+                'wajib', 'tidak-wajib', 'hilangkan'
+            ])->default('hilangkan');
+
 
             $table->timestamps();
         });

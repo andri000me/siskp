@@ -122,11 +122,57 @@ class PenilaianController extends Controller
     // pimpinan
     public function indexKerjaPraktek()
     {
-        $daftar_nilai_kp = NilaiUjianKp::orderBy('id', 'desc')->paginate(10);
-        $total = NilaiUjianKp::all()->count();
+        $daftar_nilai_kp = \App\JadwalUjian::where('ujian', 'kerja-praktek')->orderBy('id', 'desc')->paginate(10);
+        $total = \App\JadwalUjian::where('ujian', 'kerja-praktek')->count();
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
+        $filter_ujian_kp = true;
 
-        return view('penilaian.index-kerja-praktek', compact('daftar_nilai_kp', 'total', 'daftar_prodi'));
+        return view('penilaian.index-kerja-praktek', compact('daftar_nilai_kp', 'total', 'daftar_prodi', 'filter_ujian_kp'));
+    }
+
+    // pimpinan
+    public function indexKerjaPraktekCari(Request $request)
+    {
+        $nama = trim($request->input('nama'));
+        $nim = trim($request->input('nim'));
+        $angkatan = trim($request->input('angkatan'));
+
+      if(!empty($nama) || !empty($nim) || !empty($angkatan)){
+
+          if(!empty($nama)){
+            $query = \App\JadwalUjian::with('mahasiswa')->where('ujian', 'kerja-praktek')->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+                $query->where('nama', 'like', '%' . $nama . '%');
+                (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
+                (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+            });
+          }elseif(!empty($nim)){
+            $query = \App\JadwalUjian::with('mahasiswa')->where('ujian', 'kerja-praktek')->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+                $query->where('nim', 'like', '%' . $nim . '%');
+                (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($angkatan)) ? $query->where('angkatan', $angkatan) : '';
+            });
+          }elseif(!empty($angkatan)){
+            $query = \App\JadwalUjian::with('mahasiswa')->where('ujian', 'kerja-praktek')->whereHas('mahasiswa', function ($query) use ($nim, $nama, $angkatan){
+                $query->where('angkatan', $angkatan);
+                (!empty($nama)) ? $query->where('nama', 'like', '%' . $nama . '%') : '';
+                (!empty($nim)) ? $query->where('nim', 'like', '%' . $nim . '%') : '';
+            });
+          }
+
+          $total = $query->count();
+          $daftar_nilai_kp = $query->paginate(10);
+
+          $pagination = (!empty($nama)) ? $daftar_nilai_kp->appends(['nama' => $nama]) : '';
+          $pagination = (!empty($nim)) ? $daftar_nilai_kp->appends(['nim' => $nim]) : '';
+          $pagination = (!empty($angkatan)) ? $daftar_nilai_kp->appends(['angkatan' => $angkatan]) : '';
+          $pagination = $daftar_nilai_kp->appends($request->except('page'));
+
+        
+        $filter_ujian_kp = true;
+        
+        return view('penilaian.index-kerja-praktek', compact('daftar_nilai_kp', 'total', 'pagination', 'nama', 'nim', 'angkatan', 'filter_ujian_kp'));
+      }
+        return redirect('nilai-ujian/kerja-praktek/');
     }
 
     // dosen

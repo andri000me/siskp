@@ -18,8 +18,11 @@
                             {!! Form::hidden('id_mahasiswa', $jadwal->id_mahasiswa) !!}
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label>Judul</label>
-                                    {!! Form::textarea('judul', null, ['class' => 'form-control', 'style' => 'height:80px', 'required' => 'required']) !!}
+                                    <label>Judul</label> <br>
+                                    <label class="font-weight-bold">
+                                    {!! !empty($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null; })->last()->judul_laporan_kp) ? $jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->last()->judul_laporan_kp : $jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->first()->judul_laporan_kp !!}
+                                    </label>
+                                    {!! Form::hidden('judul', !empty($jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null; })->last()->judul_laporan_kp) ? $jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->last()->judul_laporan_kp : $jadwal->mahasiswa->pendaftarUjian->filter(function ($value, $key) { return $value !== null;})->first()->judul_laporan_kp) !!}
                                 </div>
                             </div>
 

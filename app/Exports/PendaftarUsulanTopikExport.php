@@ -51,6 +51,7 @@ class PendaftarUsulanTopikExport implements FromQuery, WithMapping, WithHeadings
             $data->usulan_judul,
             $data->tahapan,
             !empty($data->periodeDaftarUsulanTopik->nama) ? $data->periodeDaftarUsulanTopik->nama : '-',
+            $data->mahasiswa->dosen->nama,
             'Hari ' . $data->created_at->formatLocalized("%A, %d %B %Y") . ' Pukul ' . $data->created_at->formatLocalized("%H:%M:%S") . ' WITA'
         ];
     }
@@ -66,6 +67,7 @@ class PendaftarUsulanTopikExport implements FromQuery, WithMapping, WithHeadings
             'Judul Skripsi',
             'Tahapan',
             'Periode',
+            'Pendamping Akademik',
             'Waktu Upload'
         ];
     }

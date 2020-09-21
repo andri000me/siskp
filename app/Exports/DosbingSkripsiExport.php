@@ -50,7 +50,8 @@ class DosbingSkripsiExport implements FromQuery, WithMapping, WithHeadings, Shou
             !empty($data->mahasiswa->pendaftarUsulanTopik->pluck('usulan_judul')->last()) ? $data->mahasiswa->pendaftarUsulanTopik->pluck('usulan_judul')->last() : '-',
             !empty($data->semester->nama) ? $data->semester->nama : '-',
             !empty($data->dosbingSatuSkripsi->nama) ? $data->dosbingSatuSkripsi->nama : '-',
-            !empty($data->dosbingDuaSkripsi->nama) ? $data->dosbingDuaSkripsi->nama : '-'
+            !empty($data->dosbingDuaSkripsi->nama) ? $data->dosbingDuaSkripsi->nama : '-',
+            str_replace('_', ' ', $data->mahasiswa->tahapan_skripsi)
         ];
     }
     
@@ -64,7 +65,8 @@ class DosbingSkripsiExport implements FromQuery, WithMapping, WithHeadings, Shou
             'Judul Skripsi',
             'Semester',
             'Pembimbing Utama',
-            'Pembimbing Pendamping'
+            'Pembimbing Pendamping',
+            'Tahapan Skripsi'
         ];
     }
 

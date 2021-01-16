@@ -31,7 +31,7 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 
                 <li class="nav-item"><a class="nav-link text-dark" href="{{ url('profil') }}"><span class="fa fa-user-circle fa-fw"></span> {{ Session::get('nama') }}</a></li>
-                
+
                 <li class="nav-item"><a class="nav-link text-dark" target="_blank" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm"><span class="fa fa-info-circle fa-fw"></span> Tentang & Panduan</a></li>
 
                 <li class="nav-item"><a class="nav-link text-dark" href="{{ url('keluar') }}"><span class="fa fa-sign-out-alt fa-fw"></span> Keluar</a></li>
@@ -198,11 +198,11 @@
     @endif
 
     <!-- Navigasi Bawah (yang ada filter) -->
-    
+
     <!-- filter menu pendaftaran usulan topik-->
 @if(Request::segment('1') === 'pendaftaran' && isset($filter_usulan_topik))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border mb-1 mx-1 mt-0 px-2 shadow fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -211,7 +211,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'pendaftaran/usulan-topik/periode/'. $id .'/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="">Judul</label>
@@ -229,7 +229,7 @@
                                     {!! Form::text('nama', (!empty($nama) ? $nama : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Program Studi</label>
@@ -240,7 +240,7 @@
                                     {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                        
+
                             {!! Form::hidden('id_periode_daftar_usulan_topik', $id) !!}
 
                             <div class="form-row">
@@ -248,7 +248,7 @@
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-4">
-                                    <a href="{{ url('pendaftaran/usulan-topik/periode/'. $id .'/export?' . 
+                                    <a href="{{ url('pendaftaran/usulan-topik/periode/'. $id .'/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&usulan_judul=' . Request::get('usulan_judul') .
                                      '&id_prodi=' . Request::get('id_prodi') .
@@ -258,16 +258,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
     <!-- filter menu pendaftaran ujian -->
 @elseif(Request::segment('1') === 'pendaftaran' && isset($filter_ujian))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border mb-1 mx-1 mt-0 px-2 shadow rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -276,7 +276,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'pendaftaran/ujian/periode/'. $id .'/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="">Nama</label>
@@ -294,7 +294,7 @@
                                     {!! Form::select('ujian', ['proposal' => 'Proposal', 'hasil' => 'Hasil', 'sidang-skripsi' => 'Sidang Skripsi', 'kerja-praktek' => 'Kerja Praktek'], !empty($ujian) ? $ujian : null, ['class' => 'custom-select', 'placeholder' => '-- Jenis Ujian --']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Program Studi</label>
@@ -305,7 +305,7 @@
                                     {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                        
+
                             {!! Form::hidden('id_periode_daftar_ujian', $id) !!}
 
                             <div class="form-row">
@@ -313,7 +313,7 @@
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-4">
-                                    <a href="{{ url('pendaftaran/ujian/periode/'. $id .'/export?' . 
+                                    <a href="{{ url('pendaftaran/ujian/periode/'. $id .'/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&ujian=' . Request::get('ujian') .
                                      '&id_prodi=' . Request::get('id_prodi') .
@@ -323,16 +323,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
     <!-- filter menu pendafaran turun kp -->
 @elseif(Request::segment('1') === 'pendaftaran' && isset($filter_turun_kp))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white mb-1 mx-1 mt-0 px-2 text-nowrap shadow border rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -341,7 +341,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'pendaftaran/turun-kp/periode/'. $id .'/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="">Nama</label>
@@ -359,7 +359,7 @@
                                     {!! Form::text('instansi', (!empty($instansi) ? $instansi : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Program Studi</label>
@@ -370,7 +370,7 @@
                                     {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                        
+
                             {!! Form::hidden('id_periode_daftar_turun_kp', $id) !!}
 
                             <div class="form-row">
@@ -378,7 +378,7 @@
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-4">
-                                    <a href="{{ url('pendaftaran/turun-kp/periode/'. $id .'/export?' . 
+                                    <a href="{{ url('pendaftaran/turun-kp/periode/'. $id .'/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&instansi=' . Request::get('instansi') .
                                      '&id_prodi=' . Request::get('id_prodi') .
@@ -388,17 +388,17 @@
                                      )  }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu dosen -->
 @elseif(Request::segment('1') === 'dosen' && isset($filter_dosen))
 
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white mb-1 mx-1 mt-0 px-2 text-nowrap shadow border rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -407,7 +407,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'dosen/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Nama</label>
@@ -440,13 +440,13 @@
                                     {!! Form::select('bisa_membimbing', ['ya' => 'Ya', 'tidak' => 'Tidak'], (!empty($bisa_membimbing) ? $bisa_membimbing : null), ['placeholder' => 'Bisa Membimbing ?', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="col-8">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-4">
-                                    <a href="{{ url('dosen/export?' . 
+                                    <a href="{{ url('dosen/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nip=' . Request::get('nip') .
                                      '&id_prodi=' . Request::get('id_prodi') .
@@ -455,17 +455,17 @@
                                      '&bisa_membimbing=' . Request::get('bisa_membimbing')) }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu mahasiswa -->
 @elseif(Request::segment('1') === 'mahasiswa' && isset($filter_mahasiswa))
 
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white mb-1 mx-1 mt-0 px-2 text-nowrap shadow border rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -474,7 +474,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'mahasiswa/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Nama</label>
@@ -509,7 +509,7 @@
                                     ], (!empty($tahapan_skripsi) ? $tahapan_skripsi : null), ['placeholder' => 'Tahapan Skripsi', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Tahapan KP</label>
@@ -547,13 +547,13 @@
                                     {!! Form::select('kontrak_kp', ['ya' => 'Ya', 'tidak' => 'Tidak'], (!empty($kontrak_kp) ? $kontrak_kp : null), ['placeholder' => 'Kontrak Kerja Praktek ?', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                        
+
                             <div class="form-row">
                                 <div class="col-7">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-5">
-                                    <a href="{{ url('mahasiswa/export?' . 
+                                    <a href="{{ url('mahasiswa/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -566,17 +566,17 @@
                                      ) }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu mahasiswa pendampingan akademik -->
 @elseif(Request::segment('2') === 'akademik' && isset($filter_bimbingan_akademik))
 
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white mb-1 mx-1 mt-0 px-2 text-nowrap shadow border rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -585,7 +585,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'mahasiswa/akademik/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Nama</label>
@@ -620,7 +620,7 @@
                                     ], (!empty($tahapan_skripsi) ? $tahapan_skripsi : null), ['placeholder' => 'Tahapan Skripsi', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Tahapan KP</label>
@@ -649,13 +649,13 @@
                                     {!! Form::select('kontrak_kp', ['ya' => 'Ya', 'tidak' => 'Tidak'], (!empty($kontrak_kp) ? $kontrak_kp : null), ['placeholder' => 'Kontrak Kerja Praktek ?', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                        
+
                             <div class="form-row">
                                 <div class="col-7">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-5">
-                                    <a href="{{ url('mahasiswa/akademik/export?' . 
+                                    <a href="{{ url('mahasiswa/akademik/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -667,17 +667,17 @@
                                      ) }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu mahasiswa bimbingan skripsi -->
 @elseif(Request::segment('2') === 'skripsi' && isset($filter_bimbingan_skripsi))
-    
+
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white mb-1 mx-1 mt-0 px-2 text-nowrap shadow border rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -686,7 +686,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'mahasiswa/skripsi/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Nama</label>
@@ -710,7 +710,7 @@
                                     ], (!empty($tahapan_skripsi) ? $tahapan_skripsi : null), ['placeholder' => 'Tahapan Skripsi', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">NIM</label>
@@ -721,7 +721,7 @@
                                     {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="rorm row">
                                 <div class="form-group col-6">
                                     <label for="">Kontrak Skripsi</label>
@@ -749,7 +749,7 @@
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-5">
-                                    <a href="{{ url('mahasiswa/skripsi/export?' . 
+                                    <a href="{{ url('mahasiswa/skripsi/export?' .
                                      'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -757,21 +757,21 @@
                                      '&id_prodi=' . Request::get('id_prodi') .
                                      '&kontrak_skripsi=' . Request::get('kontrak_skripsi') .
                                      '&pembimbing=' . Request::get('pembimbing') .
-                                     '&id_semester=' . Request::get('id_semester') 
+                                     '&id_semester=' . Request::get('id_semester')
                                      ) }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu mahasiswa bimbingan kerja praktek -->
 @elseif(Request::segment('2') === 'kerja-praktek' && isset($filter_bimbingan_kp))
-    
+
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white mb-1 mx-1 mt-0 px-2 text-nowrap shadow border rounded fixed-bottom justify-content-between">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('/') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -780,7 +780,7 @@
 
         <div class="collapse navbar-collapse pb-2" id="filterBottom">
             {!! Form::open(['url' => 'mahasiswa/kerja-praktek/cari', 'method' => 'get']) !!}
-                
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">Nama</label>
@@ -797,7 +797,7 @@
                                     ], (!empty($tahapan_kp) ? $tahapan_kp : null), ['placeholder' => 'Tahapan KP', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="">NIM</label>
@@ -808,7 +808,7 @@
                                     {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="rorm row">
                                 <div class="form-group col-6">
                                     <label for="">Kontrak KP</label>
@@ -836,7 +836,7 @@
                                     <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span> Cari</button>
                                 </div>
                                 <div class="col-5">
-                                    <a href="{{ url('mahasiswa/kerja-praktek/export?' . 
+                                    <a href="{{ url('mahasiswa/kerja-praktek/export?' .
                                      'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -844,20 +844,20 @@
                                      '&id_prodi=' . Request::get('id_prodi') .
                                      '&kontrak_kp=' . Request::get('kontrak_kp') .
                                      '&pembimbing=' . Request::get('pembimbing') .
-                                     '&id_semester=' . Request::get('id_semester') 
+                                     '&id_semester=' . Request::get('id_semester')
                                      ) }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                             </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu riwayat skripsi -->
 @elseif(Request::segment('1') === 'riwayat-skripsi' && isset($filter_riwayat))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -872,7 +872,7 @@
                         {!! Form::text('judul', (!empty($judul) ? $judul : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Nama</label>
@@ -883,7 +883,7 @@
                         {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Angkatan</label>
@@ -907,14 +907,14 @@
                                     ], (!empty($tahapan_skripsi) ? $tahapan_skripsi : null), ['placeholder' => 'Daftar Tahapan Skripsi', 'class' => 'custom-select']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="col-7">
                         <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
                             Cari</button>
                     </div>
                     <div class="col-5">
-                        <a href="{{ url('riwayat-skripsi/export?' . 
+                        <a href="{{ url('riwayat-skripsi/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&judul=' . Request::get('judul') .
@@ -923,16 +923,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-sm btn-block"> <i class="fa fa-file-excel"></i> Export .xls </a>
                                 </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu dosen pembimbing skripsi -->
 @elseif(Request::segment('2') === 'skripsi' && isset($filter_dosbing_skripsi))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -952,7 +952,7 @@
                         {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Tahapan Skripsi</label>
@@ -976,7 +976,7 @@
                         {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Pembimbing 1</label>
@@ -994,7 +994,7 @@
                             Cari</button>
                     </div>
                     <div class="col-5">
-                        <a href="{{ url('dosen-pembimbing/skripsi/semester/'. $id .'/export?' . 
+                        <a href="{{ url('dosen-pembimbing/skripsi/semester/'. $id .'/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -1004,16 +1004,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-sm btn-block"> <i class="fa fa-file-excel"></i> Export .xls </a>
                     </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu dosen pembimbing skripsi -->
 @elseif(Request::segment('2') === 'skripsi' && isset($filter_dosbing_kosong))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -1028,7 +1028,7 @@
                         {!! Form::text('nama', (!empty($nama) ? $nama : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">NIM</label>
@@ -1039,7 +1039,7 @@
                         {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Pembimbing 1</label>
@@ -1057,7 +1057,7 @@
                             Cari</button>
                     </div>
                     <div class="col-5">
-                        <a href="{{ url('dosen-pembimbing/skripsi/semester/tidak-diketahui/export?' . 
+                        <a href="{{ url('dosen-pembimbing/skripsi/semester/tidak-diketahui/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -1066,16 +1066,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-sm btn-block"> <i class="fa fa-file-excel"></i> Export .xls </a>
                     </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu dosen pembimbing kerja praktek -->
 @elseif(Request::segment('2') === 'kerja-praktek' && isset($filter_dosbing_kp))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -1095,7 +1095,7 @@
                         {!! Form::text('lokasi', (!empty($lokasi) ? $lokasi : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-12">
                         <label for="">Tahapan Kerja Praktek</label>
@@ -1119,7 +1119,7 @@
                         {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Pembimbing 1</label>
@@ -1137,7 +1137,7 @@
                             Cari</button>
                     </div>
                     <div class="col-5">
-                        <a href="{{ url('dosen-pembimbing/kerja-praktek/semester/'. $id .'/export?' . 
+                        <a href="{{ url('dosen-pembimbing/kerja-praktek/semester/'. $id .'/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -1148,16 +1148,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-sm btn-block"> <i class="fa fa-file-excel"></i> Export .xls </a>
                     </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu ujian skripsi -->
 @elseif(Request::segment('1') === 'nilai-ujian' && isset($filter_ujian_skripsi))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -1176,7 +1176,7 @@
                         {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Program Studi</label>
@@ -1187,14 +1187,14 @@
                         {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="col-7">
                         <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
                             Cari</button>
                     </div>
                     <div class="col-5">
-                        <a href="{{ url('nilai-ujian/skripsi/export?' . 
+                        <a href="{{ url('nilai-ujian/skripsi/export?' .
                                     'nama=' . Request::get('nama') .
                                      '&nim=' . Request::get('nim') .
                                      '&angkatan=' . Request::get('angkatan') .
@@ -1202,16 +1202,16 @@
                                      )  }}" target="_blank" class="btn btn-success btn-sm btn-block"> <i class="fa fa-file-excel"></i> Export .xls </a>
                     </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu ujian kerja praktek -->
 @elseif(Request::segment('1') === 'nilai-ujian' && isset($filter_ujian_kp))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -1226,7 +1226,7 @@
                         {!! Form::text('nama', (!empty($nama) ? $nama : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Angkatan</label>
@@ -1237,23 +1237,23 @@
                         {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
                             Cari</button>
                     </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
 
 <!-- filter menu jadwal ujian -->
 @elseif(Request::segment('1') === 'jadwal-ujian' && isset($filter_jadwal_ujian))
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -1279,7 +1279,7 @@
                         <label for="">Angkatan</label>
                         {!! Form::text('angkatan', (!empty($angkatan) ? $angkatan : null), ['class' => 'form-control']) !!}
                     </div>
-                </div>        
+                </div>
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Program Studi</label>
@@ -1290,7 +1290,7 @@
                         {!! Form::select('ujian', ['kerja-praktek' => 'Seminar Kerja Praktek', 'proposal' => 'Seminar Proposal', 'hasil' => 'Seminar Hasil', 'sidang-skripsi' => 'Sidang Skripsi'], (!empty($ujian) ? $ujian : null), ['placeholder' => 'Jenis Ujian', 'class' => 'custom-select']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="col-7">
                         <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
@@ -1300,12 +1300,12 @@
                                     <a href="{{ url('jadwal-ujian/'. $tahun . '-' . $bulan .'/export')  }}" target="_blank" class="btn btn-success btn-block btn-sm"> <i class="fa fa-file-excel"></i> <strong>Export .xls</strong> </a>
                                 </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
-    
+
 
     <!-- menu bottom default halaman detail -->
 @elseif(isset($bottom_detail))
@@ -1345,15 +1345,15 @@
         @elseif(Session::has('mahasiswa'))
             <a class="nav-bottom text-center {{ (Request::segment(1) === 'notifikasi') ? 'nav-bottom-active' : 'text-dark' }}" href="{{ url('notifikasi/mahasiswa') }}">
         @endif
-        <span class="far fa-bell"></span> 
+        <span class="far fa-bell"></span>
         @if($notifikasi->count())
             <span class="badge badge-danger badge-notif">{{ $notifikasi->count() }}</span>
         @endif
         <br> <small style="font-size: .7rem;"> Notifikasi</small> </a>
-        
-        <!-- 
-            pendaftaran bawah (admin & mahasiswa) 
-            nilai ujian bawah (dosen) 
+
+        <!--
+            pendaftaran bawah (admin & mahasiswa)
+            nilai ujian bawah (dosen)
         -->
         @if(Session::has('mahasiswa') || Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
             @if(Session::has('mahasiswa'))
@@ -1365,9 +1365,9 @@
                 <a class="nav-bottom text-center {{ (Request::segment(1) === 'nilai-ujian') ? 'nav-bottom-active' : 'text-dark' }}" href="{{ url('nilai-ujian/dosen') }}"><span class="fa fa-check-double"></span> <br> <small style="font-size: .7rem;">Nilai Ujian</small></a>
         @endif
 
-        <!-- 
-            asistensi bawah (dosen & mahasiswa) 
-            periode bawah (admin) 
+        <!--
+            asistensi bawah (dosen & mahasiswa)
+            periode bawah (admin)
         -->
         @if(Session::has('mahasiswa'))
             <a class="nav-bottom text-center {{ (Request::segment(1) === 'asistensi') ? 'nav-bottom-active' : 'text-dark' }}" href="{{ url('asistensi') }}"><span class="far fa-comments"></span> <br> <small style="font-size: .7rem;">Asistensi</small></a>
@@ -1380,7 +1380,7 @@
         <button class="navbar-toggler d-lg-none border-0 text-dark" type="button" data-toggle="collapse"
             data-target="#navbarLainnya"><span class="fa fa-bars"></span> <br> <small
                 style="font-size: .7rem;">Lainnya</small> </button>
-    
+
         <div class="collapse navbar-collapse" id="navbarLainnya">
             <ul class="list-group border-0 list-group-flush">
 
@@ -1390,7 +1390,7 @@
                 @elseif(Session::has('mahasiswa'))
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'dosen-pembimbing') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('dosen-pembimbing/skripsi') }}" class="{{ (Request::segment(1) === 'dosen-pembimbing') ? 'text-white' : 'text-dark' }}"><span class="far fa-calendar-alt fa-fw"></span> Pembimbing </a></li>
                 @endif
-                
+
                 <!-- persetujuan ujian bawah -->
                 @if(Session::has('admin'))
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian/semua') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian </a></li>
@@ -1421,7 +1421,7 @@
                 @elseif(Session::has('dosen') && Session::has('kajur') || Session::has('dosen') && Session::has('kaprodi') || Session::has('admin'))
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'peserta-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('peserta-ujian') }}" class="{{ (Request::segment(1) === 'peserta-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-street-view fa-fw"></span> Peserta Ujian </a></li>
                 @endif
-                
+
                 <!-- jadwal ujian bawah -->
                 @if(Session::has('mahasiswa'))
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'jadwal-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('jadwal-ujian') }}" class="{{ (Request::segment(1) === 'jadwal-ujian') ? 'text-white' : 'text-dark' }}"><span class="far fa-clock fa-fw"></span> Jadwal Ujian </a></li>
@@ -1449,14 +1449,14 @@
                 <!-- dosen, admin, pengaturan bawah (admin) -->
                 @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'dosen') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('dosen') }}" class="{{ (Request::segment(1) === 'dosen') ? 'text-white' : 'text-dark' }}"><span class="fa fa-chalkboard-teacher fa-fw"></span> Dosen </a></li>
-                    
+
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'admin') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('admin') }}" class="{{ (Request::segment(1) === 'admin') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-secret fa-fw"></span> Admin </a></li>
-                    
+
                     <li class="list-group-item py-2 {{ (Request::segment(1) === 'pengaturan') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('pengaturan/umum') }}" class="{{ (Request::segment(1) === 'pengaturan') ? 'text-white' : 'text-dark' }}"><span class="fa fa-cogs fa-fw"></span> Pengaturan </a></li>
                 @endif
             </ul>
         </div>
-    
+
     </nav>
 @endif
     <div class="container-fluid">
@@ -1467,7 +1467,7 @@
 
                 <div class="card">
                     <ul class="list-group border-0 list-group-flush">
-                    
+
                         <!-- beranda samping -->
                         @if(Session::has('admin'))
                             <li class="list-group-item {{ (Request::segment(1) === 'beranda') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('beranda/admin') }}" class="{{ (Request::segment(1) === 'beranda') ? 'text-white' : 'text-dark' }}"><span class="fa fa-home fa-fw"></span> Beranda </a></li>
@@ -1488,7 +1488,7 @@
 
                         <!-- notifikasi samping -->
                         @if(Session::has('admin'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('notifikasi/admin') }}" class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }}"><span class="far fa-bell fa-fw"></span> Notifikasi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('notifikasi/admin') }}" class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }}"><span class="far fa-bell fa-fw"></span> Notifikasi
                             @if($notifikasi->count())
                                 <span class="badge badge-danger">{{ $notifikasi->count() }}</span>
                             @endif
@@ -1496,8 +1496,8 @@
                         @elseif(Session::has('kajur') || Session::has('kaprodi'))
                             <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="far fa-bell fa-fw"></span> Notifikasi 
-                                    @if($notifikasi->count()) 
+                                    <span class="far fa-bell fa-fw"></span> Notifikasi
+                                    @if($notifikasi->count())
                                         <span class="badge badge-danger">{{ $notifikasi->count() }}</span>
                                     @endif
                                 </a>
@@ -1506,13 +1506,13 @@
                                     <a class="dropdown-item {{ (Request::segment(1) === 'notifikasi' && Request::segment(2) === 'dosen') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('notifikasi/dosen') }}">Saya</a>
                                 </li>
                         @elseif(Session::has('dosen'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('notifikasi/dosen') }}" class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }}"><span class="far fa-bell fa-fw"></span> Notifikasi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('notifikasi/dosen') }}" class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }}"><span class="far fa-bell fa-fw"></span> Notifikasi
                             @if($notifikasi->count())
                                 <span class="badge badge-danger">{{ $notifikasi->count() }}</span>
                             @endif
                             </a></li>
                         @elseif(Session::has('mahasiswa'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('notifikasi/mahasiswa') }}" class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }}"><span class="far fa-bell fa-fw"></span> Notifikasi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'notifikasi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('notifikasi/mahasiswa') }}" class="{{ (Request::segment(1) === 'notifikasi') ? 'text-white' : 'text-dark' }}"><span class="far fa-bell fa-fw"></span> Notifikasi
                             @if($notifikasi->count())
                                 <span class="badge badge-danger">{{ $notifikasi->count() }}</span>
                             @endif
@@ -1561,50 +1561,50 @@
 
                         <!-- persetujuan ujian samping -->
                         @if(Session::has('admin'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian/semua') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian 
+                            <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian/semua') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian
                             </a></li>
                         @elseif(Session::has('kajur') || Session::has('kaprodi'))
                             <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian 
+                                    <span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item {{ (Request::segment(1) === 'persetujuan-ujian' && Request::segment(2) === 'semua') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('persetujuan-ujian/semua') }}">Semua</a>
                                     <a class="dropdown-item {{ (Request::segment(1) === 'persetujuan-ujian' && Request::segment(2) === 'mahasiswa') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('persetujuan-ujian/mahasiswa') }}">Mahasiswa</a>
                                 </li>
                         @elseif(Session::has('dosen'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian/mahasiswa') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian 
+                            <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian/mahasiswa') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian
                             </a></li>
                         @elseif(Session::has('mahasiswa'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian 
+                            <li class="list-group-item {{ (Request::segment(1) === 'persetujuan-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('persetujuan-ujian') }}" class="{{ (Request::segment(1) === 'persetujuan-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-user-check fa-fw"></span> Persetujuan Ujian
                             </a></li>
-                        @endif    
+                        @endif
 
                         <!-- asistensi samping -->
                         @if(Session::has('admin'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('asistensi/semua') }}" class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }}"><span class="far fa-comments fa-fw"></span> Asistensi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('asistensi/semua') }}" class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }}"><span class="far fa-comments fa-fw"></span> Asistensi
                             </a></li>
                         @elseif(Session::has('kajur') || Session::has('kaprodi'))
                             <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="far fa-comments fa-fw"></span> Asistensi 
+                                    <span class="far fa-comments fa-fw"></span> Asistensi
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item {{ (Request::segment(1) === 'asistensi' && Request::segment(2) === 'semua') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('asistensi/semua') }}">Semua</a>
                                     <a class="dropdown-item {{ (Request::segment(1) === 'asistensi' && Request::segment(2) === 'mahasiswa') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('asistensi/mahasiswa') }}">Mahasiswa</a>
                                 </li>
                         @elseif(Session::has('dosen'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('asistensi/mahasiswa') }}" class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }}"><span class="far fa-comments fa-fw"></span> Asistensi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('asistensi/mahasiswa') }}" class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }}"><span class="far fa-comments fa-fw"></span> Asistensi
                             </a></li>
                         @elseif(Session::has('mahasiswa'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('asistensi') }}" class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }}"><span class="far fa-comments fa-fw"></span> Asistensi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'asistensi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('asistensi') }}" class="{{ (Request::segment(1) === 'asistensi') ? 'text-white' : 'text-dark' }}"><span class="far fa-comments fa-fw"></span> Asistensi
                             </a></li>
                         @endif
-                    
+
                         <!-- progres bimbingan samping -->
                         <li class="list-group-item {{ (Request::segment(1) === 'bimbingan') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'bimbingan') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-tasks fa-fw"></span> Progres Bimbingan 
+                                    <span class="fa fa-tasks fa-fw"></span> Progres Bimbingan
                                 </a>
                                 <div class="dropdown-menu">
                                     @if(Session::has('dosen') || Session::has('kajur') || Session::has('kaprodi') || Session::has('admin'))
@@ -1623,7 +1623,7 @@
                         @elseif(Session::has('kajur') || Session::has('kaprodi') || Session::has('admin'))
                             <li class="list-group-item {{ (Request::segment(1) === 'peserta-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('peserta-ujian') }}" class="{{ (Request::segment(1) === 'peserta-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-street-view fa-fw"></span> Peserta Ujian </a></li>
                         @endif
-                    
+
                         <!-- jadwal ujian samping -->
                         @if(Session::has('mahasiswa'))
                             <li class="list-group-item {{ (Request::segment(1) === 'jadwal-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('jadwal-ujian') }}" class="{{ (Request::segment(1) === 'jadwal-ujian') ? 'text-white' : 'text-dark' }}"><span class="far fa-clock fa-fw"></span> Jadwal Ujian </a></li>
@@ -1632,12 +1632,12 @@
                         @elseif(Session::has('dosen'))
                             <li class="list-group-item {{ (Request::segment(1) === 'jadwal-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('jadwal-ujian/dosen') }}" class="{{ (Request::segment(1) === 'jadwal-ujian') ? 'text-white' : 'text-dark' }}"><span class="far fa-clock fa-fw"></span> Jadwal Ujian </a></li>
                         @endif
-                    
+
                         <!-- nilai ujian samping -->
                         @if(Session::has('kajur') || Session::has('kaprodi') || Session::has('admin'))
                             <li class="list-group-item {{ (Request::segment(1) === 'nilai-ujian') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'nilai-ujian') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-check-double fa-fw"></span> Nilai Ujian 
+                                    <span class="fa fa-check-double fa-fw"></span> Nilai Ujian
                                 </a>
                                 <div class="dropdown-menu">
                                     @if(Session::has('admin'))
@@ -1650,36 +1650,36 @@
                                     @endif
                                 </li>
                         @elseif(Session::has('dosen'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'nilai-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('nilai-ujian/dosen') }}" class="{{ (Request::segment(1) === 'nilai-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-check-double fa-fw"></span> Nilai Ujian 
+                            <li class="list-group-item {{ (Request::segment(1) === 'nilai-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('nilai-ujian/dosen') }}" class="{{ (Request::segment(1) === 'nilai-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-check-double fa-fw"></span> Nilai Ujian
                             </a></li>
                         @elseif(Session::has('mahasiswa'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'nilai-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('nilai-ujian/mahasiswa') }}" class="{{ (Request::segment(1) === 'nilai-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-check-double fa-fw"></span> Nilai Ujian 
+                            <li class="list-group-item {{ (Request::segment(1) === 'nilai-ujian') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('nilai-ujian/mahasiswa') }}" class="{{ (Request::segment(1) === 'nilai-ujian') ? 'text-white' : 'text-dark' }}"><span class="fa fa-check-double fa-fw"></span> Nilai Ujian
                             </a></li>
                         @endif
-                    
+
                         <!-- nilai ujian samping -->
                         @if(Session::has('kajur') || Session::has('kaprodi') || Session::has('admin') || Session::has('dosen'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'riwayat-skripsi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('riwayat-skripsi') }}" class="{{ (Request::segment(1) === 'riwayat-skripsi') ? 'text-white' : 'text-dark' }}"><span class="fa fa-history fa-fw"></span> Riwayat Skripsi 
+                            <li class="list-group-item {{ (Request::segment(1) === 'riwayat-skripsi') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('riwayat-skripsi') }}" class="{{ (Request::segment(1) === 'riwayat-skripsi') ? 'text-white' : 'text-dark' }}"><span class="fa fa-history fa-fw"></span> Riwayat Skripsi
                             </a></li>
                         @elseif(Session::has('mahasiswa'))
                             <li class="list-group-item {{ (Request::segment(1) === 'riwayat-skripsi' || Request::segment(1) === 'revisi-skripsi') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'riwayat-skripsi' || Request::segment(1) === 'revisi-skripsi') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-history fa-fw"></span> Riwayat Skripsi 
+                                    <span class="fa fa-history fa-fw"></span> Riwayat Skripsi
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item {{ (Request::segment(1) === 'riwayat-skripsi') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('riwayat-skripsi') }}">Semua</a>
                                     <a class="dropdown-item {{ (Request::segment(1) === 'revisi-skripsi') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('revisi-skripsi') }}">Revisi Saya</a>
                                 </li>
                         @endif
-                    
+
                         <!-- mahasiswa samping -->
                         @if(Session::has('admin'))
-                            <li class="list-group-item {{ (Request::segment(1) === 'mahasiswa') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('mahasiswa') }}" class="{{ (Request::segment(1) === 'mahasiswa') ? 'text-white' : 'text-dark' }}"><span class="fa fa-users fa-fw"></span> Mahasiswa 
+                            <li class="list-group-item {{ (Request::segment(1) === 'mahasiswa') ? 'bg-primary' : 'bg-white' }}"><a href="{{ url('mahasiswa') }}" class="{{ (Request::segment(1) === 'mahasiswa') ? 'text-white' : 'text-dark' }}"><span class="fa fa-users fa-fw"></span> Mahasiswa
                             </a></li>
                         @elseif(Session::has('kajur') || Session::has('kaprodi'))
                             <li class="list-group-item {{ (Request::segment(1) === 'mahasiswa') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'mahasiswa') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-users fa-fw"></span> Mahasiswa 
+                                    <span class="fa fa-users fa-fw"></span> Mahasiswa
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item {{ (Request::segment(1) === 'mahasiswa' && empty(Request::segment(2))) ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('mahasiswa') }}">Semua</a>
@@ -1691,7 +1691,7 @@
                         @elseif(Session::has('dosen'))
                             <li class="list-group-item {{ (Request::segment(1) === 'mahasiswa') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'mahasiswa') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-users fa-fw"></span> Mahasiswa 
+                                    <span class="fa fa-users fa-fw"></span> Mahasiswa
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item {{ (Request::segment(1) === 'mahasiswa' && Request::segment(2) === 'akademik') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('mahasiswa/akademik') }}">Akademik</a>
@@ -1700,12 +1700,12 @@
                                     <a class="dropdown-item {{ (Request::segment(1) === 'mahasiswa' && Request::segment(2) === 'pengujian') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('mahasiswa/pengujian') }}">Pengujian</a>
                                 </li>
                         @endif
-                    
+
                         <!-- semester & periode samping -->
                         @if(Session::has('kajur') || Session::has('kaprodi') || Session::has('admin'))
                             <li class="list-group-item {{ (Request::segment(1) === 'semester-periode') ? 'bg-primary' : 'bg-white' }} dropdown dropright">
                                 <a class="{{ (Request::segment(1) === 'semester-periode') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="far fa-calendar-alt fa-fw"></span> Semester & Periode 
+                                    <span class="far fa-calendar-alt fa-fw"></span> Semester & Periode
                                 </a>
                                 <div class="dropdown-menu">
                                         <a class="dropdown-item {{ (Request::segment(1) === 'semester-periode' && Request::segment(2) === 'periode-daftar-ujian') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('semester-periode/periode-daftar-ujian') }}">Ujian</a>
@@ -1729,7 +1729,7 @@
                         @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
                             <li class="list-group-item {{ (Request::segment(1) === 'pengaturan') ? 'bg-primary' : 'bg-white' }} dropdown">
                                 <a class="{{ (Request::segment(1) === 'pengaturan') ? 'text-white' : 'text-dark' }} dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="fa fa-cogs fa-fw"></span> Pengaturan 
+                                    <span class="fa fa-cogs fa-fw"></span> Pengaturan
                                 </a>
                                 <div class="dropdown-menu">
                                         <a class="dropdown-item {{ (Request::segment(1) === 'pengaturan' && Request::segment(2) === 'umum') ? 'bg-primary text-light' : 'text-dark' }}" href="{{ url('pengaturan/umum') }}">Umum</a>
@@ -1747,7 +1747,7 @@
                 <!-- pesan info -->
                 @if(Session::has('pesan'))
                     <div class="alert alert-info">
-                        <strong><span class="fa fa-info-circle"></span> Info!</strong> 
+                        <strong><span class="fa fa-info-circle"></span> Info!</strong>
                         <br> {{ Session::get('pesan') }}
                     </div>
                 @endif
@@ -1761,20 +1761,19 @@
 
     <!-- Footer dashboard -->
     <nav class="nav justify-content-center py-0 mb-5 mb-lg-0 border-top bg-primary">
-    
+
         <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
 
         <a class="nav-link text-light text-center" href="https://ft.ung.ac.id/informatika/index.html" target="_blank"><i class="far fa-copyright"></i>
-            2020  
+            2020
             @if(date('Y') !== '2020')
                 - {{ date('Y') }}
             @endif
 
              Teknik Informatika Universitas Negeri Gorontalo</a>
-        
+
         <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">Versi {{ env('APP_VER') }}</a>
 
-        <a class="nav-link text-light text-center" href="https://facebook.com/adnan.indrakasim" target="_blank"><span class="fa fa-code text-white"></span> with <span class="fa fa-heart text-white"></span> & <span class="fa fa-mug-hot text-white"></span> by Adnan Kasim</a>
     </nav>
 
     <!-- Optional JavaScript -->
@@ -1790,7 +1789,7 @@
         $('.dosen').select2();
         $('.mahasiswa').select2();
         $('.semester').select2();
-        
+
         $('#modalInfo').modal('show');
         $('#modalInfo2').modal('show');
 
@@ -1819,10 +1818,10 @@
         // form pendaftar ujian
         $("#judulLaporanKp").hide();
         $(".formToefl").hide();
-        
+
         $("#formUjian" ).change(function() {
             let formUjian = $("#formUjian").val();
-            
+
             if(formUjian === 'kerja-praktek'){
                 $("#judulLaporanKp").show(2000);
                 $(".formToefl").hide(2000);
@@ -1855,7 +1854,7 @@
 
     });
     </script>
-    
+
 </body>
 
 </html>

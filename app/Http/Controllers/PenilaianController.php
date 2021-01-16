@@ -20,23 +20,23 @@ class PenilaianController extends Controller
 {
     public function __construct(){
         $this->middleware('pimpinan', ['only' => [
-            'indexKerjaPraktek', 'indexSkripsi', 'detailUjian', 'storeByAdmin', 'createByAdmin', 'detailByAdmin', 'indexSkripsiCari', 'indexSkripsiExport' 
+            'indexKerjaPraktek', 'indexSkripsi', 'detailUjian', 'storeByAdmin', 'createByAdmin', 'detailByAdmin', 'indexSkripsiCari', 'indexSkripsiExport'
         ]]);
 
         $this->middleware('dosenPimpinan', ['only' => [
-            'updateProposal', 'updateHasil', 'updateSidangSkripsi', 'updateKerjaPraktek' 
+            'updateProposal', 'updateHasil', 'updateSidangSkripsi', 'updateKerjaPraktek'
         ]]);
-        
+
         $this->middleware('dosen', ['only' => [
-            'dosen', 'dosenCari', 'dosenExport', 'dosenByTanggal' 
+            'dosen', 'dosenCari', 'dosenExport', 'dosenByTanggal'
         ]]);
 
         $this->middleware('mahasiswa', ['only' => [
-            'mahasiswa', 
+            'mahasiswa',
         ]]);
 
         $this->middleware('pengguna', ['only' => [
-            'detail', 
+            'detail',
         ]]);
     }
 
@@ -100,9 +100,9 @@ class PenilaianController extends Controller
           $pagination = $daftar_nilai_skripsi->appends($request->except('page'));
 
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
-        
+
         $filter_ujian_skripsi = true;
-        
+
         return view('penilaian.index-skripsi', compact('daftar_nilai_skripsi', 'daftar_prodi', 'total', 'pagination', 'nama', 'nim', 'angkatan', 'id_prodi', 'filter_ujian_skripsi'));
       }
         return redirect('nilai-ujian/skripsi/');
@@ -167,9 +167,9 @@ class PenilaianController extends Controller
           $pagination = (!empty($angkatan)) ? $daftar_nilai_kp->appends(['angkatan' => $angkatan]) : '';
           $pagination = $daftar_nilai_kp->appends($request->except('page'));
 
-        
+
         $filter_ujian_kp = true;
-        
+
         return view('penilaian.index-kerja-praktek', compact('daftar_nilai_kp', 'total', 'pagination', 'nama', 'nim', 'angkatan', 'filter_ujian_kp'));
       }
         return redirect('nilai-ujian/kerja-praktek/');
@@ -188,7 +188,7 @@ class PenilaianController extends Controller
     {
         $bulan = date('m', strtotime($tanggal));
         $tahun = date('Y', strtotime($tanggal));
-        
+
         $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'ASC')->get();
 
         return view('penilaian.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal'));
@@ -267,11 +267,11 @@ class PenilaianController extends Controller
         // perbaharui nilai
         foreach($request->post('nilai') as $nilai){
             $penilaianProposal = PenilaianProposal::findOrFail($nilai['id']);
-            if(!empty($nilai['nilai_dospeng_satu'])) $penilaianProposal->nilai_dospeng_satu = $nilai['nilai_dospeng_satu']; 
-            if(!empty($nilai['nilai_dospeng_dua'])) $penilaianProposal->nilai_dospeng_dua = $nilai['nilai_dospeng_dua']; 
-            if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianProposal->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga']; 
+            if(!empty($nilai['nilai_dospeng_satu'])) $penilaianProposal->nilai_dospeng_satu = $nilai['nilai_dospeng_satu'];
+            if(!empty($nilai['nilai_dospeng_dua'])) $penilaianProposal->nilai_dospeng_dua = $nilai['nilai_dospeng_dua'];
+            if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianProposal->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga'];
             if(!empty($nilai['nilai_dospeng_empat'])) $penilaianProposal->nilai_dospeng_empat = $nilai['nilai_dospeng_empat'];
-            $penilaianProposal->save(); 
+            $penilaianProposal->save();
         }
 
         // hitung & simpan nilai rerata & rerata x bobot
@@ -282,7 +282,7 @@ class PenilaianController extends Controller
 
             $rerata = $total / 4;
             $rerata_x_bobot = $rerata * $penilaianProposal->indikatorPenilaian->bobot;
-            
+
             $penilaianProposal->nilai_rerata = $rerata;
             $penilaianProposal->nilai_rerata_x_bobot = $rerata_x_bobot;
             $penilaianProposal->save();
@@ -307,7 +307,7 @@ class PenilaianController extends Controller
         HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->update([
             'seminar_proposal' => $nilai_akhir
         ]);
-        
+
         // hitung ulang hasil akumulasi nilai
         $hasil_akumulasi_nilai = HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         $seminar_proposal = 25 * $hasil_akumulasi_nilai->seminar_proposal / 100;
@@ -347,7 +347,7 @@ class PenilaianController extends Controller
             case $total_hasil_akumulasi_nilai >= 50 && $total_hasil_akumulasi_nilai < 60:
                 $nilai_huruf = 'D';
             break;
-            
+
             case $total_hasil_akumulasi_nilai >= 0 && $total_hasil_akumulasi_nilai < 50:
                 $nilai_huruf = 'E';
             break;
@@ -397,11 +397,11 @@ class PenilaianController extends Controller
         // perbaharui nilai
         foreach($request->post('nilai') as $nilai){
             $penilaianHasil = PenilaianHasil::findOrFail($nilai['id']);
-            if(!empty($nilai['nilai_dospeng_satu'])) $penilaianHasil->nilai_dospeng_satu = $nilai['nilai_dospeng_satu']; 
-            if(!empty($nilai['nilai_dospeng_dua'])) $penilaianHasil->nilai_dospeng_dua = $nilai['nilai_dospeng_dua']; 
-            if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianHasil->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga']; 
+            if(!empty($nilai['nilai_dospeng_satu'])) $penilaianHasil->nilai_dospeng_satu = $nilai['nilai_dospeng_satu'];
+            if(!empty($nilai['nilai_dospeng_dua'])) $penilaianHasil->nilai_dospeng_dua = $nilai['nilai_dospeng_dua'];
+            if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianHasil->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga'];
             if(!empty($nilai['nilai_dospeng_empat'])) $penilaianHasil->nilai_dospeng_empat = $nilai['nilai_dospeng_empat'];
-            $penilaianHasil->save(); 
+            $penilaianHasil->save();
         }
 
         // hitung & simpan nilai rerata & rerata x bobot
@@ -412,7 +412,7 @@ class PenilaianController extends Controller
 
             $rerata = $total / 4;
             $rerata_x_bobot = $rerata * $penilaianHasil->indikatorPenilaian->bobot;
-            
+
             $penilaianHasil->nilai_rerata = $rerata;
             $penilaianHasil->nilai_rerata_x_bobot = $rerata_x_bobot;
             $penilaianHasil->save();
@@ -437,7 +437,7 @@ class PenilaianController extends Controller
         HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->update([
             'seminar_hasil' => $nilai_akhir
         ]);
-        
+
         // hitung ulang hasil akumulasi nilai
         $hasil_akumulasi_nilai = HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         $seminar_proposal = 25 * $hasil_akumulasi_nilai->seminar_proposal / 100;
@@ -473,11 +473,11 @@ class PenilaianController extends Controller
             case $total_hasil_akumulasi_nilai >= 60 && $total_hasil_akumulasi_nilai < 65:
                 $nilai_huruf = 'C';
             break;
-            
+
             case $total_hasil_akumulasi_nilai >= 50 && $total_hasil_akumulasi_nilai < 60:
                 $nilai_huruf = 'D';
             break;
-            
+
             case $total_hasil_akumulasi_nilai >= 0 && $total_hasil_akumulasi_nilai < 50:
                 $nilai_huruf = 'E';
             break;
@@ -527,11 +527,11 @@ class PenilaianController extends Controller
         // perbaharui nilai
         foreach($request->post('nilai') as $nilai){
             $penilaianSidangSkripsi = PenilaianSidangSkripsi::findOrFail($nilai['id']);
-            if(!empty($nilai['nilai_dospeng_satu'])) $penilaianSidangSkripsi->nilai_dospeng_satu = $nilai['nilai_dospeng_satu']; 
-            if(!empty($nilai['nilai_dospeng_dua'])) $penilaianSidangSkripsi->nilai_dospeng_dua = $nilai['nilai_dospeng_dua']; 
-            if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianSidangSkripsi->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga']; 
+            if(!empty($nilai['nilai_dospeng_satu'])) $penilaianSidangSkripsi->nilai_dospeng_satu = $nilai['nilai_dospeng_satu'];
+            if(!empty($nilai['nilai_dospeng_dua'])) $penilaianSidangSkripsi->nilai_dospeng_dua = $nilai['nilai_dospeng_dua'];
+            if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianSidangSkripsi->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga'];
             if(!empty($nilai['nilai_dospeng_empat'])) $penilaianSidangSkripsi->nilai_dospeng_empat = $nilai['nilai_dospeng_empat'];
-            $penilaianSidangSkripsi->save(); 
+            $penilaianSidangSkripsi->save();
         }
 
         // hitung & simpan nilai rerata & rerata x bobot
@@ -542,7 +542,7 @@ class PenilaianController extends Controller
 
             $rerata = $total / 4;
             $rerata_x_bobot = $rerata * $penilaianSidangSkripsi->indikatorPenilaian->bobot;
-            
+
             $penilaianSidangSkripsi->nilai_rerata = $rerata;
             $penilaianSidangSkripsi->nilai_rerata_x_bobot = $rerata_x_bobot;
             $penilaianSidangSkripsi->save();
@@ -567,7 +567,7 @@ class PenilaianController extends Controller
         HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->update([
             'sidang_skripsi' => $nilai_akhir
         ]);
-        
+
         // hitung ulang hasil akumulasi nilai
         $hasil_akumulasi_nilai = HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         $seminar_proposal = 25 * $hasil_akumulasi_nilai->seminar_proposal / 100;
@@ -603,11 +603,11 @@ class PenilaianController extends Controller
             case $total_hasil_akumulasi_nilai >= 60 && $total_hasil_akumulasi_nilai < 65:
                 $nilai_huruf = 'C';
             break;
-            
+
             case $total_hasil_akumulasi_nilai >= 50 && $total_hasil_akumulasi_nilai < 60:
                 $nilai_huruf = 'D';
             break;
-            
+
             case $total_hasil_akumulasi_nilai >= 0 && $total_hasil_akumulasi_nilai < 50:
                 $nilai_huruf = 'E';
             break;
@@ -660,23 +660,23 @@ class PenilaianController extends Controller
         }
 
         // siapkan variabel untuk menampung nilai tiap indikator penilaian
-        for ($i=1; $i<=count($request->post('nilai')); $i++) { 
+        for ($i=1; $i<=count($request->post('nilai')); $i++) {
             $penilaian[$i] = 0;
         }
 
         // siapkan variabel untuk menampung total nilai tiap dosen
-        for ($i=1; $i<=3; $i++) { 
+        for ($i=1; $i<=3; $i++) {
             $nilai_penguji[$i] = 0;
         }
 
-        // cari dosen penguji 
+        // cari dosen penguji
         $daftar_dosen = PenilaianKp::where('id_jadwal_ujian', $id)->get('id_dosen')->unique('id_dosen');
 
         // hitung total nilai tiap dosen
         $i=1;
         foreach($daftar_dosen as $dosen){
             $daftar_nilai = PenilaianKp::where('id_jadwal_ujian', $id)->where('id_dosen', $dosen->id_dosen)->get();
-            
+
             $j=1;
             foreach($daftar_nilai as $nilai){
                 $penilaian[$j] = $nilai->nilai * $nilai->indikatorPenilaian->bobot / 100;
@@ -731,7 +731,7 @@ class PenilaianController extends Controller
     public function detail($id)
     {
         $jadwal = \App\JadwalUjian::findOrFail($id);
-        
+
         if($jadwal->ujian === 'proposal'){
             $indikator = \App\IndikatorPenilaian::where('ujian', 'proposal')->first();
             $dosen = \App\PenilaianProposal::where('id_jadwal_ujian', $id)->first();
@@ -763,7 +763,7 @@ class PenilaianController extends Controller
             if($cek_dospeng) $penguji = $cek_dospeng->id_dosen;
             else $penguji = false;
         }else $penguji = false;
-        
+
         return view('penilaian.detail', compact('jadwal', 'penguji', 'indikator', 'penilaian_ujian', 'dosen', 'dospeng', 'nilai_skripsi'));
     }
 
@@ -775,9 +775,9 @@ class PenilaianController extends Controller
         if($request->segment(3) === 'detail-proposal') $ujian = 'proposal';
         elseif($request->segment(3) === 'detail-hasil') $ujian = 'hasil';
         elseif($request->segment(3) === 'detail-sidang-skripsi') $ujian = 'sidang-skripsi';
-        
+
         $jadwal = \App\JadwalUjian::where('id_mahasiswa', $id)->where('ujian', $ujian)->first();
-        
+
         if(!$jadwal) return redirect()->back()->with('kesalahan', 'Detail Nilai Ujian Tidak Tersedia!');
 
         if($jadwal->ujian === 'proposal'){
@@ -845,21 +845,21 @@ class PenilaianController extends Controller
 
         if($request->post('jenis_ujian') === 'proposal'){
             \App\HasilAkumulasiNilaiSkripsi::updateOrCreate(
-                ['id_mahasiswa' => $id], 
+                ['id_mahasiswa' => $id],
                 ['seminar_proposal' => $request->post('nilai_ujian')]
             );
         }elseif($request->post('jenis_ujian') === 'hasil'){
             \App\HasilAkumulasiNilaiSkripsi::updateOrCreate(
-                ['id_mahasiswa' => $id], 
+                ['id_mahasiswa' => $id],
                 ['seminar_hasil' => $request->post('nilai_ujian')]
             );
         }elseif($request->post('jenis_ujian') === 'sidang-skripsi'){
             \App\HasilAkumulasiNilaiSkripsi::updateOrCreate(
-                ['id_mahasiswa' => $id], 
+                ['id_mahasiswa' => $id],
                 ['sidang_skripsi' => $request->post('nilai_ujian')]
             );
         }
-        
+
         // hitung ulang hasil akumulasi nilai
         $hasil_akumulasi_nilai = \App\HasilAkumulasiNilaiSkripsi::where('id_mahasiswa', $id)->first();
         $seminar_proposal = 25 * $hasil_akumulasi_nilai->seminar_proposal / 100;

@@ -26,13 +26,13 @@
     <!-- Jika halaman detail -->
     @if(is_numeric(Request::segment('3')))
     <nav class="navbar d-none d-lg-flex navbar-expand-lg py-0 navbar-light bg-white border-bottom sticky-top">
-    
+
     <!-- Jika bukan halaman detail -->
     @else
     <nav class="navbar navbar-expand-lg py-0 navbar-light bg-white border-bottom sticky-top">
-    @endif        
+    @endif
         <a class="navbar-brand text-dark" href="{{ url('masuk') }}"><img src="{{ asset('assets/images/siskp.svg') }}" class="d-inline-block align-top" width="30"> SISKP </a>
-        
+
         <button class="navbar-toggler d-lg-none border-0 text-dark" type="button" data-toggle="collapse"
             data-target="#collapsibleNavId"><span class="fa fa-align-right"></span></button>
 
@@ -49,19 +49,19 @@
                 @else
                 <li class="nav-item"><a class="nav-link text-dark" href="{{ url('masuk/ujian') }}"><span class="far fa-edit fa-fw"></span> Ujian</a></li>
                 @endif
-                
+
                 @if(Request::segment('2') === 'jadwal')
                 <li class="nav-item"><a class="nav-link nav-active" href="{{ url('masuk/jadwal/'.date('Y-m')) }}"><span class="far fa-clock fa-fw"></span> Jadwal Ujian</a></li>
                 @else
                 <li class="nav-item"><a class="nav-link text-dark" href="{{ url('masuk/jadwal/'.date('Y-m')) }}"><span class="far fa-clock fa-fw"></span> Jadwal Ujian</a></li>
                 @endif
-                
+
                 @if(Request::segment('2') === 'usulan-topik')
                 <li class="nav-item"><a class="nav-link nav-active" href="{{ url('masuk/usulan-topik') }}"><span class="far fa-lightbulb fa-fw"></span> Usulan Topik</a></li>
                 @else
                 <li class="nav-item"><a class="nav-link text-dark" href="{{ url('masuk/usulan-topik') }}"><span class="far fa-lightbulb fa-fw"></span> Usulan Topik</a></li>
                 @endif
-                
+
                 @if(Request::segment('2') === 'kerja-praktek')
                 <li class="nav-item"><a class="nav-link nav-active" href="{{ url('masuk/kerja-praktek') }}"><span class="fa fa-university fa-fw "></span> Kerja Praktek</a></li>
                 @else
@@ -75,7 +75,7 @@
                 @endif
 
                 <li class="nav-item"><a class="nav-link text-dark" target="_blank" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm"><span class="fa fa-info-circle fa-fw"></span> Tentang & Panduan</a></li>
-                
+
             </ul>
         </div>
     </nav>
@@ -84,19 +84,19 @@
     @if(is_numeric(Request::segment('3')))
     <nav class="navbar d-flex d-lg-none navbar-expand-lg navbar-light bg-white border-bottom justify-content-start sticky-top text-dark">
         <a href="{{ url()->previous() }}" class="text-dark">
-            <span class="fa fa-lg fa-arrow-circle-left text-primary"></span> 
+            <span class="fa fa-lg fa-arrow-circle-left text-primary"></span>
         </a>
         <span class="ml-2">
-            Detail <span class="text-capitalize">{{ str_replace('-', ' ', Request::segment('2')) }}</span> 
+            Detail <span class="text-capitalize">{{ str_replace('-', ' ', Request::segment('2')) }}</span>
         </span>
     </nav>
     @endif
 
-    <!-- Navigasi Bawah (yang ada filter) --> 
+    <!-- Navigasi Bawah (yang ada filter) -->
     <!-- halaman riwayat skripsi -->
     @if(Request::segment('2') === 'riwayat-skripsi' || Request::segment('3') === 'cari')
     <nav class="navbar navbar-expand-lg navbar-light d-lg-none bg-white border shadow fixed-bottom rounded justify-content-between mb-1 mx-1 mt-0 px-2">
-    
+
         <a class="text-dark" href="{{ url()->previous() }}"><span class="fa fa-arrow-left"></span> <span class="">Kembali</span></a>
 
         <a class="text-dark" href="{{ url('masuk') }}"><span class="fa fa-home"></span> <span class="">Beranda</span></a>
@@ -111,7 +111,7 @@
                         {!! Form::text('judul', (!empty($judul) ? $judul : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Nama</label>
@@ -122,7 +122,7 @@
                         {!! Form::text('nim', (!empty($nim) ? $nim : null), ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">Angkatan</label>
@@ -146,23 +146,23 @@
                                     ], (!empty($tahapan_skripsi) ? $tahapan_skripsi : null), ['placeholder' => 'Daftar Tahapan Skripsi', 'class' => 'custom-select']) !!}
                     </div>
                 </div>
-            
+
                 <div class="form-row">
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="fa fa-search"></span>
                             Cari</button>
                     </div>
                 </div>
-            
+
             {!! Form::close() !!}
         </div>
-    
+
     </nav>
     @endif
-    
+
     <div class="container-fluid">
         <div class="row">
-            
+
             <!-- Form Login -->
             @if(empty(Request::segment('2')) && Request::segment('1') === 'masuk')
             <div class="col-12 col-lg-3 my-2">
@@ -172,11 +172,11 @@
                 <div class="card">
                     <h6 class="card-header bg-primary text-light font-weight-bold"><span class="fa fa-sign-in-alt"></span> Masuk</h6>
                     <div class="card-body">
-                        
+
                         <!-- jika login gagal -->
                         @if($errors->any())
                         <div class="alert alert-danger">
-                            <strong><span class="fa fa-exclamation-triangle"></span> Oops!</strong> 
+                            <strong><span class="fa fa-exclamation-triangle"></span> Oops!</strong>
                             @foreach($errors->all() as $error)
                             <br> {{ $error }}
                             @endforeach
@@ -185,14 +185,14 @@
 
                         @if(Session::has('pesan'))
                         <div class="alert alert-danger">
-                            <strong><span class="fa fa-exclamation-triangle"></span> Oops!</strong> 
+                            <strong><span class="fa fa-exclamation-triangle"></span> Oops!</strong>
                             <br> {{ Session::get('pesan') }}
                         </div>
                         @endif
 
                         @if(Session::has('info'))
                         <div class="alert alert-primary">
-                            <strong><span class="fa fa-info-circle"></span> Info!</strong> 
+                            <strong><span class="fa fa-info-circle"></span> Info!</strong>
                             <br> {{ Session::get('info') }}
                         </div>
                         @endif
@@ -201,17 +201,17 @@
                         {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Pengguna</label>
-                                {!! Form::select('pengguna', ['mahasiswa' => 'Mahasiswa', 'dosen' => 'Dosen', 'admin' => 'Admin'], old('pengguna'), ['class' => 'custom-select', 'placeholder' => 'Daftar Pengguna', 'required' => 'required']) !!}
+                                {!! Form::select('pengguna', ['mahasiswa' => 'Mahasiswa', 'dosen' => 'Dosen', 'admin' => 'Admin'], old('pengguna'), ['class' => 'custom-select', 'placeholder' => '-- Jenis Pengguna --', 'required' => 'required']) !!}
                             </div>
 
                             <div class="form-group">
                                 <label>Username<sup>1</sup> </label>
                                 <input type="text" name="username" class="form-control" value="{{ old('username') }}" required="required">
                                 <small class="form-text text-muted">
-                                    <sup>1</sup> Isi dengan NIM untuk Mahasiswa & NIP untuk Dosen  
+                                    <sup>1</sup> Isi dengan NIM untuk Mahasiswa & NIP untuk Dosen
                                 </small>
                             </div>
-                                
+
                             <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" name="password" value="{{ old('password') }}" class="form-control" required="required">
@@ -236,20 +236,18 @@
     <!-- Footer Umum -->
     <nav class="nav justify-content-center py-0 border-top bg-primary">
     @endif
-        
+
         <a class="nav-link text-light text-center" href="https://drive.google.com/drive/folders/1a_3ow0_WFAU8pT0LpInYfJKekpESsySm" target="_blank"><span class="fa fa-info-circle" style="color:white"></span> Tentang & Panduan</a>
-        
+
         <a class="nav-link text-light text-center" href="https://ft.ung.ac.id/informatika/index.html" target="_blank"><i class="far fa-copyright"></i>
-            2020 
+            2020
             @if(date('Y') !== '2020')
                 - {{ date('Y') }}
             @endif
               Teknik Informatika Universitas Negeri Gorontalo</a>
-        
+
         <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">Versi {{ env('APP_VER') }}</a>
 
-        <a class="nav-link text-light text-center" href="https://facebook.com/adnan.indrakasim" target="_blank"><span class="fa fa-code text-white"></span> with <span class="fa fa-heart text-white"></span> & <span class="fa fa-mug-hot text-white"></span> by Adnan Kasim</a>
-        
     </nav>
 
     <!-- Optional JavaScript -->
@@ -258,7 +256,7 @@
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script>
-    
+
     </script>
 </body>
 

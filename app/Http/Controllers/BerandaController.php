@@ -14,19 +14,19 @@ class BerandaController extends Controller
 {
     public function __construct(){
         $this->middleware('pengguna', ['only' => [
-            'index', 'profil' 
+            'index', 'profil'
         ]]);
 
         $this->middleware('pimpinan', ['only' => [
-            'indexAdmin', 
+            'indexAdmin',
         ]]);
 
         $this->middleware('dosen', ['only' => [
-            'indexDosen', 
+            'indexDosen',
         ]]);
 
         $this->middleware('mahasiswa', ['only' => [
-            'indexMahasiswa', 'indexRevisi', 'createRevisi', 'storeRevisi', 'editRevisi', 'updateRevisi' 
+            'indexMahasiswa', 'indexRevisi', 'createRevisi', 'storeRevisi', 'editRevisi', 'updateRevisi'
         ]]);
     }
 
@@ -48,7 +48,7 @@ class BerandaController extends Controller
         $kontrak_kp = \App\Mahasiswa::where('kontrak_kp', 'ya')->count();
         $telah_lulus = \App\Mahasiswa::where('tahapan_skripsi', 'lulus')->count();
         $sementara_skripsi = \App\Mahasiswa::whereNotIn('tahapan_skripsi', ['persiapan', 'lulus'])->count();
-        
+
         // dosen
         $total_dosen = \App\Dosen::all()->count();
         $bisa_menguji = \App\Dosen::where('bisa_menguji', 'ya')->count();
@@ -56,7 +56,7 @@ class BerandaController extends Controller
         $dosen_aktif = \App\Dosen::where('status', 'aktif')->count();
         $dosen_tidak_aktif = \App\Dosen::where('status', 'tidak-aktif')->count();
         $dosen_cuti = \App\Dosen::where('status', 'cuti')->count();
-        
+
         // PENDAFTAR USULAN TOPIK, UJIAN & TURUN KP 10 PERIODE TERAKHIR
         $persentase_usulan_topik = \App\PeriodeDaftarUsulanTopik::limit(10)->orderBy('waktu_buka', 'desc')->get();
         $persentase_ujian = \App\PeriodeDaftarUjian::limit(10)->orderBy('waktu_buka', 'desc')->get();
@@ -65,7 +65,7 @@ class BerandaController extends Controller
         $angkatan = \App\Mahasiswa::select('angkatan')->distinct()->orderBy('angkatan', 'desc')->limit(7)->get();
         $angkatan->shift();
         $angkatan->shift();
-        
+
         $skripsi_mahasiswa = [];
         $kp_mahasiswa = [];
 
@@ -83,7 +83,7 @@ class BerandaController extends Controller
                 'revisi_skripsi' => \App\Mahasiswa::where('tahapan_skripsi', 'revisi_skripsi')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'pendaftaran_sidang_skripsi' => \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_sidang_skripsi')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'ujian_sidang_skripsi' => \App\Mahasiswa::where('tahapan_skripsi', 'ujian_sidang_skripsi')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count(),
-                'lulus' => \App\Mahasiswa::where('tahapan_skripsi', 'lulus')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count()  
+                'lulus' => \App\Mahasiswa::where('tahapan_skripsi', 'lulus')->where('kontrak_skripsi', 'ya')->where('angkatan', $ang->angkatan)->count()
             ];
         }
 
@@ -94,7 +94,7 @@ class BerandaController extends Controller
                 'pendaftaran_kp' => \App\Mahasiswa::where('tahapan_kp', 'pendaftaran')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'ujian_seminar_kp' => \App\Mahasiswa::where('tahapan_kp', 'ujian_seminar')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
                 'revisi_kp' => \App\Mahasiswa::where('tahapan_kp', 'revisi')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count(),
-                'lulus_kp' => \App\Mahasiswa::where('tahapan_kp', 'lulus')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count()  
+                'lulus_kp' => \App\Mahasiswa::where('tahapan_kp', 'lulus')->where('kontrak_kp', 'ya')->where('angkatan', $ang->angkatan)->count()
             ];
         }
 
@@ -111,7 +111,7 @@ class BerandaController extends Controller
         }
 
         return view('beranda-admin', compact(
-            'kp_mahasiswa', 'skripsi_mahasiswa', 'total_mahasiswa', 'dosen_aktif', 'dosen_tidak_aktif', 'dosen_cuti', 'kontrak_skripsi', 'kontrak_kp', 'total_dosen', 'bisa_menguji', 'bisa_membimbing', 'persentase_usulan_topik', 'persentase_ujian', 'telah_lulus', 'sementara_skripsi', 'persentase_turun_kp', 'angkatan', 'daftar_periode', 'pendaftar_by_ujian' 
+            'kp_mahasiswa', 'skripsi_mahasiswa', 'total_mahasiswa', 'dosen_aktif', 'dosen_tidak_aktif', 'dosen_cuti', 'kontrak_skripsi', 'kontrak_kp', 'total_dosen', 'bisa_menguji', 'bisa_membimbing', 'persentase_usulan_topik', 'persentase_ujian', 'telah_lulus', 'sementara_skripsi', 'persentase_turun_kp', 'angkatan', 'daftar_periode', 'pendaftar_by_ujian'
         ));
     }
 
@@ -258,7 +258,7 @@ class BerandaController extends Controller
         $ujian_seminar_kp = \App\Mahasiswa::where('tahapan_kp', 'ujian_seminar')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
         $revisi_kp = \App\Mahasiswa::where('tahapan_kp', 'revisi')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
         $lulus_kp = \App\Mahasiswa::where('tahapan_kp', 'lulus')->where('id_dosen', Session::get('id'))->whereIn('id_prodi', $prodi_kp)->count();
-            
+
         // tahapan skripsi mahasiswa pa
         $pendaftaran_topik = \App\Mahasiswa::where('tahapan_skripsi', 'pendaftaran_topik')->where('id_dosen', Session::get('id'))->count();
         $penyusunan_proposal = \App\Mahasiswa::where('tahapan_skripsi', 'penyusunan_proposal')->where('id_dosen', Session::get('id'))->count();
@@ -273,7 +273,7 @@ class BerandaController extends Controller
         $lulus = \App\Mahasiswa::where('tahapan_skripsi', 'lulus')->where('id_dosen', Session::get('id'))->count();
 
         return view('beranda-dosen', compact(
-            'total_mahasiswa', 'kontrak_skripsi', 'kontrak_kp', 'pendaftaran_kp', 'ujian_seminar_kp', 'revisi_kp', 'lulus_kp', 'pendaftaran_topik', 'penyusunan_proposal', 'pendaftaran_proposal', 'ujian_seminar_proposal', 'penulisan_skripsi', 'pendaftaran_hasil', 'ujian_seminar_hasil', 'revisi_skripsi', 'pendaftaran_sidang_skripsi', 'ujian_sidang_skripsi', 'lulus', 'bimbingan_skripsi_pendaftaran_topik', 'bimbingan_skripsi_penyusunan_proposal', 'bimbingan_skripsi_pendaftaran_proposal', 'bimbingan_skripsi_ujian_seminar_proposal', 'bimbingan_skripsi_penulisan_skripsi', 'bimbingan_skripsi_pendaftaran_hasil', 'bimbingan_skripsi_ujian_seminar_hasil', 'bimbingan_skripsi_revisi_skripsi', 'bimbingan_skripsi_pendaftaran_sidang_skripsi', 'bimbingan_skripsi_ujian_sidang_skripsi', 'bimbingan_skripsi_lulus', 'total_bimbingan_skripsi', 'total_bimbingan_kp', 'bimbingan_kp_lulus', 'bimbingan_kp_revisi', 'bimbingan_kp_ujian_seminar', 'bimbingan_kp_pendaftaran', 'total_bimbingan_skripsi_lulus' 
+            'total_mahasiswa', 'kontrak_skripsi', 'kontrak_kp', 'pendaftaran_kp', 'ujian_seminar_kp', 'revisi_kp', 'lulus_kp', 'pendaftaran_topik', 'penyusunan_proposal', 'pendaftaran_proposal', 'ujian_seminar_proposal', 'penulisan_skripsi', 'pendaftaran_hasil', 'ujian_seminar_hasil', 'revisi_skripsi', 'pendaftaran_sidang_skripsi', 'ujian_sidang_skripsi', 'lulus', 'bimbingan_skripsi_pendaftaran_topik', 'bimbingan_skripsi_penyusunan_proposal', 'bimbingan_skripsi_pendaftaran_proposal', 'bimbingan_skripsi_ujian_seminar_proposal', 'bimbingan_skripsi_penulisan_skripsi', 'bimbingan_skripsi_pendaftaran_hasil', 'bimbingan_skripsi_ujian_seminar_hasil', 'bimbingan_skripsi_revisi_skripsi', 'bimbingan_skripsi_pendaftaran_sidang_skripsi', 'bimbingan_skripsi_ujian_sidang_skripsi', 'bimbingan_skripsi_lulus', 'total_bimbingan_skripsi', 'total_bimbingan_kp', 'bimbingan_kp_lulus', 'bimbingan_kp_revisi', 'bimbingan_kp_ujian_seminar', 'bimbingan_kp_pendaftaran', 'total_bimbingan_skripsi_lulus'
         ));
     }
 
@@ -306,9 +306,9 @@ class BerandaController extends Controller
     public function masuk()
     {
         if(Session::has('mahasiswa')) return redirect('beranda/mahasiswa');
-        elseif(Session::has('dosen')) return redirect('beranda/dosen'); 
+        elseif(Session::has('dosen')) return redirect('beranda/dosen');
         elseif(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')) return redirect('beranda/mahasiswa');
-        
+
         $periode_ujian = \App\PeriodeDaftarUjian::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
         $daftar_jadwal = \App\JadwalUjian::whereMonth('waktu_mulai', date('m'))->whereYear('waktu_mulai', date('Y'))->orderBy('waktu_mulai', 'ASC')->count();
         $periode_usulan_topik = \App\PeriodeDaftarUsulanTopik::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
@@ -323,9 +323,9 @@ class BerandaController extends Controller
     public function ujian()
     {
         if(Session::has('mahasiswa')) return redirect('beranda/mahasiswa');
-        elseif(Session::has('dosen')) return redirect('beranda/dosen'); 
+        elseif(Session::has('dosen')) return redirect('beranda/dosen');
         elseif(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')) return redirect('beranda/mahasiswa');
-        
+
         $periode_aktif = \App\PeriodeDaftarUjian::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
         if(!empty($periode_aktif)){
             $daftar_pendaftar = \App\PendaftarUjian::where('id_periode_daftar_ujian', $periode_aktif->id)->paginate(10);
@@ -350,9 +350,9 @@ class BerandaController extends Controller
     public function kerjaPraktek()
     {
         if(Session::has('mahasiswa')) return redirect('beranda/mahasiswa');
-        elseif(Session::has('dosen')) return redirect('beranda/dosen'); 
+        elseif(Session::has('dosen')) return redirect('beranda/dosen');
         elseif(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')) return redirect('beranda/mahasiswa');
-        
+
         $periode_aktif = \App\PeriodeDaftarTurunKp::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
         if(!empty($periode_aktif)){
             $daftar_pendaftar = \App\PendaftarTurunKp::where('id_periode_daftar_turun_kp', $periode_aktif->id)->paginate(10);
@@ -378,9 +378,9 @@ class BerandaController extends Controller
         $pengaturan = \App\Pengaturan::find(1);
 
         if(Session::has('mahasiswa')) return redirect('beranda/mahasiswa');
-        elseif(Session::has('dosen')) return redirect('beranda/dosen'); 
+        elseif(Session::has('dosen')) return redirect('beranda/dosen');
         elseif(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')) return redirect('beranda/mahasiswa');
-        
+
         $periode_aktif = \App\PeriodeDaftarUsulanTopik::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
         if(!empty($periode_aktif)){
             $daftar_pendaftar = \App\PendaftarUsulanTopik::where('id_periode_daftar_usulan_topik', $periode_aktif->id)->paginate(10);
@@ -405,9 +405,9 @@ class BerandaController extends Controller
     public function jadwal($tanggal)
     {
         if(Session::has('mahasiswa')) return redirect('beranda/mahasiswa');
-        elseif(Session::has('dosen')) return redirect('beranda/dosen'); 
+        elseif(Session::has('dosen')) return redirect('beranda/dosen');
         elseif(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')) return redirect('beranda/mahasiswa');
-        
+
         $bulan = date('m', strtotime($tanggal));
         $tahun = date('Y', strtotime($tanggal));
         $daftar_jadwal = \App\JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'ASC')->paginate(10);
@@ -419,7 +419,7 @@ class BerandaController extends Controller
     public function cekPengguna(Request $request)
     {
         $req = $request->all();
-        
+
         $validasi = Validator::make($req, [
           'pengguna' => 'required|in:mahasiswa,dosen,admin',
           'username' => 'required|string|max:100',
@@ -453,7 +453,7 @@ class BerandaController extends Controller
                 Session::put('dosen', true);
                 Session::put('id', $dosen->id);
                 Session::put('nama', $dosen->nama);
-                
+
                 $kajur_aktif = \App\Kajur::where('tahun_awal', '<=', date('Y'))->where('tahun_selesai', '>=', date('Y'))->where('id_dosen', $dosen->id)->first() or null;
                 if(!blank($kajur_aktif)) Session::put('kajur', true);
                 $kaprodi_aktif = \App\Kaprodi::where('tahun_awal', '<=', date('Y'))->where('tahun_selesai', '>=', date('Y'))->where('id_dosen', $dosen->id)->first() or null;
@@ -462,7 +462,7 @@ class BerandaController extends Controller
                     Session::put('nama_prodi', $dosen->kaprodi[0]->prodi->nama);
                     $prodi_kp = \App\ProdiKp::where('id_prodi', Session::get('kaprodi'))->get();
                     if(!$prodi_kp->isEmpty()) Session::put('kaprodi_kp', true);
-                } 
+                }
                 return redirect('/');
             }else{
                 return redirect('masuk')->with('pesan', 'NIP dan/atau Password Tidak Valid')->withInput();
@@ -504,26 +504,26 @@ class BerandaController extends Controller
 
             // total mahasiswa PA yang belum lulus kp
             $total_maspa_kp = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_kp', ['lulus'])->whereIn('id_prodi', $prodi_kp)->count();
-        
-            // total mahasiswa bimbingan kp yg bleum lulus 
+
+            // total mahasiswa bimbingan kp yg bleum lulus
             $total_masbing_kp = \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_satu_kp', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_kp', ['lulus']);
             })->count();
             $total_masbing_kp += \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_dua_kp', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_kp', ['lulus']);
             })->count();
-        
+
             // total mahasiswa PA yang belum lulus skripsi
             $total_maspa_skripsi = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_skripsi', ['lulus'])->count();
-        
-            // total mahasiswa bimbingan skripsi yg belum lulus 
+
+            // total mahasiswa bimbingan skripsi yg belum lulus
             $total_masbing_skripsi = \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_satu_skripsi', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_skripsi', ['lulus']);
             })->count();
             $total_masbing_skripsi += \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_dua_skripsi', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_skripsi', ['lulus']);
             })->count();
-        
+
             return view('dosen.detail', compact(
                 'dosen', 'total_maspa_skripsi', 'total_masbing_skripsi', 'total_maspa_kp', 'total_masbing_kp'
             ));
@@ -548,7 +548,7 @@ class BerandaController extends Controller
     public function detailRiwayatSkripsi($id)
     {
         $mahasiswa = \App\Mahasiswa::findOrFail($id);
-        
+
         return view('detail-riwayat-skripsi', compact('mahasiswa'));
     }
 
@@ -556,7 +556,7 @@ class BerandaController extends Controller
     public function riwayatSkripsiCari(Request $request)
     {
         $pengaturan = \App\Pengaturan::find(1);
-        
+
         $judul = trim($request->input('judul'));
         $nama = trim($request->input('nama'));
         $nim = trim($request->input('nim'));
@@ -632,7 +632,7 @@ class BerandaController extends Controller
     public function createRevisi()
     {
         $pengaturan = \App\Pengaturan::find(1);
-        
+
         return view('revisi.create', compact('pengaturan'));
     }
 
@@ -644,7 +644,7 @@ class BerandaController extends Controller
         $validasi = Validator::make($request->all(), [
           'file_laporan' => 'required|mimes:pdf|max:' . $pengaturan->max_file_upload,
           'file_jurnal_skripsi' => 'required|mimes:pdf|max:' . $pengaturan->max_file_upload
-        ]);        
+        ]);
 
         if($validasi->fails()){
           return redirect()->back()->withInput()->withErrors($validasi);
@@ -655,7 +655,7 @@ class BerandaController extends Controller
 
         $input_laporan['id_mahasiswa'] = Session::get('id');
         $input_jurnal['id_mahasiswa'] = Session::get('id');
-        
+
         $pendaftar = \App\PendaftarUjian::where('id_mahasiswa', Session::get('id'))->where('ujian', 'sidang-skripsi')->first();
 
         if(empty($pendaftar)) return redirect()->back()->withInput()->with('kesalahan', 'Anda Belum Pernah Mendaftar Ujian Sidang Skripsi');
@@ -683,7 +683,7 @@ class BerandaController extends Controller
     {
         $pengaturan = \App\Pengaturan::find(1);
         $revisi = \App\RiwayatSkripsi::find($id);
-        
+
         return view('revisi.edit', compact('pengaturan', 'revisi'));
     }
 
@@ -695,7 +695,7 @@ class BerandaController extends Controller
         $validasi = Validator::make($request->all(), [
           'file_laporan' => 'required|mimes:pdf|max:' . $pengaturan->max_file_upload,
           'file_jurnal_skripsi' => 'required|mimes:pdf|max:' . $pengaturan->max_file_upload
-        ]);        
+        ]);
 
         if($validasi->fails()){
           return redirect()->back()->withInput()->withErrors($validasi);
@@ -706,7 +706,7 @@ class BerandaController extends Controller
 
         $input_laporan['id_mahasiswa'] = Session::get('id');
         $input_jurnal['id_mahasiswa'] = Session::get('id');
-        
+
         $pendaftar = \App\PendaftarUjian::where('id_mahasiswa', Session::get('id'))->where('ujian', 'sidang-skripsi')->first();
 
         if($request->hasFile('file_laporan')){
@@ -789,12 +789,12 @@ class BerandaController extends Controller
 
 		$nama_file = rand().$file->getClientOriginalName();
 		$file->move('assets/file', $nama_file);
-      
+
         Excel::import(new \App\Imports\TesImport, 'assets/file/'.$nama_file);
         Session::flash('pesan','Berhasil Mengimport!');
-      
+
         unlink('assets/file/'.$nama_file);
-      
+
         return redirect('tes');
     }
 

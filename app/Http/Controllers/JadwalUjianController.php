@@ -17,23 +17,23 @@ class JadwalUjianController extends Controller
 {
     public function __construct(){
         $this->middleware('mahasiswa', ['only' => [
-            'index' 
+            'index'
         ]]);
 
         $this->middleware('mahasiswaPimpinan', ['only' => [
-            'show', 'jadwalByTanggal', 'detailPeserta', 'cetak', 'administrasiUjian', 'administrasiUjianKp', 'formAdministrasiUjianKp', 'jadwalByTanggalCari' 
+            'show', 'jadwalByTanggal', 'detailPeserta', 'cetak', 'administrasiUjian', 'administrasiUjianKp', 'formAdministrasiUjianKp', 'jadwalByTanggalCari'
         ]]);
 
         $this->middleware('pimpinan', ['only' => [
-            'semuaJadwal', 'destroy', 'destroyPeserta', 'create', 'createPeserta', 'store', 'storeKp', 'storePeserta', 'undangan', 'formUndangan', 'beritaAcaraSkripsi', 'formBeritaAcaraSkripsi', 'beritaAcaraKp', 'formBeritaAcaraKp' 
+            'semuaJadwal', 'destroy', 'destroyPeserta', 'create', 'createPeserta', 'store', 'storeKp', 'storePeserta', 'undangan', 'formUndangan', 'beritaAcaraSkripsi', 'formBeritaAcaraSkripsi', 'beritaAcaraKp', 'formBeritaAcaraKp'
         ]]);
 
         $this->middleware('pengguna', ['only' => [
-            'beritaAcaraSkripsiByMahasiswa', 'beritaAcaraKpByMahasiswa' 
+            'beritaAcaraSkripsiByMahasiswa', 'beritaAcaraKpByMahasiswa'
         ]]);
 
         $this->middleware('dosen', ['only' => [
-            'indexDosen' 
+            'indexDosen'
         ]]);
     }
 
@@ -43,13 +43,13 @@ class JadwalUjianController extends Controller
         // jadwal bulan ini
         $bulan = date('m', strtotime(now()));
         $tahun = date('Y', strtotime(now()));
-        
+
         $daftar_jadwal_bulan_ini = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'ASC')->paginate(10);
         $total = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->count();
 
         // jadwal ujian saya
         $daftar_jadwal = JadwalUjian::where('id_mahasiswa', Session::get('id'))->orderBy('waktu_mulai', 'ASC')->get();
-        
+
         return view('jadwal-ujian.index', compact('daftar_jadwal', 'daftar_jadwal_bulan_ini', 'total', 'bulan', 'tahun'));
     }
 
@@ -59,10 +59,10 @@ class JadwalUjianController extends Controller
         // jadwal bulan ini
         $bulan = date('m', strtotime(now()));
         $tahun = date('Y', strtotime(now()));
-        
+
         $daftar_jadwal_bulan_ini = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'ASC')->paginate(10);
         $total = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->count();
-        
+
         return view('jadwal-ujian.index-dosen', compact('daftar_jadwal_bulan_ini', 'total', 'bulan', 'tahun'));
     }
 
@@ -78,10 +78,10 @@ class JadwalUjianController extends Controller
     {
         $bulan = date('m', strtotime($tanggal));
         $tahun = date('Y', strtotime($tanggal));
-        
+
         $daftar_jadwal = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'ASC')->paginate(10);
         $total = JadwalUjian::whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->count();
-        
+
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
         $filter_jadwal_ujian = true;
 
@@ -184,7 +184,7 @@ class JadwalUjianController extends Controller
 
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
         $tanggal = $tahun . '-' . $bulan;
-        
+
         $filter_jadwal_ujian = true;
 
         return view('jadwal-ujian.jadwal-tanggal', compact('daftar_jadwal', 'daftar_prodi', 'total', 'pagination', 'nama', 'id_prodi', 'nim', 'angkatan', 'ujian', 'bulan', 'tahun', 'tanggal', 'filter_jadwal_ujian'));
@@ -203,7 +203,7 @@ class JadwalUjianController extends Controller
     public function destroy($id)
     {
         $jadwal = JadwalUjian::findOrFail($id);
-        
+
         $tahun = date('Y', strtotime($jadwal->waktu_mulai));
         $bulan = date('m', strtotime($jadwal->waktu_mulai));
 
@@ -268,7 +268,7 @@ class JadwalUjianController extends Controller
 
         $waktu_mulai = date('Y-m-d H:i:s', strtotime($request->post('waktu').' '.$request->post('jam_mulai')));
         $waktu_selesai = date('Y-m-d H:i:s', strtotime($request->post('waktu').' '.$request->post('jam_selesai')));
-        
+
         // Cek jika ada dosen penguji yang waktu mengujinya bentrok
         foreach($request->post('dospeng') as $dospeng){
             $dosen[] = $dospeng['id_dosen'];
@@ -378,7 +378,7 @@ class JadwalUjianController extends Controller
         // input nilai ujian skripsi
         if($request->post('ujian') === 'proposal'){
             $nilai_ujian_skripsi = \App\NilaiUjianSkripsi::updateOrCreate(['id_jadwal_ujian' => $jadwal->id], ['jumlah_nilai' => '0', 'nilai_akhir' => '0', 'status' => 'tidak-lulus']);
-            
+
             $hasil_akumulasi = \App\HasilAkumulasiNilaiSkripsi::updateOrCreate(['id_mahasiswa' => $request->post('id_mahasiswa')], ['seminar_proposal' => '0', 'seminar_hasil' => '0', 'sidang_skripsi' => '0', 'total' => '0', 'nilai_huruf' => 'E']);
         }elseif($request->post('ujian') === 'hasil'){
             $nilai_ujian_skripsi = \App\NilaiUjianSkripsi::updateOrCreate(['id_jadwal_ujian' => $jadwal->id], ['jumlah_nilai' => '0', 'nilai_akhir' => '0', 'status' => 'tidak-lulus']);
@@ -522,7 +522,7 @@ class JadwalUjianController extends Controller
 
         $pdf = PDF::loadView('jadwal-ujian.cetak', compact('bulan', 'tahun', 'daftar_jadwal'))->setPaper('a4', 'landscape');
         return $pdf->download('Daftar Peserta Ujian Bulan '.$bulan.' - '.$tahun.'.pdf');
-    } 
+    }
 
     // pimpinan
     public function formUndangan($id)
@@ -567,7 +567,7 @@ class JadwalUjianController extends Controller
         $nomor = $request->post('nomor_surat');
         $jadwal = JadwalUjian::find($request->post('id'));
         $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
-        
+
         $judul = \App\PendaftarUsulanTopik::where('id_mahasiswa', $jadwal->id_mahasiswa)->where('tahapan', 'diterima')->first();
 
         if($jadwal->ujian === 'proposal'){
@@ -643,7 +643,7 @@ class JadwalUjianController extends Controller
         $dospeng = $jadwal->penilaianKp->groupBy('id_dosen');
 
         $pendaftar = \App\PendaftarTurunKp::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
-        
+
         $pdf = PDF::loadView('jadwal-ujian/berita-acara-ujian-kerja-praktek', compact('jadwal', 'dosbing', 'daftar_indikator', 'dospeng', 'nomor', 'judul', 'pendaftar'));
         return $pdf->download('Berita Acara Ujian '.$jadwal->ujian.' - '.$jadwal->mahasiswa->nama.'.pdf');
     }
@@ -660,7 +660,7 @@ class JadwalUjianController extends Controller
             $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', $request->post('id_mahasiswa'))->last();
         }
         $pendaftar_kp = \App\PendaftarTurunKp::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
-        
+
         $nomor = $request->post('nomor_surat');
         $judul = \App\PendaftarUsulanTopik::where('id_mahasiswa', $request->post('id_mahasiswa'))->where('tahapan', 'diterima')->first();
 
@@ -676,7 +676,7 @@ class JadwalUjianController extends Controller
         $judul = \App\PendaftarUsulanTopik::where('id_mahasiswa', $jadwal->id_mahasiswa)->where('tahapan', 'diterima')->first();
         $kaprodi = \App\Kaprodi::where('tahun_awal', '<=', date('Y'))->where('tahun_selesai', '>=', date('Y'))->where('id_prodi', $jadwal->mahasiswa->id_prodi)->first();
         $nomor = \App\PeriodeDaftarUjian::all()->last();
-        
+
         if($jadwal->ujian === 'proposal'){
             $daftar_indikator = \App\IndikatorPenilaian::where('ujian', 'proposal')->get();
             $pdf = PDF::loadView('jadwal-ujian/administrasi-ujian-proposal', compact('jadwal', 'dosbing', 'judul', 'nomor', 'daftar_indikator', 'kaprodi'));
@@ -706,11 +706,11 @@ class JadwalUjianController extends Controller
         $nomor = \App\PeriodeDaftarUjian::all()->last();
         $daftar_indikator = \App\IndikatorPenilaian::where('ujian', 'kerja-praktek')->get();
         $dospeng = $jadwal->penilaianKp->groupBy('id_dosen');
-        $pendaftar = \App\PendaftarTurunKp::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();        
+        $pendaftar = \App\PendaftarTurunKp::where('id_mahasiswa', $jadwal->id_mahasiswa)->first();
         $kaprodi = \App\Kaprodi::where('tahun_awal', '<=', date('Y'))->where('tahun_selesai', '>=', date('Y'))->where('id_prodi', $jadwal->mahasiswa->id_prodi)->first();
 
         $pdf = PDF::loadView('jadwal-ujian/administrasi-ujian-kerja-praktek', compact('jadwal', 'dosbing', 'judul', 'nomor', 'daftar_indikator', 'dospeng', 'pendaftar', 'kaprodi'));
-        
+
         return $pdf->download('Administrasi Ujian '.$jadwal->ujian.' - '.$jadwal->mahasiswa->nama.'.pdf');
     }
 

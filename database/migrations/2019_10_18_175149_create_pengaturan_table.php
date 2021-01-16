@@ -10,7 +10,7 @@ class CreatePengaturanTable extends Migration
     {
         Schema::create('pengaturan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->string('max_file_upload', 10);
 
             // pendaftar usulan topik
@@ -21,11 +21,11 @@ class CreatePengaturanTable extends Migration
             ])->default('hilangkan');
 
 
-            // pendaftar turun kp 
+            // pendaftar turun kp
             $table->enum('scan_persetujuan_kantor', [
                 'wajib', 'tidak-wajib', 'hilangkan'
             ])->default('hilangkan');
-            
+
 
             // pendaftar ujian
             $table->enum('skor_sertifikat_toefl', [

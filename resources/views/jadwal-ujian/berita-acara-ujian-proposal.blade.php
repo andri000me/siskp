@@ -32,7 +32,7 @@
         FAKULTAS TEKNIK <br> JURUSAN TEKNIK INFORMATIKA <br>
         </h5>
         <h6 class="d-block text-center" style="border-bottom: 2px solid black; padding-bottom:10px">
-        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Kab. Bone Bolango <br>
+        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Bone Bolango <br>
         Telepon (0435) 821152 Faksimilie (0435) 821752 <br>
         Laman <u>https://ung.ac.id</u> <br>
         </h6>
@@ -61,15 +61,16 @@
         <tr class="nilai">
             <th class="text-center align-middle" rowspan="2">Indikator Penilaian</th>
             <th class="text-center align-middle" rowspan="2">Bobot (%)</th>
-            <th class="text-center align-middle" colspan="4">Nilai Skor Penguji</th>
-            <th class="text-center align-middle" rowspan="2">Rata-Rata</th>
-            <th class="text-center align-middle" rowspan="2">Bobot x Rata-Rata Skor</th>
+            <th class="text-center align-middle" colspan="5">Nilai Skor Penguji</th>
+            <th class="text-center align-middle" rowspan="2">Rerata</th>
+            <th class="text-center align-middle" rowspan="2">Bobot x Rerata Skor</th>
         </tr>
         <tr class="nilai">
             <th class="text-center align-middle">1</th>
             <th class="text-center align-middle">2</th>
             <th class="text-center align-middle">3</th>
             <th class="text-center align-middle">4</th>
+            <th class="text-center align-middle">5</th>
         </tr>
         @foreach($daftar_indikator as $indikator)
         <tr class="nilai">
@@ -81,34 +82,33 @@
             <td class="text-center align-middle"> </td>
             <td class="text-center align-middle"> </td>
             <td class="text-center align-middle"> </td>
+            <td class="text-center align-middle"> </td>
         </tr>
         @endforeach
         <tr class="nilai">
-            <th colspan="7" class="text-right">Jumlah Nilai</th>
+            <th colspan="8" class="text-right">Jumlah Nilai</th>
             <td> </td>
         </tr>
         <tr class="nilai">
-            <th colspan="7" class="text-right">Nilai Akhir Ujian Seminar Proposal Skripsi : (Jumlah Nilai / 500) * 100</th>
+            <th colspan="8" class="text-right">Nilai Akhir Ujian Seminar Proposal Skripsi : (Jumlah Nilai / 500) * 100</th>
             <td> </td>
         </tr>
         <tr class="nilai">
-            <th colspan="7" class="text-right">Nilai Batas Kelayakan >= 60</th>
+            <th colspan="8" class="text-right">Nilai Batas Kelayakan >= 60</th>
             <td> </td>
         </tr>
     </table>
     <p class="py-0 my-0">Berdasarkan hasil perolehan nilai oleh Penguji, maka mahasiswa tersebut dinyatakan : <strong>LAYAK / TIDAK LAYAK</strong> untuk melanjutkan penelitian skripsinya. Rekomendasi Penguji terhadap Proposal yang diajukan adalah <strong> Tanpa Perbaikan / Perbaikan / Ganti Topik Judul</strong></p>
-        
+
         @foreach($jadwal->dosenPenguji as $penguji)
-            @if($jadwal->dosenPenguji->count() === 4)
-                <div class="float-left mx-4">
-            @elseif($jadwal->dosenPenguji->count() === 5)
-                <div class="float-left mx-3">
+            @if($jadwal->dosenPenguji->count() === 5)
+                <div class="float-left mx-2">
             @endif
-                <p>Penguji {{ $penguji->dospeng }}</p>
+                <p>&nbsp; &nbsp; &nbsp; Penguji {{ $penguji->dospeng }}</p>
                 <br> <br>
                 <strong>(..........................)</strong>
             </div>
         @endforeach
-         
+
 </body>
 </html>

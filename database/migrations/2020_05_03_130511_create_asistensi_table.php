@@ -15,7 +15,7 @@ class CreateAsistensiTable extends Migration
             $table->enum('jenis', [
                 'skripsi', 'kerja-praktek'
             ]);
-            
+
             // foreign key
             $table->bigInteger('id_dosen')->unsigned()->nullable();
             $table->bigInteger('id_mahasiswa')->unsigned()->nullable();

@@ -14,6 +14,7 @@ class CreatePenilaianProposalTable extends Migration
             $table->string('nilai_dospeng_dua', 5)->nullable();
             $table->string('nilai_dospeng_tiga', 5)->nullable();
             $table->string('nilai_dospeng_empat', 5)->nullable();
+            $table->string('nilai_dospeng_lima', 5)->nullable();
             $table->string('nilai_rerata', 5)->nullable();
             $table->string('nilai_rerata_x_bobot', 5)->nullable();
             $table->timestamps();
@@ -23,7 +24,8 @@ class CreatePenilaianProposalTable extends Migration
             $table->bigInteger('dospeng_dua_proposal')->unsigned()->nullable();
             $table->bigInteger('dospeng_tiga_proposal')->unsigned()->nullable();
             $table->bigInteger('dospeng_empat_proposal')->unsigned()->nullable();
-            
+            $table->bigInteger('dospeng_lima_proposal')->unsigned()->nullable();
+
             $table->bigInteger('id_indikator_penilaian')->unsigned()->nullable();
             $table->bigInteger('id_jadwal_ujian')->unsigned()->nullable();
         });

@@ -32,7 +32,7 @@
         FAKULTAS TEKNIK <br> JURUSAN TEKNIK INFORMATIKA <br>
         </h5>
         <h6 class="d-block text-center" style="border-bottom: 2px solid black; padding-bottom:10px">
-        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Kab. Bone Bolango <br>
+        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Bone Bolango <br>
         Telepon (0435) 821152 Faksimilie (0435) 821752 <br>
         Laman <u>https://ung.ac.id</u> <br>
         </h6>
@@ -42,7 +42,7 @@
         <h6 class="text-center font-weight-bold"> Nomor: {{ $nomor }}</h6>
         <p class="mb-0 px-2 pb-0">
             Pada hari ini {{ tanggal($jadwal->waktu_mulai) }} Telah Dilaksanakan Ujian Seminar Proposal Skripsi bagi mahasiswa berikut :<br>
-        </p> 
+        </p>
             <table class="table borderless my-0 py-0">
             <tr>
                 <td>Nama & NIM</td>
@@ -61,15 +61,16 @@
         <tr class="nilai">
             <th class="text-center align-middle" rowspan="2">Indikator Penilaian</th>
             <th class="text-center align-middle" rowspan="2">Bobot (%)</th>
-            <th class="text-center align-middle" colspan="4">Nilai Skor Penguji</th>
-            <th class="text-center align-middle" rowspan="2">Rata-Rata</th>
-            <th class="text-center align-middle" rowspan="2">Bobot x Rata-Rata Skor</th>
+            <th class="text-center align-middle" colspan="5">Nilai Skor Penguji</th>
+            <th class="text-center align-middle" rowspan="2">Rerata</th>
+            <th class="text-center align-middle" rowspan="2">Bobot x Rerata Skor</th>
         </tr>
         <tr class="nilai">
             <th class="text-center align-middle">1</th>
             <th class="text-center align-middle">2</th>
             <th class="text-center align-middle">3</th>
             <th class="text-center align-middle">4</th>
+            <th class="text-center align-middle">5</th>
         </tr>
         @foreach($penilaian_ujian as $penilaian)
         <tr class="nilai">
@@ -79,28 +80,29 @@
             <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_dua }}</td>
             <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_tiga }}</td>
             <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_empat }}</td>
+            <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_lima }}</td>
             <td class="text-center align-middle">{{ $penilaian->nilai_rerata }}</td>
             <td class="text-center align-middle">{{ $penilaian->nilai_rerata_x_bobot }}</td>
         </tr>
         @endforeach
         @foreach($jadwal->nilaiUjianSkripsi as $nilaiUjian)
         <tr class="nilai">
-            <th colspan="7" class="text-right">Jumlah Nilai</th>
+            <th colspan="8" class="text-right">Jumlah Nilai</th>
             <td class="text-center align-middle">{{ $nilaiUjian->jumlah_nilai }}</td>
         </tr>
         <tr class="nilai">
-            <th colspan="7" class="text-right">Nilai Akhir Ujian Seminar Proposal Skripsi : (Jumlah Nilai / 500) * 100</th>
+            <th colspan="8" class="text-right">Nilai Akhir Ujian Seminar Proposal Skripsi : (Jumlah Nilai / 500) * 100</th>
             <td class="text-center align-middle">{{ $nilaiUjian->nilai_akhir }}</td>
         </tr>
         <tr class="nilai">
-            <th colspan="8" class="text-right">Nilai Batas Kelayakan >= 60</th>
+            <th colspan="9" class="text-right">Nilai Batas Kelayakan >= 60</th>
         </tr>
         @endforeach
     </table>
     <p class="py-0 my-0">Berdasarkan hasil perolehan nilai oleh Penguji, maka mahasiswa tersebut dinyatakan : <strong>LAYAK / TIDAK LAYAK</strong> untuk melanjutkan penelitian skripsinya. Rekomendasi Penguji terhadap Proposal yang diajukan adalah <strong> Tanpa Perbaikan / Perbaikan / Ganti Topik Judul</strong></p>
 
     <div class="float-left mr-4 ml-0 pl-0">
-        <p>&nbsp; &nbsp; Penguji 1</p>
+        <p>Penguji 1</p>
         @if(!empty($dosen->dospengSatuProposal->tanda_tangan))
         <img src="{{ asset('assets/ttd/' . $dosen->dospengSatuProposal->tanda_tangan) }}" style="width:25%; padding-left:-30px;" class="img pt-2">
         @endif
@@ -109,7 +111,7 @@
     </div>
 
     <div class="float-left mx-5">
-        <p>&nbsp; &nbsp; Penguji 2</p>
+        <p>Penguji 2</p>
         @if(!empty($dosen->dospengDuaProposal->tanda_tangan))
         <img src="{{ asset('assets/ttd/' . $dosen->dospengDuaProposal->tanda_tangan) }}" style="width:25%; padding-left:-30px;" class="img pt-2">
         @endif
@@ -118,7 +120,7 @@
     </div>
 
     <div class="float-left mx-5">
-        <p>&nbsp; &nbsp; Penguji 3</p>
+        <p>Penguji 3</p>
         @if(!empty($dosen->dospengTigaProposal->tanda_tangan))
         <img src="{{ asset('assets/ttd/' . $dosen->dospengTigaProposal->tanda_tangan) }}" style="width:25%; padding-left:-30px;" class="img pt-2">
         @endif
@@ -126,13 +128,22 @@
         <p style="font-size:10px;">{{ implode(' ', array_slice(explode(' ', $dosen->dospengTigaProposal->nama), 0, 2)) }} </p>
     </div>
 
-    <div class="float-left ml-4 mr-0 pr-0" >
-        <p>&nbsp; &nbsp; Penguji 4</p>
+    <div class="float-left mx-5" >
+        <p>Penguji 4</p>
         @if(!empty($dosen->dospengEmpatProposal->tanda_tangan))
         <img src="{{ asset('assets/ttd/' . $dosen->dospengEmpatProposal->tanda_tangan) }}" style="width:25%; padding-left:-30px;" class="img pt-2">
         @endif
         <br> <br>
         <p style="font-size:10px;">{{ implode(' ', array_slice(explode(' ', $dosen->dospengEmpatProposal->nama), 0, 2)) }}</p>
+    </div>
+
+    <div class="float-left ml-5 mr-0 pr-0" >
+        <p>Penguji 5</p>
+        @if(!empty($dosen->dospengLimaProposal->tanda_tangan))
+        <img src="{{ asset('assets/ttd/' . $dosen->dospengLimaProposal->tanda_tangan) }}" style="width:25%; padding-left:-30px;" class="img pt-2">
+        @endif
+        <br> <br>
+        <p style="font-size:10px;">{{ implode(' ', array_slice(explode(' ', $dosen->dospengLimaProposal->nama), 0, 2)) }}</p>
     </div>
 
 </body>

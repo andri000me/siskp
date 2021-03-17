@@ -106,7 +106,7 @@ class AsistensiController extends Controller
         $daftar_asistensi = Asistensi::orderBy('id', 'desc')->paginate(10);
         $total = Asistensi::all()->count();
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-        
+
         return view('asistensi.index-admin', compact('daftar_asistensi', 'total', 'daftar_dosen'));
     }
 
@@ -171,7 +171,7 @@ class AsistensiController extends Controller
           $pagination = $daftar_asistensi->appends($request->except('page'));
 
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-        
+
         return view('asistensi.index-admin', compact('daftar_asistensi', 'daftar_dosen', 'total', 'pagination', 'nama', 'id_dosen', 'nim', 'topik_bimbingan', 'jenis'));
       }
         return redirect('asistensi/semua');
@@ -181,12 +181,12 @@ class AsistensiController extends Controller
     public function createSkripsi(Request $request)
     {
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
-        
+
         if($mahasiswa->kontrak_skripsi === 'tidak'){
             return redirect()->back()->with('kesalahan', 'Anda belum mengontrak Mata Kuliah Skripsi');
         }
 
-        if(empty($mahasiswa->id_dosen)){ 
+        if(empty($mahasiswa->id_dosen)){
             return redirect()->back()->with('kesalahan', 'Dosen Pendamping Akademik anda masih kosong, silahkan lengkapi Profil anda terlebih dahulu');
         }
 
@@ -201,7 +201,7 @@ class AsistensiController extends Controller
         }
 
         $daftar_dosen = \App\Dosen::whereIn('id', [$dosbing->dosbing_satu_skripsi, $dosbing->dosbing_dua_skripsi])->pluck('nama', 'id');
-        
+
         $pengaturan = \App\Pengaturan::find(1);
 
         return view('asistensi.create-skripsi', compact('daftar_dosen', 'pengaturan'));
@@ -211,12 +211,12 @@ class AsistensiController extends Controller
     public function createKp(Request $request)
     {
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
-        
+
         if($mahasiswa->kontrak_kp === 'tidak'){
             return redirect()->back()->with('kesalahan', 'Anda belum mengontrak Mata Kuliah Kerja Praktek');
         }
 
-        if(empty($mahasiswa->id_dosen)){ 
+        if(empty($mahasiswa->id_dosen)){
             return redirect()->back()->with('kesalahan', 'Dosen Pendamping Akademik anda masih kosong, silahkan lengkapi Profil anda terlebih dahulu');
         }
 
@@ -229,9 +229,9 @@ class AsistensiController extends Controller
             Session::flash('kesalahan', 'Dosen Pembimbing Kerja Praktek anda belum tersedia!');
             return redirect()->back();
         }
-        
+
         $daftar_dosen = \App\Dosen::whereIn('id', [$dosbing->dosbing_satu_kp, $dosbing->dosbing_dua_kp])->pluck('nama', 'id');
-        
+
         $pengaturan = \App\Pengaturan::find(1);
 
         return view('asistensi.create-kerja-praktek', compact('daftar_dosen', 'pengaturan'));
@@ -243,7 +243,7 @@ class AsistensiController extends Controller
         $pengaturan = \App\Pengaturan::find(1);
         if($request->post('jenis') === 'skripsi'){
             $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', Session::get('id'))->first();
-        
+
             $validasi = Validator::make($request->all(), [
                 'id_dosen' => 'required|in:' . $dosbing->dosbing_satu_skripsi .','.$dosbing->dosbing_dua_skripsi,
                 'topik_bimbingan' => 'required|string|max:100',
@@ -256,7 +256,7 @@ class AsistensiController extends Controller
             }
         }elseif($request->post('jenis') === 'kerja-praktek'){
             $dosbing = \App\DosenPembimbingKp::where('id_mahasiswa', Session::get('id'))->first();
-        
+
             $validasi = Validator::make($request->all(), [
                 'id_dosen' => 'required|in:' . $dosbing->dosbing_satu_kp .','.$dosbing->dosbing_dua_kp,
                 'topik_bimbingan' => 'required|string|max:100',
@@ -268,7 +268,7 @@ class AsistensiController extends Controller
                 return redirect()->back()->withInput()->withErrors($validasi);
             }
         }
-        
+
         $asistensi = new Asistensi;
         $asistensi->topik_bimbingan = $request->post('topik_bimbingan');
         $asistensi->id_dosen = $request->post('id_dosen');
@@ -310,7 +310,7 @@ class AsistensiController extends Controller
     public function tambahKomentar($id)
     {
         $asistensi = Asistensi::findOrFail($id);
-        
+
         // validasi
         if(Session::has('mahasiswa')){
             if(Session::get('id') !== $asistensi->id_mahasiswa) return redirect()->back()->withInput()->with('kesalahan', 'Anda Tidak Punya Akses Untuk Komentar Disini');
@@ -326,7 +326,7 @@ class AsistensiController extends Controller
     public function komentar(Request $request, $id)
     {
         $asistensi = Asistensi::findOrFail($id);
-        
+
         // validasi
         if(Session::has('mahasiswa')){
             if(Session::get('id') !== $asistensi->id_mahasiswa) return redirect()->back()->withInput()->with('kesalahan', 'Anda Tidak Punya Akses Untuk Komentar Disini');

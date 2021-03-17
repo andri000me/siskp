@@ -19,18 +19,18 @@ class DosenController extends Controller
 {
     public function __construct(){
         $this->middleware('pimpinan', ['only' => [
-            'index', 'destroy', 'cari', 'createImport', 'import', 'export', 'validasiStatus', 'bisaMenguji', 'bisaMembimbing', 'create', 'store' 
+            'index', 'destroy', 'cari', 'createImport', 'import', 'export', 'validasiStatus', 'bisaMenguji', 'bisaMembimbing', 'create', 'store'
         ]]);
 
         $this->middleware('dosenPimpinan', ['only' => [
-            'update', 'edit', 'show', 'detailByDosen' 
+            'update', 'edit', 'show', 'detailByDosen'
         ]]);
 
         $this->middleware('dosen', ['only' => [
-            'akademik', 'skripsi', 'kerjaPraktek', 'pengujian', 'akademikCari', 'skripsiCari', 'kerjaPraktekCari', 'pengujianCari', 'akademikExport', 'pengujianExport', 'kerjaPraktekExport', 'skripsiExport', 'pengujianByTanggal' 
+            'akademik', 'skripsi', 'kerjaPraktek', 'pengujian', 'akademikCari', 'skripsiCari', 'kerjaPraktekCari', 'pengujianCari', 'akademikExport', 'pengujianExport', 'kerjaPraktekExport', 'skripsiExport', 'pengujianByTanggal'
         ]]);
     }
-    
+
     // pimpinan
     public function index()
     {
@@ -50,26 +50,26 @@ class DosenController extends Controller
 
             // total mahasiswa PA yang belum lulus kp
             $total_maspa_kp = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_kp', ['lulus'])->whereIn('id_prodi', $prodi_kp)->count();
-        
-            // total mahasiswa bimbingan kp yg bleum lulus 
+
+            // total mahasiswa bimbingan kp yg bleum lulus
             $total_masbing_kp = \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_satu_kp', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_kp', ['lulus']);
             })->count();
             $total_masbing_kp += \App\DosenPembimbingKp::with('mahasiswa')->where('dosbing_dua_kp', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_kp', ['lulus']);
             })->count();
-        
+
             // total mahasiswa PA yang belum lulus skripsi
             $total_maspa_skripsi = \App\Mahasiswa::where('id_dosen', $dosen->id)->whereNotIn('tahapan_skripsi', ['lulus'])->count();
-        
-            // total mahasiswa bimbingan skripsi yg belum lulus 
+
+            // total mahasiswa bimbingan skripsi yg belum lulus
             $total_masbing_skripsi = \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_satu_skripsi', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_skripsi', ['lulus']);
             })->count();
             $total_masbing_skripsi += \App\DosenPembimbingSkripsi::with('mahasiswa')->where('dosbing_dua_skripsi', $dosen->id)->whereHas('mahasiswa', function ($query) {
               $query->whereNotIn('tahapan_skripsi', ['lulus']);
             })->count();
-          
+
             return view('dosen.detail', compact(
                 'dosen', 'total_maspa_skripsi', 'total_masbing_skripsi', 'total_maspa_kp', 'total_masbing_kp'
             ));
@@ -164,7 +164,7 @@ class DosenController extends Controller
     {
       $prodi = \App\Prodi::all();
       if(blank($prodi)) return redirect()->back()->with('kesalahan', 'Anda belum memasukan Program Studi');
-      
+
       return view('dosen.import');
     }
 
@@ -263,7 +263,7 @@ class DosenController extends Controller
         if(!empty($request->post('bisa_menguji'))) $dosen->bisa_menguji = $request->post('bisa_menguji');
         if(!empty($request->post('bisa_membimbing'))) $dosen->bisa_membimbing = $request->post('bisa_membimbing');
         $dosen->save();
-        
+
         if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')){
           Session::flash('pesan', '1 Dosen Berhasil Diupdate');
           return redirect('dosen');
@@ -273,7 +273,7 @@ class DosenController extends Controller
         Session::flash('pesan', '1 Dosen Berhasil Diupdate');
         return redirect('profil');
     }
-    
+
     // pimpinan
     public function create()
     {
@@ -302,9 +302,9 @@ class DosenController extends Controller
       $daftar_pa = \App\Mahasiswa::where('id_dosen', Session::get('id'))->orderBy('angkatan', 'desc')->paginate(10);
 
       $total = \App\Mahasiswa::where('id_dosen', Session::get('id'))->count();
-      
+
       $filter_bimbingan_akademik = true;
-      
+
       return view('dosen.akademik', compact('daftar_pa', 'daftar_prodi', 'total', 'filter_bimbingan_akademik'));
     }
 
@@ -439,9 +439,9 @@ class DosenController extends Controller
     public function skripsi()
     {
       $daftar_skripsi = \App\DosenPembimbingSkripsi::where('dosbing_satu_skripsi', Session::get('id'))->orWhere('dosbing_dua_skripsi', Session::get('id'))->orderBy('id', 'desc')->paginate(10);
-        
+
       $total = \App\DosenPembimbingSkripsi::where('dosbing_satu_skripsi', Session::get('id'))->orWhere('dosbing_dua_skripsi', Session::get('id'))->count();
-      
+
       $daftar_prodi = \App\Prodi::pluck('nama', 'id');
       $daftar_semester = \App\Semester::pluck('nama', 'id');
       $filter_bimbingan_skripsi = true;
@@ -625,7 +625,7 @@ class DosenController extends Controller
 
       $daftar_prodi = \App\Prodi::pluck('nama', 'id');
       $daftar_semester = \App\Semester::pluck('nama', 'id');
-      
+
       $filter_bimbingan_kp = true;
 
       return view('dosen.kerja-praktek', compact('daftar_kp', 'total', 'daftar_prodi', 'daftar_semester', 'filter_bimbingan_kp'));
@@ -801,9 +801,9 @@ class DosenController extends Controller
     // dosen
     public function pengujian()
     {
-      $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
+        $daftar_pengujian = \App\JadwalUjian::selectRaw('MONTH(waktu_mulai) bulan, YEAR(waktu_mulai) tahun')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
 
-      return view('dosen.pengujian', compact('daftar_pengujian'));
+        return view('dosen.pengujian', compact('daftar_pengujian'));
     }
 
     // dosen
@@ -811,8 +811,10 @@ class DosenController extends Controller
     {
         $bulan = date('m', strtotime($tanggal));
         $tahun = date('Y', strtotime($tanggal));
-        
-        $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'desc')->get();
+
+        $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereHas('jadwalUjian', function($query) use ($bulan, $tahun){
+            $query->whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'desc');
+        })->get();
 
         return view('dosen.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal'));
     }

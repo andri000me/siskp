@@ -33,7 +33,7 @@
         FAKULTAS TEKNIK <br> JURUSAN TEKNIK INFORMATIKA <br>
         </h5>
         <h6 class="d-block text-center" style="border-bottom: 2px solid black; padding-bottom:10px">
-        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Kab. Bone Bolango <br>
+        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Bone Bolango <br>
         Telepon (0435) 821152 Faksimilie (0435) 821752 <br>
         Laman <u>https://ung.ac.id</u> <br>
         </h6>
@@ -97,7 +97,7 @@
         Atas waktu dan perhatiannya kami ucapkan terima kasih. <br>
         <strong> <em>Wassalamualaikum Wr. Wb.</em> </strong>
         </p>
-        
+
         <div class="float-right">
             <p>Gorontalo, {{ tanggal(now()) }}</p>
             <p>Ketua Program Studi,</p>
@@ -107,13 +107,13 @@
         </div>
 
         <div class="page_break"></div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <!-- lembar penilaian -->
-        
+
         <!-- KOP SURAT -->
         <img src="{{ asset('assets/images/UNG.png') }}">
         <h5 class="d-block text-center">
@@ -122,7 +122,7 @@
         FAKULTAS TEKNIK <br> JURUSAN TEKNIK INFORMATIKA <br>
         </h5>
         <h6 class="d-block text-center" style="border-bottom: 2px solid black; padding-bottom:10px">
-        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Kab. Bone Bolango <br>
+        Jl. B.J. Habibie, Desa Moutong, Kec. Tilongkabila, Bone Bolango <br>
         Telepon (0435) 821152 Faksimilie (0435) 821752 <br>
         Laman <u>https://ung.ac.id</u> <br>
         </h6>
@@ -183,11 +183,11 @@
             <strong>(..........................)</strong>
         </div>
 
-        
-        
-        
-        
-        
+
+
+
+
+
         <!-- Halaman Lembar Revisi -->
 
         <div class="page_break"></div>
@@ -220,11 +220,11 @@
             <strong>(..........................)</strong>
         </div>
 
-        
-        
-        
-        
-        
+
+
+
+
+
         <!-- Halaman Presensi Kehadiran -->
 
         <div class="page_break"></div>
@@ -270,6 +270,6 @@
                 <td>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</td>
             </tr>
         </table>
-        
+
 </body>
 </html>

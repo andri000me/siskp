@@ -20,7 +20,7 @@ class JadwalUjianExport implements FromQuery, WithMapping, WithHeadings, ShouldA
     {
         $bulan = $this->bulan;
         $tahun = $this->tahun;
-        
+
         $query = JadwalUjian::query();
         $query->whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'ASC');
         return $query;
@@ -37,13 +37,14 @@ class JadwalUjianExport implements FromQuery, WithMapping, WithHeadings, ShouldA
             '1). ' . $data->dosenPenguji[0]->dosen->nama . "\n" .
             '2). ' . $data->dosenPenguji[1]->dosen->nama . "\n" .
             '3). ' . $data->dosenPenguji[2]->dosen->nama . "\n" .
-            '4). ' .  $data->dosenPenguji[3]->dosen->nama
+            '4). ' . $data->dosenPenguji[3]->dosen->nama . "\n" .
+            '5). ' .  $data->dosenPenguji[4]->dosen->nama
             : '1). ' . $data->dosenPenguji[0]->dosen->nama . "\n" .
             '2). ' . $data->dosenPenguji[1]->dosen->nama . "\n" .
-            '3). ' . $data->dosenPenguji[2]->dosen->nama 
-        ]; 
+            '3). ' . $data->dosenPenguji[2]->dosen->nama
+        ];
     }
-    
+
     public function headings(): array
     {
         return [

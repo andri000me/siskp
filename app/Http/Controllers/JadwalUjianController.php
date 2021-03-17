@@ -322,6 +322,7 @@ class JadwalUjianController extends Controller
                 $penilaianProposal->nilai_dospeng_dua = 0;
                 $penilaianProposal->nilai_dospeng_tiga = 0;
                 $penilaianProposal->nilai_dospeng_empat = 0;
+                $penilaianProposal->nilai_dospeng_lima = 0;
                 $penilaianProposal->nilai_rerata = 0;
                 $penilaianProposal->nilai_rerata_x_bobot = 0;
                 $penilaianProposal->id_indikator_penilaian = $indikator->id;
@@ -330,6 +331,7 @@ class JadwalUjianController extends Controller
                 $penilaianProposal->dospeng_dua_proposal = $penguji[1]['id_dosen'];
                 $penilaianProposal->dospeng_tiga_proposal = $penguji[2]['id_dosen'];
                 $penilaianProposal->dospeng_empat_proposal = $penguji[3]['id_dosen'];
+                $penilaianProposal->dospeng_lima_proposal = $penguji[4]['id_dosen'];
                 $penilaianProposal->save();
                 $j++;
             }
@@ -342,6 +344,7 @@ class JadwalUjianController extends Controller
                 $penilaianHasil->nilai_dospeng_dua = 0;
                 $penilaianHasil->nilai_dospeng_tiga = 0;
                 $penilaianHasil->nilai_dospeng_empat = 0;
+                $penilaianHasil->nilai_dospeng_lima = 0;
                 $penilaianHasil->nilai_rerata = 0;
                 $penilaianHasil->nilai_rerata_x_bobot = 0;
                 $penilaianHasil->id_indikator_penilaian = $indikator->id;
@@ -350,6 +353,7 @@ class JadwalUjianController extends Controller
                 $penilaianHasil->dospeng_dua_hasil = $penguji[1]['id_dosen'];
                 $penilaianHasil->dospeng_tiga_hasil = $penguji[2]['id_dosen'];
                 $penilaianHasil->dospeng_empat_hasil = $penguji[3]['id_dosen'];
+                $penilaianHasil->dospeng_lima_hasil = $penguji[4]['id_dosen'];
                 $penilaianHasil->save();
                 $j++;
             }
@@ -362,6 +366,7 @@ class JadwalUjianController extends Controller
                 $penilaianSidang->nilai_dospeng_dua = 0;
                 $penilaianSidang->nilai_dospeng_tiga = 0;
                 $penilaianSidang->nilai_dospeng_empat = 0;
+                $penilaianSidang->nilai_dospeng_lima = 0;
                 $penilaianSidang->nilai_rerata = 0;
                 $penilaianSidang->nilai_rerata_x_bobot = 0;
                 $penilaianSidang->id_indikator_penilaian = $indikator->id;
@@ -370,6 +375,7 @@ class JadwalUjianController extends Controller
                 $penilaianSidang->dospeng_dua_sidang = $penguji[1]['id_dosen'];
                 $penilaianSidang->dospeng_tiga_sidang = $penguji[2]['id_dosen'];
                 $penilaianSidang->dospeng_empat_sidang = $penguji[3]['id_dosen'];
+                $penilaianSidang->dospeng_lima_sidang = $penguji[4]['id_dosen'];
                 $penilaianSidang->save();
                 $j++;
             }
@@ -396,6 +402,10 @@ class JadwalUjianController extends Controller
         elseif($request->post('ujian') === 'hasil') $mahasiswa->tahapan_skripsi = 'ujian_seminar_hasil';
         elseif($request->post('ujian') === 'sidang-skripsi') $mahasiswa->tahapan_skripsi = 'ujian_sidang_skripsi';
         $mahasiswa->save();
+
+        \App\PendaftarUjian::find($request->post('id_pendaftar_ujian'))->update([
+            'tahapan' => 'diterima'
+        ]);
 
         Session::flash('pesan', 'Berhasil Mendaftarkan 1 Jadwal Ujian & Dosen Penguji');
         return redirect('jadwal-ujian/semua');

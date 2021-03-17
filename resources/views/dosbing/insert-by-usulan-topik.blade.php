@@ -5,7 +5,7 @@
                 <div class="card mb-3">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
                         <strong class="bg-primary text-light">Input Dosen Pembimbing Skripsi</strong>
-                        
+
                         <a class="text-white d-none d-lg-inline" href="{{ url()->previous() }}">
                             <span class="fa fa-arrow-left"></span> <span class="">Kembali</span>
                         </a>
@@ -14,19 +14,20 @@
                     <div class="card-body border-bottom py-2">
                         {!! Form::open(['url' => 'dosen-pembimbing/skripsi/store-by-usulan-topik']) !!}
                             {{ csrf_field() }}
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Nama</label> <br>
-                                    <strong>{{ $pendaftar->mahasiswa->nama }}</strong> 
+                                    <strong>{{ $pendaftar->mahasiswa->nama }}</strong>
                                     {!! Form::hidden('id_mahasiswa', $pendaftar->id_mahasiswa) !!}
+                                    {!! Form::hidden('id_pendaftar_usulan_topik', $pendaftar->id) !!}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Nomor Induk Mahasiswa</label> <br>
-                                    <strong>{{ $pendaftar->mahasiswa->nim }}</strong> 
+                                    <strong>{{ $pendaftar->mahasiswa->nim }}</strong>
                                 </div>
                             </div>
 
@@ -64,7 +65,7 @@
                                     {!! Form::select('dosbing_dua_skripsi', $daftar_dosen, old('dosbing_dua_skripsi'), ['class' => 'form-control dosen', 'placeholder' => 'Daftar Dosen', 'required' => 'required', 'style' => 'width:100%']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Semester</label>

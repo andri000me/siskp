@@ -35,6 +35,11 @@ class PenilaianHasil extends Model
         return $this->belongsTo('App\Dosen', 'dospeng_empat_hasil');
     }
 
+    // Relasi N-1 dengan dosen
+    public function dospengLimaHasil(){
+        return $this->belongsTo('App\Dosen', 'dospeng_lima_hasil');
+    }
+
     // Relasi N-1 dengan indikator_penilaian
     public function indikatorPenilaian(){
         return $this->belongsTo('App\IndikatorPenilaian', 'id_indikator_penilaian');

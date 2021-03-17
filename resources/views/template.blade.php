@@ -1772,7 +1772,9 @@
 
              Teknik Informatika Universitas Negeri Gorontalo</a>
 
-        <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">Versi {{ env('APP_VER') }}</a>
+        <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">
+            v.{{ env('APP_VER') }} <small>(rev:{{ env('APP_REV') }})</small>
+        </a>
 
     </nav>
 

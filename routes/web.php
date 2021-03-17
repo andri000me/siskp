@@ -37,7 +37,7 @@ Route::prefix('pendaftaran')->group(function()
         Route::post('input-by-admin', 'PendaftarTurunKpController@inputByAdmin');
     });
     Route::resource('turun-kp', 'PendaftarTurunKpController');
-    
+
     // usulan topik
     Route::prefix('usulan-topik')->group(function(){
         Route::get('semua', 'PendaftarUsulanTopikController@semuaPendaftar');
@@ -150,8 +150,8 @@ Route::prefix('dosen-pembimbing')->group(function()
         Route::get('surat-persetujuan-hasil/{id}', 'DosenPembimbingController@suratPersetujuanHasil');
         Route::get('surat-persetujuan-sidang/{id}', 'DosenPembimbingController@suratPersetujuanSidang');
     });
-    
-    
+
+
     // kerja praktek
     Route::prefix('kerja-praktek')->group(function(){
         Route::get('/', 'DosenPembimbingController@indexKp');
@@ -188,10 +188,10 @@ Route::prefix('masuk')->group(function()
 
     Route::get('ujian', 'BerandaController@ujian');
     Route::get('ujian/{id}', 'BerandaController@ujianDetail');
-    
+
     Route::get('usulan-topik', 'BerandaController@usulanTopik');
     Route::get('usulan-topik/{id}', 'BerandaController@usulanTopikDetail');
- 
+
     Route::get('kerja-praktek', 'BerandaController@kerjaPraktek');
     Route::get('kerja-praktek/{id}', 'BerandaController@kerjaPraktekDetail');
 
@@ -279,7 +279,7 @@ Route::resource('admin', 'AdminController');
 Route::prefix('semester-periode')->group(function()
 {
     Route::get('/', 'SemesterPeriodeController@indexSemester');
-    
+
     // semester
     Route::prefix('semester')->group(function(){
         Route::get('/', 'SemesterPeriodeController@indexSemester');
@@ -289,7 +289,7 @@ Route::prefix('semester-periode')->group(function()
         Route::patch('{id}', 'SemesterPeriodeController@updateSemester');
         Route::delete('{id}', 'SemesterPeriodeController@destroySemester');
     });
-    
+
     // periode_daftar_turun_kp
     Route::prefix('periode-daftar-turun-kp')->group(function(){
         Route::get('/', 'SemesterPeriodeController@indexPeriodeDaftarTurunKp');
@@ -299,7 +299,7 @@ Route::prefix('semester-periode')->group(function()
         Route::patch('{id}', 'SemesterPeriodeController@updatePeriodeDaftarTurunKp');
         Route::delete('{id}', 'SemesterPeriodeController@destroyPeriodeDaftarTurunKp');
     });
-    
+
     // periode_daftar_usulan_topik
     Route::prefix('periode-daftar-usulan-topik')->group(function(){
         Route::get('/', 'SemesterPeriodeController@indexPeriodeDaftarUsulanTopik');
@@ -309,7 +309,7 @@ Route::prefix('semester-periode')->group(function()
         Route::patch('{id}', 'SemesterPeriodeController@updatePeriodeDaftarUsulanTopik');
         Route::delete('{id}', 'SemesterPeriodeController@destroyPeriodeDaftarUsulanTopik');
     });
-    
+
     // periode_daftar_ujian
     Route::prefix('periode-daftar-ujian')->group(function(){
         Route::get('/', 'SemesterPeriodeController@indexPeriodeDaftarUjian');
@@ -319,7 +319,7 @@ Route::prefix('semester-periode')->group(function()
         Route::patch('{id}', 'SemesterPeriodeController@updatePeriodeDaftarUjian');
         Route::delete('{id}', 'SemesterPeriodeController@destroyPeriodeDaftarUjian');
     });
-    
+
 });
 
 // dosen
@@ -338,15 +338,15 @@ Route::resource('dosen', 'DosenController');
 Route::prefix('mahasiswa')->group(function(){
     Route::get('cari', 'MahasiswaController@cari');
     Route::get('export', 'MahasiswaController@export');
-    
+
     Route::get('akademik/cari', 'DosenController@akademikCari');
     Route::get('akademik/export', 'DosenController@akademikExport');
     Route::get('akademik', 'DosenController@akademik');
-    
+
     Route::get('skripsi/cari', 'DosenController@skripsiCari');
     Route::get('skripsi/export', 'DosenController@skripsiExport');
     Route::get('skripsi', 'DosenController@skripsi');
-    
+
     Route::get('kerja-praktek/cari', 'DosenController@kerjaPraktekCari');
     Route::get('kerja-praktek/export', 'DosenController@kerjaPraktekExport');
     Route::get('kerja-praktek', 'DosenController@kerjaPraktek');
@@ -355,19 +355,19 @@ Route::prefix('mahasiswa')->group(function(){
     Route::get('pengujian/cari', 'DosenController@pengujianCari');
     Route::get('pengujian/export', 'DosenController@pengujianExport');
     Route::get('pengujian', 'DosenController@pengujian');
-    
+
     Route::get('detail/{id}', 'DosenController@detailByDosen');
     Route::get('import', 'MahasiswaController@createImport');
     Route::get('import-maba', 'MahasiswaController@createImportMaba');
     Route::post('import', 'MahasiswaController@import');
     Route::post('import-maba', 'MahasiswaController@importMaba');
-    
+
     Route::post('validasi-kp', 'MahasiswaController@validasiKp');
     Route::post('validasi-skripsi', 'MahasiswaController@validasiSkripsi');
     Route::post('validasi-layak-skripsi', 'MahasiswaController@validasiLayakSkripsi');
     Route::post('validasi-tahapan-skripsi', 'MahasiswaController@validasiTahapanSkripsi');
     Route::post('validasi-tahapan-kp', 'MahasiswaController@validasiTahapanKp');
-    
+
     Route::post('nonaktifkan-semua-lulus', 'MahasiswaController@nonaktifkanSemuaLulus');
 });
 Route::resource('mahasiswa', 'MahasiswaController');
@@ -378,7 +378,7 @@ Route::prefix('bimbingan')->group(function(){
     Route::get('create-hasil', 'BimbinganController@create');
     Route::get('create-sidang-skripsi', 'BimbinganController@create');
     Route::get('create-kerja-praktek', 'BimbinganController@create');
-    
+
     Route::get('{id}/edit-proposal', 'BimbinganController@edit');
     Route::get('{id}/edit-hasil', 'BimbinganController@edit');
     Route::get('{id}/edit-sidang-skripsi', 'BimbinganController@edit');
@@ -409,10 +409,10 @@ Route::prefix('nilai-ujian')->group(function(){
 
     Route::get('kerja-praktek/cari', 'PenilaianController@indexKerjaPraktekCari');
     Route::get('kerja-praktek', 'PenilaianController@indexKerjaPraktek');
-    
+
     Route::get('dosen/cari', 'PenilaianController@dosenCari');
     Route::get('dosen/export', 'PenilaianController@dosenExport');
-    
+
     Route::get('dosen/{tanggal}', 'PenilaianController@dosenByTanggal');
     Route::get('dosen', 'PenilaianController@dosen');
     Route::get('mahasiswa', 'PenilaianController@mahasiswa');
@@ -428,7 +428,7 @@ Route::prefix('nilai-ujian')->group(function(){
     Route::get('{id}/detail-hasil', 'PenilaianController@detailUjian');
     Route::get('{id}/detail-sidang-skripsi', 'PenilaianController@detailUjian');
     Route::get('{id}/detail-kerja-praktek', 'PenilaianController@detailKerjaPraktek');
-    
+
     // By Admin
     Route::get('detail-by-admin/{id}', 'PenilaianController@detailByAdmin');
     Route::get('create-by-admin/{id}', 'PenilaianController@createByAdmin');

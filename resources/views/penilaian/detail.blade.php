@@ -64,7 +64,7 @@
                                 {{ csrf_field() }}
                                 <tr>
                                     <th class="text-center align-middle" rowspan="2">Indikator & Bobot</th>
-                                    <th class="text-center align-middle" colspan="4">Nilai Skor Penguji</th>
+                                    <th class="text-center align-middle" colspan="5">Nilai Skor Penguji</th>
                                 </tr>
                                 <!-- Dosen Penguji -->
                                 <tr>
@@ -72,11 +72,12 @@
                                     <td class="text-center align-middle">Penguji 2 <br><small>{{ $dosen->dospengDuaProposal->nama }}</small></td>
                                     <td class="text-center align-middle">Penguji 3 <br><small>{{ $dosen->dospengTigaProposal->nama }}</small></td>
                                     <td class="text-center align-middle">Penguji 4 <br><small>{{ $dosen->dospengEmpatProposal->nama }}</small></td>
+                                    <td class="text-center align-middle">Penguji 5 <br><small>{{ $dosen->dospengLimaProposal->nama }}</small></td>
                                 </tr>
                                 @foreach($penilaian_ujian as $penilaian)
                                 {!! Form::hidden("nilai[$penilaian->id][id]", $penilaian->id) !!}
                                         <tr>
-                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br> 
+                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br>
                                             <small>Bobot: {{ $penilaian->indikatorPenilaian->bobot }}% </small>
                                             </td>
                                             <td class="text-center">
@@ -91,12 +92,15 @@
                                             <td class="text-center">
                                                     {!! Form::select("nilai[$penilaian->id][nilai_dospeng_empat]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_empat, ['class' => 'custom-select']) !!}
                                             </td>
+                                            <td class="text-center">
+                                                    {!! Form::select("nilai[$penilaian->id][nilai_dospeng_lima]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_lima, ['class' => 'custom-select']) !!}
+                                            </td>
                                         </tr>
                                         @endforeach
                                         <tr>
                                             <td class="text-right font-weight-bold align-middle">Aksi</td>
 
-                                            <td class="text-right font-weight-bold align-middle" colspan='4'><button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-paper-plane"></i> Submit</button></td>
+                                            <td class="text-right font-weight-bold align-middle" colspan='5'><button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-paper-plane"></i> Submit</button></td>
                                         </tr>
                                 {!! Form::close() !!}
                             </table>
@@ -132,11 +136,15 @@
                                 @if(Session::get('id') === $dosen->dospeng_empat_proposal)
                                     <td class="text-center align-middle d-block">Penguji 4 <br><small>{{ $dosen->dospengEmpatProposal->nama }}</small></td>
                                 @endif
+
+                                @if(Session::get('id') === $dosen->dospeng_lima_proposal)
+                                    <td class="text-center align-middle d-block">Penguji 5 <br><small>{{ $dosen->dospengLimaProposal->nama }}</small></td>
+                                @endif
                                 </tr>
                                 @foreach($penilaian_ujian as $penilaian)
                                 {!! Form::hidden("nilai[$penilaian->id][id]", $penilaian->id) !!}
                                         <tr>
-                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br> 
+                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br>
                                             <small>Bobot: {{ $penilaian->indikatorPenilaian->bobot }}% </small>
                                             </td>
                                             @if(Session::get('id') === $penilaian->dospeng_satu_proposal)
@@ -157,6 +165,11 @@
                                             @if(Session::get('id') === $penilaian->dospeng_empat_proposal)
                                             <td class="text-center d-block">
                                                     {!! Form::select("nilai[$penilaian->id][nilai_dospeng_empat]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_empat, ['class' => 'custom-select']) !!}
+                                            </td>
+                                            @endif
+                                            @if(Session::get('id') === $penilaian->dospeng_lima_proposal)
+                                            <td class="text-center d-block">
+                                                    {!! Form::select("nilai[$penilaian->id][nilai_dospeng_lima]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_lima, ['class' => 'custom-select']) !!}
                                             </td>
                                             @endif
                                         </tr>
@@ -181,7 +194,7 @@
                                 <caption class="text-center">Nilai Ujian</caption>
                                     <tr>
                                         <th class="text-center align-middle" rowspan="2">Indikator & Bobot (%)</th>
-                                        <th class="text-center align-middle" colspan="4">Skor Penguji</th>
+                                        <th class="text-center align-middle" colspan="5">Skor Penguji</th>
                                         <th class="text-center align-middle" rowspan="2">Rata-Rata</th>
                                         <th class="text-center align-middle" rowspan="2">Bobot x Rata-Rata</th>
                                     </tr>
@@ -189,7 +202,8 @@
                                         <td class="text-center align-middle">Penguji 1<br> <small>{{ $dosen->dospengSatuProposal->nama }}</small></td>
                                         <td class="text-center align-middle">Penguji 2<br><small>{{ $dosen->dospengDuaProposal->nama }}</small></td>
                                         <td class="text-center align-middle">Penguji 3<br><small>{{ $dosen->dospengTigaProposal->nama }}</small></td>
-                                        <td class="text-center align-middle d-block">Penguji 4<br><small>{{ $dosen->dospengEmpatProposal->nama }}</small></td>
+                                        <td class="text-center align-middle">Penguji 4<br><small>{{ $dosen->dospengEmpatProposal->nama }}</small></td>
+                                        <td class="text-center align-middle d-block">Penguji 5<br><small>{{ $dosen->dospengLimaProposal->nama }}</small></td>
                                     </tr>
                                     @foreach($penilaian_ujian as $penilaian)
                                     <tr>
@@ -198,21 +212,22 @@
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_dua }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_tiga }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_empat }}</td>
+                                        <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_lima }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_rerata }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_rerata_x_bobot }}</td>
                                     </tr>
                                     @endforeach
                                     @foreach($jadwal->nilaiUjianSkripsi as $nilaiUjian)
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Jumlah Nilai</td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Jumlah Nilai</td>
                                         <td class="text-center">{{ $nilaiUjian->jumlah_nilai }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Nilai Akhir Seminar Proposal: (Jumlah Nilai / 500) * 100</td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Nilai Akhir Seminar Proposal: (Jumlah Nilai / 500) * 100</td>
                                         <td class="text-center">{{ $nilaiUjian->nilai_akhir }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Status </td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Status </td>
                                         <td class="text-center">
                                         @if($nilaiUjian->status === 'lulus')
                                             <span class="text-primary"><i class="fa fa-check"></i>&nbsp; Lulus</span>
@@ -220,13 +235,13 @@
                                             <span class="text-danger"><i class="fa fa-times"></i>&nbsp; Belum Lulus </span>
                                         @endif</td>
                                     </tr>
-                                    @endforeach                                    
+                                    @endforeach
                             </table>
                         </div>
 
                     </div>
                     @endif
-                
+
                 <!-- Penilaian Hasil -->
                 @elseif(!$jadwal->penilaianHasil->isEmpty())
                     @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
@@ -239,7 +254,7 @@
                                 {{ csrf_field() }}
                                 <tr>
                                     <th class="text-center align-middle" rowspan="2">Indikator & Bobot</th>
-                                    <th class="text-center align-middle" colspan="4">Nilai Skor Penguji</th>
+                                    <th class="text-center align-middle" colspan="5">Nilai Skor Penguji</th>
                                 </tr>
                                 <!-- Dosen Penguji -->
                                 <tr>
@@ -247,11 +262,12 @@
                                     <td class="text-center align-middle">Penguji 2 <br><small>{{ $dosen->dospengDuaHasil->nama }}</small></td>
                                     <td class="text-center align-middle">Penguji 3 <br><small>{{ $dosen->dospengTigaHasil->nama }}</small></td>
                                     <td class="text-center align-middle">Penguji 4 <br><small>{{ $dosen->dospengEmpatHasil->nama }}</small></td>
+                                    <td class="text-center align-middle">Penguji 5 <br><small>{{ $dosen->dospengLimaHasil->nama }}</small></td>
                                 </tr>
                                 @foreach($penilaian_ujian as $penilaian)
                                 {!! Form::hidden("nilai[$penilaian->id][id]", $penilaian->id) !!}
                                         <tr>
-                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br> 
+                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br>
                                             <small>Bobot: {{ $penilaian->indikatorPenilaian->bobot }}% </small>
                                             </td>
                                             <td class="text-center">
@@ -266,12 +282,15 @@
                                             <td class="text-center">
                                                     {!! Form::select("nilai[$penilaian->id][nilai_dospeng_empat]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_empat, ['class' => 'custom-select']) !!}
                                             </td>
+                                            <td class="text-center">
+                                                    {!! Form::select("nilai[$penilaian->id][nilai_dospeng_lima]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_lima, ['class' => 'custom-select']) !!}
+                                            </td>
                                         </tr>
                                         @endforeach
                                         <tr>
                                             <td class="text-right font-weight-bold align-middle">Aksi</td>
 
-                                            <td class="text-right font-weight-bold align-middle" colspan='4'><button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-paper-plane"></i> Submit</button></td>
+                                            <td class="text-right font-weight-bold align-middle" colspan='5'><button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-paper-plane"></i> Submit</button></td>
                                         </tr>
                                 {!! Form::close() !!}
                             </table>
@@ -307,11 +326,15 @@
                                 @if(Session::get('id') === $dosen->dospeng_empat_hasil)
                                     <td class="text-center align-middle d-block">Penguji 4 <br><small>{{ $dosen->dospengEmpatHasil->nama }}</small></td>
                                 @endif
+
+                                @if(Session::get('id') === $dosen->dospeng_lima_hasil)
+                                    <td class="text-center align-middle d-block">Penguji 5 <br><small>{{ $dosen->dospengLimaHasil->nama }}</small></td>
+                                @endif
                                 </tr>
                                 @foreach($penilaian_ujian as $penilaian)
                                 {!! Form::hidden("nilai[$penilaian->id][id]", $penilaian->id) !!}
                                         <tr>
-                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br> 
+                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br>
                                             <small>Bobot: {{ $penilaian->indikatorPenilaian->bobot }}% </small>
                                             </td>
                                             @if(Session::get('id') === $penilaian->dospeng_satu_hasil)
@@ -332,6 +355,11 @@
                                             @if(Session::get('id') === $penilaian->dospeng_empat_hasil)
                                             <td class="text-center d-block">
                                                     {!! Form::select("nilai[$penilaian->id][nilai_dospeng_empat]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_empat, ['class' => 'custom-select']) !!}
+                                            </td>
+                                            @endif
+                                            @if(Session::get('id') === $penilaian->dospeng_lima_hasil)
+                                            <td class="text-center d-block">
+                                                    {!! Form::select("nilai[$penilaian->id][nilai_dospeng_lima]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_lima, ['class' => 'custom-select']) !!}
                                             </td>
                                             @endif
                                         </tr>
@@ -356,7 +384,7 @@
                                     <caption class="text-center">Nilai Ujian</caption>
                                     <tr>
                                         <th class="text-center align-middle" rowspan="2">Indikator & Bobot (%)</th>
-                                        <th class="text-center align-middle" colspan="4">Skor Penguji</th>
+                                        <th class="text-center align-middle" colspan="5">Skor Penguji</th>
                                         <th class="text-center align-middle" rowspan="2">Rata-Rata</th>
                                         <th class="text-center align-middle" rowspan="2">Bobot x Rata-Rata</th>
                                     </tr>
@@ -364,7 +392,8 @@
                                         <td class="text-center align-middle">Penguji 1<br> <small>{{ $dosen->dospengSatuHasil->nama }}</small></td>
                                         <td class="text-center align-middle">Penguji 2<br><small>{{ $dosen->dospengDuaHasil->nama }}</small></td>
                                         <td class="text-center align-middle">Penguji 3<br><small>{{ $dosen->dospengTigaHasil->nama }}</small></td>
-                                        <td class="text-center align-middle d-block">Penguji 4<br><small>{{ $dosen->dospengEmpatHasil->nama }}</small></td>
+                                        <td class="text-center align-middle">Penguji 4<br><small>{{ $dosen->dospengEmpatHasil->nama }}</small></td>
+                                        <td class="text-center align-middle d-block">Penguji 5<br><small>{{ $dosen->dospengLimaHasil->nama }}</small></td>
                                     </tr>
                                     @foreach($penilaian_ujian as $penilaian)
                                     <tr>
@@ -373,21 +402,22 @@
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_dua }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_tiga }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_empat }}</td>
+                                        <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_lima }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_rerata }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_rerata_x_bobot }}</td>
                                     </tr>
                                     @endforeach
                                     @foreach($jadwal->nilaiUjianSkripsi as $nilaiUjian)
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Jumlah Nilai</td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Jumlah Nilai</td>
                                         <td class="text-center">{{ $nilaiUjian->jumlah_nilai }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Nilai Akhir Seminar Hasil: (Jumlah Nilai / 500) * 100</td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Nilai Akhir Seminar Hasil: (Jumlah Nilai / 500) * 100</td>
                                         <td class="text-center">{{ $nilaiUjian->nilai_akhir }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Status </td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Status </td>
                                         <td class="text-center">
                                         @if($nilaiUjian->status === 'lulus')
                                             <span class="text-primary"><i class="fa fa-check"></i>&nbsp; Lulus</span>
@@ -395,7 +425,7 @@
                                             <span class="text-danger"><i class="fa fa-times"></i>&nbsp; Belum Lulus </span>
                                         @endif</td>
                                     </tr>
-                                    @endforeach                                    
+                                    @endforeach
                             </table>
                         </div>
 
@@ -414,7 +444,7 @@
                                 {{ csrf_field() }}
                                 <tr>
                                     <th class="text-center align-middle" rowspan="2">Indikator & Bobot</th>
-                                    <th class="text-center align-middle" colspan="4">Nilai Skor Penguji</th>
+                                    <th class="text-center align-middle" colspan="5">Nilai Skor Penguji</th>
                                 </tr>
                                 <!-- Dosen Penguji -->
                                 <tr>
@@ -422,11 +452,12 @@
                                     <td class="text-center align-middle">Penguji 2 <br><small>{{ $dosen->dospengDuaSidang->nama }}</small></td>
                                     <td class="text-center align-middle">Penguji 3 <br><small>{{ $dosen->dospengTigaSidang->nama }}</small></td>
                                     <td class="text-center align-middle">Penguji 4 <br><small>{{ $dosen->dospengEmpatSidang->nama }}</small></td>
+                                    <td class="text-center align-middle">Penguji 5 <br><small>{{ $dosen->dospengLimaSidang->nama }}</small></td>
                                 </tr>
                                 @foreach($penilaian_ujian as $penilaian)
                                 {!! Form::hidden("nilai[$penilaian->id][id]", $penilaian->id) !!}
                                         <tr>
-                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br> 
+                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br>
                                             <small>Bobot: {{ $penilaian->indikatorPenilaian->bobot }}% </small>
                                             </td>
                                             <td class="text-center">
@@ -441,12 +472,15 @@
                                             <td class="text-center">
                                                     {!! Form::select("nilai[$penilaian->id][nilai_dospeng_empat]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_empat, ['class' => 'custom-select']) !!}
                                             </td>
+                                            <td class="text-center">
+                                                    {!! Form::select("nilai[$penilaian->id][nilai_dospeng_lima]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_lima, ['class' => 'custom-select']) !!}
+                                            </td>
                                         </tr>
                                         @endforeach
                                         <tr>
                                             <td class="text-right font-weight-bold align-middle">Aksi</td>
 
-                                            <td class="text-right font-weight-bold align-middle" colspan='4'><button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-paper-plane"></i> Submit</button></td>
+                                            <td class="text-right font-weight-bold align-middle" colspan='5'><button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-paper-plane"></i> Submit</button></td>
                                         </tr>
                                 {!! Form::close() !!}
                             </table>
@@ -482,11 +516,15 @@
                                 @if(Session::get('id') === $dosen->dospeng_empat_sidang)
                                     <td class="text-center align-middle d-block">Penguji 4 <br><small>{{ $dosen->dospengEmpatSidang->nama }}</small></td>
                                 @endif
+
+                                @if(Session::get('id') === $dosen->dospeng_lima_sidang)
+                                    <td class="text-center align-middle d-block">Penguji 5 <br><small>{{ $dosen->dospengLimaSidang->nama }}</small></td>
+                                @endif
                                 </tr>
                                 @foreach($penilaian_ujian as $penilaian)
                                 {!! Form::hidden("nilai[$penilaian->id][id]", $penilaian->id) !!}
                                         <tr>
-                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br> 
+                                            <td class="font-weight-bold">{{ ucwords($penilaian->indikatorPenilaian->nama) }} <br>
                                             <small>Bobot: {{ $penilaian->indikatorPenilaian->bobot }}% </small>
                                             </td>
                                             @if(Session::get('id') === $penilaian->dospeng_satu_sidang)
@@ -507,6 +545,11 @@
                                             @if(Session::get('id') === $penilaian->dospeng_empat_sidang)
                                             <td class="text-center d-block">
                                                     {!! Form::select("nilai[$penilaian->id][nilai_dospeng_empat]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_empat, ['class' => 'custom-select']) !!}
+                                            </td>
+                                            @endif
+                                            @if(Session::get('id') === $penilaian->dospeng_lima_sidang)
+                                            <td class="text-center d-block">
+                                                    {!! Form::select("nilai[$penilaian->id][nilai_dospeng_lima]", ['0' => '-- Skor Nilai --', '1' => 'Sangat Buruk (1)', '2' => 'Buruk (2)', '3' => 'Cukup (3)', '4' => 'Baik (4)', '5' => 'Sangat Baik (5)'], $penilaian->nilai_dospeng_lima, ['class' => 'custom-select']) !!}
                                             </td>
                                             @endif
                                         </tr>
@@ -531,7 +574,7 @@
                                 <caption class="text-center">Nilai Ujian</caption>
                                     <tr>
                                         <th class="text-center align-middle" rowspan="2">Indikator & Bobot (%)</th>
-                                        <th class="text-center align-middle" colspan="4">Skor Penguji</th>
+                                        <th class="text-center align-middle" colspan="5">Skor Penguji</th>
                                         <th class="text-center align-middle" rowspan="2">Rata-Rata</th>
                                         <th class="text-center align-middle" rowspan="2">Bobot x Rata-Rata</th>
                                     </tr>
@@ -539,7 +582,8 @@
                                         <td class="text-center align-middle">Penguji 1<br> <small>{{ $dosen->dospengSatuSidang->nama }}</small></td>
                                         <td class="text-center align-middle">Penguji 2<br><small>{{ $dosen->dospengDuaSidang->nama }}</small></td>
                                         <td class="text-center align-middle">Penguji 3<br><small>{{ $dosen->dospengTigaSidang->nama }}</small></td>
-                                        <td class="text-center align-middle d-block">Penguji 4<br><small>{{ $dosen->dospengEmpatSidang->nama }}</small></td>
+                                        <td class="text-center align-middle">Penguji 4<br><small>{{ $dosen->dospengEmpatSidang->nama }}</small></td>
+                                        <td class="text-center align-middle d-block">Penguji 5<br><small>{{ $dosen->dospengLimaSidang->nama }}</small></td>
                                     </tr>
                                     @foreach($penilaian_ujian as $penilaian)
                                     <tr>
@@ -548,21 +592,22 @@
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_dua }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_tiga }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_empat }}</td>
+                                        <td class="text-center align-middle">{{ $penilaian->nilai_dospeng_lima }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_rerata }}</td>
                                         <td class="text-center align-middle">{{ $penilaian->nilai_rerata_x_bobot }}</td>
                                     </tr>
                                     @endforeach
                                     @foreach($jadwal->nilaiUjianSkripsi as $nilaiUjian)
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Jumlah Nilai</td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Jumlah Nilai</td>
                                         <td class="text-center">{{ $nilaiUjian->jumlah_nilai }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Nilai Akhir Sidang Skripsi: (Jumlah Nilai / 500) * 100</td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Nilai Akhir Sidang Skripsi: (Jumlah Nilai / 500) * 100</td>
                                         <td class="text-center">{{ $nilaiUjian->nilai_akhir }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right font-weight-bold align-middle" colspan="6">Status </td>
+                                        <td class="text-right font-weight-bold align-middle" colspan="7">Status </td>
                                         <td class="text-center">
                                         @if($nilaiUjian->status === 'lulus')
                                             <span class="text-primary"><i class="fa fa-check"></i>&nbsp; Lulus</span>
@@ -570,7 +615,7 @@
                                             <span class="text-danger"><i class="fa fa-times"></i>&nbsp; Belum Lulus </span>
                                         @endif</td>
                                     </tr>
-                                    @endforeach                                    
+                                    @endforeach
                             </table>
                         </div>
 
@@ -603,14 +648,14 @@
                                                                 </tr>
                                                                 @foreach($dosenPenguji as $nilai)
                                                                 <tr>
-                                                                    <td>{{ ucwords($nilai->indikatorPenilaian->nama) }} <br> 
+                                                                    <td>{{ ucwords($nilai->indikatorPenilaian->nama) }} <br>
                                                                     Bobot: {{ $nilai->indikatorPenilaian->bobot }}%
                                                                     </td>
                                                             @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
                                                                     {!! Form::hidden("nilai[$nilai->id][id]", $nilai->id) !!}
 
                                                                     <td>{!! Form::text("nilai[$nilai->id][nilai]", $nilai->nilai, ['class' => 'form-control']) !!}</td>
-                                                                    
+
                                                                     {!! Form::hidden("nilai[$nilai->id][bobot]", $nilai->indikatorPenilaian->bobot) !!}
                                                             @else
                                                                     <td class="text-center align-middle">{{ $nilai->nilai }}</td>
@@ -620,7 +665,7 @@
                                                             @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi'))
                                                                 <tr>
                                                                     <th class="text-right">Aksi</th>
-                                                                    <td> 
+                                                                    <td>
                                                                         <button type="submit" class="btn btn-primary btn-block btn-sm">
                                                                         <i class="fa fa-paper-plane"></i> Submit</button>
                                                                     </td>
@@ -652,20 +697,20 @@
                                                                 </tr>
                                                                 @foreach($dosenPenguji as $nilai)
                                                                 <tr>
-                                                                    <td>{{ ucwords($nilai->indikatorPenilaian->nama) }} <br> 
+                                                                    <td>{{ ucwords($nilai->indikatorPenilaian->nama) }} <br>
                                                                     Bobot: {{ $nilai->indikatorPenilaian->bobot }}%
                                                                     </td>
                                                                     {!! Form::hidden("nilai[$nilai->id][id]", $nilai->id) !!}
 
                                                                     <td>{!! Form::text("nilai[$nilai->id][nilai]", $nilai->nilai, ['class' => 'form-control']) !!}</td>
-                                                                    
+
                                                                     {!! Form::hidden("nilai[$nilai->id][bobot]", $nilai->indikatorPenilaian->bobot) !!}
-                                                            
+
                                                                 </tr>
                                                                 @endforeach
                                                                 <tr>
                                                                     <th class="text-right">Aksi</th>
-                                                                    <td> 
+                                                                    <td>
                                                                         <button type="submit" class="btn btn-primary btn-block btn-sm">
                                                                         <i class="fa fa-paper-plane"></i> Submit</button>
                                                                     </td>
@@ -694,7 +739,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $nilaiUjian->total }}</td>
                                                     <td class="text-center">{{ $nilaiUjian->nilai_huruf }}</td>
-                                                    <td class="text-center d-block"> <strong> 
+                                                    <td class="text-center d-block"> <strong>
                                                     @if($nilaiUjian->status === 'lulus')
                                                         <span class="text-primary"><i class="fa fa-check"></i>&nbsp; Lulus</span>
                                                     @else
@@ -709,9 +754,9 @@
                                         @endif
 
                 @endif
-                
+
                 @if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi') || Session::has('mahasiswa'))
-                    @if(!empty($nilai_skripsi)) 
+                    @if(!empty($nilai_skripsi))
                         <div class="card-body border table-full-width table-responsive text-nowrap">
                             <table class="table table-hover table-striped table-sm">
                                 <caption>Hasil Akumulasi Nilai Skripsi</caption>

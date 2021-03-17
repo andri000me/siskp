@@ -178,7 +178,7 @@ class PenilaianController extends Controller
     // dosen
     public function dosen()
     {
-        $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->selectRaw('MONTH(created_at) bulan, YEAR(created_at) tahun, count(*) total')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
+        $daftar_pengujian = \App\JadwalUjian::selectRaw('MONTH(waktu_mulai) bulan, YEAR(waktu_mulai) tahun')->groupBy('bulan', 'tahun')->orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->limit(24)->get();
 
         return view('penilaian.dosen', compact('daftar_pengujian'));
     }
@@ -189,7 +189,9 @@ class PenilaianController extends Controller
         $bulan = date('m', strtotime($tanggal));
         $tahun = date('Y', strtotime($tanggal));
 
-        $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->orderBy('created_at', 'ASC')->get();
+        $daftar_pengujian = \App\DosenPenguji::where('id_dosen', Session::get('id'))->whereHas('jadwalUjian', function ($query) use ($bulan, $tahun) {
+            $query->whereMonth('waktu_mulai', $bulan)->whereYear('waktu_mulai', $tahun)->orderBy('waktu_mulai', 'desc');
+        })->get();
 
         return view('penilaian.jadwal-tanggal', compact('daftar_pengujian', 'bulan', 'tahun', 'tanggal'));
     }
@@ -258,6 +260,7 @@ class PenilaianController extends Controller
             'nilai.*.nilai_dospeng_dua' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.nilai_dospeng_tiga' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.nilai_dospeng_empat' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
+            'nilai.*.nilai_dospeng_lima' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.id' => 'required|integer',
         ]);
         if($validasi->fails()){
@@ -271,6 +274,7 @@ class PenilaianController extends Controller
             if(!empty($nilai['nilai_dospeng_dua'])) $penilaianProposal->nilai_dospeng_dua = $nilai['nilai_dospeng_dua'];
             if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianProposal->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga'];
             if(!empty($nilai['nilai_dospeng_empat'])) $penilaianProposal->nilai_dospeng_empat = $nilai['nilai_dospeng_empat'];
+            if (!empty($nilai['nilai_dospeng_lima'])) $penilaianProposal->nilai_dospeng_lima = $nilai['nilai_dospeng_lima'];
             $penilaianProposal->save();
         }
 
@@ -278,9 +282,9 @@ class PenilaianController extends Controller
         $daftar_penilaian = PenilaianProposal::where('id_jadwal_ujian', $jadwal->id)->get();
         foreach($daftar_penilaian as $hitung){
             $penilaianProposal = PenilaianProposal::findOrFail($hitung->id);
-            $total = $hitung->nilai_dospeng_satu + $hitung->nilai_dospeng_dua + $hitung->nilai_dospeng_tiga + $hitung->nilai_dospeng_empat;
+            $total = $hitung->nilai_dospeng_satu + $hitung->nilai_dospeng_dua + $hitung->nilai_dospeng_tiga + $hitung->nilai_dospeng_empat + $hitung->nilai_dospeng_lima;
 
-            $rerata = $total / 4;
+            $rerata = $total / 5;
             $rerata_x_bobot = $rerata * $penilaianProposal->indikatorPenilaian->bobot;
 
             $penilaianProposal->nilai_rerata = $rerata;
@@ -388,6 +392,7 @@ class PenilaianController extends Controller
             'nilai.*.nilai_dospeng_dua' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.nilai_dospeng_tiga' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.nilai_dospeng_empat' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
+            'nilai.*.nilai_dospeng_lima' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.id' => 'required|integer',
         ]);
         if($validasi->fails()){
@@ -401,6 +406,7 @@ class PenilaianController extends Controller
             if(!empty($nilai['nilai_dospeng_dua'])) $penilaianHasil->nilai_dospeng_dua = $nilai['nilai_dospeng_dua'];
             if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianHasil->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga'];
             if(!empty($nilai['nilai_dospeng_empat'])) $penilaianHasil->nilai_dospeng_empat = $nilai['nilai_dospeng_empat'];
+            if (!empty($nilai['nilai_dospeng_lima'])) $penilaianHasil->nilai_dospeng_lima = $nilai['nilai_dospeng_lima'];
             $penilaianHasil->save();
         }
 
@@ -408,9 +414,9 @@ class PenilaianController extends Controller
         $daftar_penilaian = PenilaianHasil::where('id_jadwal_ujian', $jadwal->id)->get();
         foreach($daftar_penilaian as $hitung){
             $penilaianHasil = PenilaianHasil::findOrFail($hitung->id);
-            $total = $hitung->nilai_dospeng_satu + $hitung->nilai_dospeng_dua + $hitung->nilai_dospeng_tiga + $hitung->nilai_dospeng_empat;
+            $total = $hitung->nilai_dospeng_satu + $hitung->nilai_dospeng_dua + $hitung->nilai_dospeng_tiga + $hitung->nilai_dospeng_empat + $hitung->nilai_dospeng_lima;
 
-            $rerata = $total / 4;
+            $rerata = $total / 5;
             $rerata_x_bobot = $rerata * $penilaianHasil->indikatorPenilaian->bobot;
 
             $penilaianHasil->nilai_rerata = $rerata;
@@ -518,6 +524,7 @@ class PenilaianController extends Controller
             'nilai.*.nilai_dospeng_dua' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.nilai_dospeng_tiga' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.nilai_dospeng_empat' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
+            'nilai.*.nilai_dospeng_lima' => 'sometimes|integer|between:0,' . $indikator->nilai_max,
             'nilai.*.id' => 'required|integer',
         ]);
         if($validasi->fails()){
@@ -531,6 +538,7 @@ class PenilaianController extends Controller
             if(!empty($nilai['nilai_dospeng_dua'])) $penilaianSidangSkripsi->nilai_dospeng_dua = $nilai['nilai_dospeng_dua'];
             if(!empty($nilai['nilai_dospeng_tiga'])) $penilaianSidangSkripsi->nilai_dospeng_tiga = $nilai['nilai_dospeng_tiga'];
             if(!empty($nilai['nilai_dospeng_empat'])) $penilaianSidangSkripsi->nilai_dospeng_empat = $nilai['nilai_dospeng_empat'];
+            if (!empty($nilai['nilai_dospeng_lima'])) $penilaianSidangSkripsi->nilai_dospeng_lima = $nilai['nilai_dospeng_lima'];
             $penilaianSidangSkripsi->save();
         }
 
@@ -538,9 +546,9 @@ class PenilaianController extends Controller
         $daftar_penilaian = PenilaianSidangSkripsi::where('id_jadwal_ujian', $jadwal->id)->get();
         foreach($daftar_penilaian as $hitung){
             $penilaianSidangSkripsi = PenilaianSidangSkripsi::findOrFail($hitung->id);
-            $total = $hitung->nilai_dospeng_satu + $hitung->nilai_dospeng_dua + $hitung->nilai_dospeng_tiga + $hitung->nilai_dospeng_empat;
+            $total = $hitung->nilai_dospeng_satu + $hitung->nilai_dospeng_dua + $hitung->nilai_dospeng_tiga + $hitung->nilai_dospeng_empat + $hitung->nilai_dospeng_lima;
 
-            $rerata = $total / 4;
+            $rerata = $total / 5;
             $rerata_x_bobot = $rerata * $penilaianSidangSkripsi->indikatorPenilaian->bobot;
 
             $penilaianSidangSkripsi->nilai_rerata = $rerata;

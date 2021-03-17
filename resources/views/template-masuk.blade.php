@@ -217,7 +217,7 @@
                                 <input type="password" name="password" value="{{ old('password') }}" class="form-control" required="required">
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block btn-sm"><span class="fa fa-paper-plane"></span> Submit</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-sm"><span class="fa fa-sign-in-alt"></span> Masuk</button>
                         </form>
                     </div>
                 </div>
@@ -246,7 +246,9 @@
             @endif
               Teknik Informatika Universitas Negeri Gorontalo</a>
 
-        <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">Versi {{ env('APP_VER') }}</a>
+        <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">
+            v.{{ env('APP_VER') }} <small>(rev:{{ env('APP_REV') }})</small>
+        </a>
 
     </nav>
 

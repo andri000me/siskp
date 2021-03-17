@@ -5,7 +5,7 @@
                 <div class="card mb-3">
                     <div class="card-header bg-primary d-flex justify-content-between align-items-center">
                         <strong class="bg-primary text-light">Input Jadwal Ujian</strong>
-                        
+
                         <a class="text-white d-none d-lg-inline" href="{{ url()->previous() }}">
                             <span class="fa fa-arrow-left"></span> <span class="">Kembali</span>
                         </a>
@@ -18,19 +18,20 @@
                             {!! Form::open(['url' => 'jadwal-ujian/kerja-praktek']) !!}
                         @endif
                             {{ csrf_field() }}
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Nama</label> <br>
-                                    <strong>{{ $pendaftar->mahasiswa->nama }}</strong> 
+                                    <strong>{{ $pendaftar->mahasiswa->nama }}</strong>
                                     {!! Form::hidden('id_mahasiswa', $pendaftar->id_mahasiswa) !!}
+                                    {!! Form::hidden('id_pendaftar_ujian', $pendaftar->id) !!}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Nomor Induk Mahasiswa</label> <br>
-                                    <strong>{{ $pendaftar->mahasiswa->nim }}</strong> 
+                                    <strong>{{ $pendaftar->mahasiswa->nim }}</strong>
                                 </div>
                             </div>
 
@@ -87,7 +88,7 @@
                                     {!! Form::text('tempat', !empty($jadwal) ? $jadwal->tempat : old('tempat'), ['class' => 'form-control', 'required' => 'required']) !!}
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label>Tanggal</label>

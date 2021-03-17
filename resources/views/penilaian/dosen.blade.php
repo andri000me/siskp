@@ -11,7 +11,7 @@
                     <div class="card-body border-bottom py-2">
                         <div class="row">
                             <div class="col-12 col-lg-11">
-                                <p class="card-title font-weight-bold my-0 py-0 text-capitalize">{{ $i }}). 
+                                <p class="card-title font-weight-bold my-0 py-0 text-capitalize">{{ $i }}).
                                 @switch($pengujian->bulan)
                                     @case(1) Januari @break
                                     @case(2) Februari @break
@@ -28,9 +28,6 @@
                                 @endswitch
                                 {{ $pengujian->tahun }}
                                 </p>
-                                <p class="my-0 py-0 text-dark">
-                                    Total : {{ $pengujian->total }} Mahasiswa
-                                </p>
 
                                 <!-- menu mobile -->
                                 <ul class="nav nav-pills nav-justified d-lg-none">
@@ -45,12 +42,12 @@
                                 <a class="text-info small" href="{{ url('nilai-ujian/dosen/'. $pengujian->tahun.'-'.$pengujian->bulan) }}">
                                     <span class="fa fa-info-circle fa-lg"></span> <br> Detail
                                 </a>
-                                
+
                             </div>
                         </div>
                     </div>
                     <?php $i++ ?>
                     @endforeach
                 </div>
-                
+
 @stop

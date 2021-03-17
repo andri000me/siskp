@@ -35,6 +35,12 @@ class PenilaianSidangSkripsi extends Model
         return $this->belongsTo('App\Dosen', 'dospeng_empat_sidang');
     }
 
+    // Relasi N-1 dengan dosen
+    public function dospengLimaSidang()
+    {
+        return $this->belongsTo('App\Dosen', 'dospeng_lima_sidang');
+    }
+
     // Relasi N-1 dengan indikator_penilaian
     public function indikatorPenilaian(){
         return $this->belongsTo('App\IndikatorPenilaian', 'id_indikator_penilaian');

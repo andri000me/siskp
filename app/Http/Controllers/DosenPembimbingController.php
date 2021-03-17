@@ -17,15 +17,15 @@ class DosenPembimbingController extends Controller
 {
     public function __construct(){
         $this->middleware('mahasiswa', ['only' => [
-            'indexSkripsi', 'indexKp'  
+            'indexSkripsi', 'indexKp'
         ]]);
 
         $this->middleware('mahasiswaPimpinan', ['only' => [
-            'suratKesediaanSkripsi', 'suratPenunjukanKp', 'suratPersetujuanSidang', 'suratPersetujuanHasil', 'suratPersetujuanProposal', 'formSuratPersetujuanKp'  
+            'suratKesediaanSkripsi', 'suratPenunjukanKp', 'suratPersetujuanSidang', 'suratPersetujuanHasil', 'suratPersetujuanProposal', 'formSuratPersetujuanKp'
         ]]);
 
         $this->middleware('pimpinan', ['only' => [
-            'semuaSkripsi', 'semuaKp', 'detailSemesterSkripsi', 'detailSemesterKp', 'createSkripsi', 'createKp', 'storeSkripsi', 'storeKp', 'editSkripsi', 'editKp', 'updateSkripsi', 'updateKp', 'destroyDosbingBerhalangan', 'cetakDosbingBerhalangan', 'destroySkripsi', 'destroyKp', 'suratPenunjukanSkripsi', 'formSuratPenunjukanSkripsi', 'periodeKosong', 'perpanjangSkripsi', 'perpanjangKp', 'detailSemesterSkripsiCari', 'detailSemesterKpCari', 'periodeKosongCari', 'detailSemesterSkripsiExport', 'detailSemesterKpExport', 'periodeKosongExport', 'gantiSkripsi', 'updateGantiSkripsi', 'storeByUsulanTopik', 'storeByTurunKp' 
+            'semuaSkripsi', 'semuaKp', 'detailSemesterSkripsi', 'detailSemesterKp', 'createSkripsi', 'createKp', 'storeSkripsi', 'storeKp', 'editSkripsi', 'editKp', 'updateSkripsi', 'updateKp', 'destroyDosbingBerhalangan', 'cetakDosbingBerhalangan', 'destroySkripsi', 'destroyKp', 'suratPenunjukanSkripsi', 'formSuratPenunjukanSkripsi', 'periodeKosong', 'perpanjangSkripsi', 'perpanjangKp', 'detailSemesterSkripsiCari', 'detailSemesterKpCari', 'periodeKosongCari', 'detailSemesterSkripsiExport', 'detailSemesterKpExport', 'periodeKosongExport', 'gantiSkripsi', 'updateGantiSkripsi', 'storeByUsulanTopik', 'storeByTurunKp'
         ]]);
     }
 
@@ -50,13 +50,13 @@ class DosenPembimbingController extends Controller
     public function detailSemesterSkripsi($id)
     {
         $semester = \App\Semester::find($id);
-     
+
         $daftar_dosbing = DosenPembimbingSkripsi::where('id_semester', $id)->orderBy('created_at', 'DESC')->paginate(10);
-     
+
         $daftar_dosbing_berhalangan = \App\DosbingBerhalangan::where('id_semester', $id)->where('ujian', 'skripsi')->orderBy('id_semester', 'desc')->paginate(10);
-     
+
         $total = DosenPembimbingSkripsi::where('id_semester', $id)->count();
-     
+
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
 
         $filter_dosbing_skripsi = true;
@@ -146,7 +146,7 @@ class DosenPembimbingController extends Controller
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
         $id = $id_semester;
         $semester = \App\Semester::find($id);
-        
+
         $filter_dosbing_skripsi = true;
 
         return view('dosbing.daftar-semester-skripsi', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'tahapan_skripsi', 'dosbing_dua_skripsi', 'nim', 'angkatan', 'dosbing_satu_skripsi', 'id_semester', 'id', 'semester', 'daftar_dosbing_berhalangan', 'filter_dosbing_skripsi'));
@@ -240,7 +240,7 @@ class DosenPembimbingController extends Controller
           $pagination = $daftar_dosbing->appends($request->except('page'));
 
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-        
+
         $filter_dosbing_kosong = true;
 
         return view('dosbing.daftar-skripsi-periode-kosong', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'dosbing_dua_skripsi', 'nim', 'angkatan', 'dosbing_satu_skripsi', 'filter_dosbing_kosong'));
@@ -264,16 +264,16 @@ class DosenPembimbingController extends Controller
     public function detailSemesterKp($id)
     {
         $semester = \App\Semester::find($id);
-        
+
         $daftar_dosbing = DosenPembimbingKp::where('id_semester', $id)->orderBy('created_at', 'DESC')->paginate(10);
-        
+
         $daftar_dosbing_berhalangan = \App\DosbingBerhalangan::where('id_semester', $id)->where('ujian', 'kerja-praktek')->orderBy('id_semester', 'desc')->paginate(10);
-        
+
         $total = DosenPembimbingKp::where('id_semester', $id)->count();
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
-        
+
         $filter_dosbing_kp = true;
-        
+
         return view('dosbing.daftar-semester-kp', compact('daftar_dosbing', 'semester', 'daftar_dosbing_berhalangan', 'id', 'daftar_dosen', 'total', 'filter_dosbing_kp'));
     }
 
@@ -378,7 +378,7 @@ class DosenPembimbingController extends Controller
         $daftar_dosen = \App\Dosen::where('bisa_membimbing', 'ya')->pluck('nama', 'id');
         $id = $id_semester;
         $semester = \App\Semester::find($id);
-        
+
         $filter_dosbing_kp = true;
 
         return view('dosbing.daftar-semester-kp', compact('daftar_dosbing', 'daftar_dosen', 'total', 'pagination', 'nama', 'tahapan_kp', 'dosbing_dua_kp', 'nim', 'angkatan', 'dosbing_satu_kp', 'id_semester', 'id', 'semester', 'lokasi', 'daftar_dosbing_berhalangan', 'filter_dosbing_kp'));
@@ -408,7 +408,7 @@ class DosenPembimbingController extends Controller
         $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
         return view('dosbing.create-skripsi', compact('daftar_mahasiswa', 'daftar_semester', 'daftar_dosen'));
     }
-    
+
     // pimpinan
     public function createKp()
     {
@@ -445,12 +445,12 @@ class DosenPembimbingController extends Controller
 
         // input dosen pembimbing skripsi
         DosenPembimbingSkripsi::create($request->all());
-        
+
         // perbaharui tahapan skripsi mahasiswa
         $mahasiswa = \App\Mahasiswa::findOrFail($request->post('id_mahasiswa'));
         $mahasiswa->tahapan_skripsi = 'penyusunan_proposal';
         $mahasiswa->save();
-        
+
         // notifikasi mahasiswa
         $notifikasiMahasiswa = new \App\NotifikasiMahasiswa;
         $notifikasiMahasiswa->id_mahasiswa = $request->post('id_mahasiswa');
@@ -490,12 +490,12 @@ class DosenPembimbingController extends Controller
 
         // input dosen pembimbing skripsi
         DosenPembimbingSkripsi::create($request->all());
-        
+
         // perbaharui tahapan skripsi mahasiswa
         $mahasiswa = \App\Mahasiswa::findOrFail($request->post('id_mahasiswa'));
         $mahasiswa->tahapan_skripsi = 'penyusunan_proposal';
         $mahasiswa->save();
-        
+
         // notifikasi mahasiswa
         $notifikasiMahasiswa = new \App\NotifikasiMahasiswa;
         $notifikasiMahasiswa->id_mahasiswa = $request->post('id_mahasiswa');
@@ -503,6 +503,10 @@ class DosenPembimbingController extends Controller
         $notifikasiMahasiswa->jenis = 'dosen-pembimbing';
         $notifikasiMahasiswa->deskripsi = 'Dosen Pembimbing Skripsi anda telah tersedia';
         $notifikasiMahasiswa->save();
+
+        \App\PendaftarUsulanTopik::find($request->post('id_pendaftar_usulan_topik'))->update([
+            'tahapan' => 'diterima'
+        ]);
 
         Session::flash('pesan','Dosen Pembimbing Skripsi Berhasil Ditambahkan!');
         return redirect('dosen-pembimbing/skripsi/semester/'.$request->post('id_semester'));
@@ -536,7 +540,7 @@ class DosenPembimbingController extends Controller
 
         // input dosen pembimbing kp
         DosenPembimbingKp::create($request->all());
-        
+
         // notifikasi mahasiswa
         $notifikasiMahasiswa = new \App\NotifikasiMahasiswa;
         $notifikasiMahasiswa->id_mahasiswa = $request->post('id_mahasiswa');
@@ -544,6 +548,10 @@ class DosenPembimbingController extends Controller
         $notifikasiMahasiswa->jenis = 'dosen-pembimbing';
         $notifikasiMahasiswa->deskripsi = 'Dosen Pembimbing Kerja Praktek anda telah tersedia';
         $notifikasiMahasiswa->save();
+
+        \App\PendaftarTurunKp::find($request->post('id_pendaftar_turun_kp'))->update([
+            'tahapan' => 'diterima'
+        ]);
 
         Session::flash('pesan','Dosen Pembimbing Kerja Praktek Berhasil Ditambahkan!');
         return redirect('dosen-pembimbing/kerja-praktek/semester/'.$request->post('id_semester'));
@@ -576,7 +584,7 @@ class DosenPembimbingController extends Controller
 
         // input dosen pembimbing kp
         DosenPembimbingKp::create($request->all());
-        
+
         // notifikasi mahasiswa
         $notifikasiMahasiswa = new \App\NotifikasiMahasiswa;
         $notifikasiMahasiswa->id_mahasiswa = $request->post('id_mahasiswa');
@@ -660,7 +668,7 @@ class DosenPembimbingController extends Controller
         Session::flash('pesan','Dosen Pembimbing Skripsi Berhasil Diupdate!');
         return redirect('dosen-pembimbing/skripsi/semester/'.$request->post('id_semester'));
     }
-    
+
     // pimpinan
     public function updateSkripsi(Request $request, $id)
     {
@@ -948,7 +956,7 @@ class DosenPembimbingController extends Controller
             Session::flash('kesalahan', 'Semester Aktif Belum Dimasukan oleh Admin');
             return redirect()->back();
         }else{
-          
+
           if($id == $semester_aktif->id){
             Session::flash('kesalahan', 'Semester Aktif Adalah Semester Ini!');
             return redirect()->back();

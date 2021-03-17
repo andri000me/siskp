@@ -19,7 +19,7 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('id_dosen')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
         });
 
-        // prodi_kp w/ prodi 
+        // prodi_kp w/ prodi
         Schema::table('prodi_kp', function(Blueprint $table){
             $table->foreign('id_prodi')->references('id')->on('prodi')->onDelete('set null')->onUpdate('cascade');
         });
@@ -56,7 +56,7 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('id_periode_daftar_turun_kp')->references('id')->on('periode_daftar_turun_kp')->onDelete('set null')->onUpdate('cascade');
         });
-        
+
         // pendaftar_usulan_topik w/ mahasiswa & periode_daftar_usulan_topik
         Schema::table('pendaftar_usulan_topik', function(Blueprint $table){
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('set null')->onUpdate('cascade');
@@ -74,7 +74,7 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('id_periode_daftar_ujian')->references('id')->on('periode_daftar_ujian')->onDelete('set null')->onUpdate('cascade');
         });
 
-        // peserta_ujian_lama w/ mahasiswa 
+        // peserta_ujian_lama w/ mahasiswa
         Schema::table('peserta_ujian_lama', function(Blueprint $table){
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('set null')->onUpdate('cascade');
         });
@@ -131,6 +131,7 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('dospeng_dua_proposal')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('dospeng_tiga_proposal')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('dospeng_empat_proposal')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('dospeng_lima_proposal')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('id_indikator_penilaian')->references('id')->on('indikator_penilaian')->onDelete('set null')->onUpdate('cascade');
         });
 
@@ -141,6 +142,7 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('dospeng_dua_hasil')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('dospeng_tiga_hasil')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('dospeng_empat_hasil')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('dospeng_lima_hasil')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('id_indikator_penilaian')->references('id')->on('indikator_penilaian')->onDelete('set null')->onUpdate('cascade');
         });
 
@@ -151,6 +153,7 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('dospeng_dua_sidang')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('dospeng_tiga_sidang')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('dospeng_empat_sidang')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('dospeng_lima_sidang')->references('id')->on('dosen')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('id_indikator_penilaian')->references('id')->on('indikator_penilaian')->onDelete('set null')->onUpdate('cascade');
         });
 
@@ -176,17 +179,17 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('id_jadwal_ujian')->references('id')->on('jadwal_ujian')->onDelete('cascade')->onUpdate('cascade');
         });
 
-        // dosen w/ prodi 
+        // dosen w/ prodi
         Schema::table('dosen', function(Blueprint $table){
             $table->foreign('id_prodi')->references('id')->on('prodi')->onDelete('set null')->onUpdate('cascade');
         });
 
-        // riwayat_skripsi w/ mahasiswa 
+        // riwayat_skripsi w/ mahasiswa
         Schema::table('riwayat_skripsi', function(Blueprint $table){
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('set null')->onUpdate('cascade');
         });
 
-        // riwayat_tahapan w/ mahasiswa 
+        // riwayat_tahapan w/ mahasiswa
         Schema::table('riwayat_tahapan', function(Blueprint $table){
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -197,22 +200,22 @@ class CreateAllRelationshipTable extends Migration
             $table->foreign('id_dosen')->references('id')->on('dosen')->onDelete('cascade')->onUpdate('cascade');
         });
 
-        // detail_asistensi w/ asistensi 
+        // detail_asistensi w/ asistensi
         Schema::table('detail_asistensi', function(Blueprint $table){
             $table->foreign('id_asistensi')->references('id')->on('asistensi')->onDelete('cascade')->onUpdate('cascade');
         });
 
-        // notifikasi_dosen w/ dosen 
+        // notifikasi_dosen w/ dosen
         Schema::table('notifikasi_dosen', function(Blueprint $table){
             $table->foreign('id_dosen')->references('id')->on('dosen')->onDelete('cascade')->onUpdate('cascade');
         });
 
-        // notifikasi_mahasiswa w/ mahasiswa 
+        // notifikasi_mahasiswa w/ mahasiswa
         Schema::table('notifikasi_mahasiswa', function(Blueprint $table){
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('cascade')->onUpdate('cascade');
         });
 
-        // persetujuan_ujian w/ mahasiswa & dosen 
+        // persetujuan_ujian w/ mahasiswa & dosen
         Schema::table('persetujuan_ujian', function(Blueprint $table){
             $table->foreign('id_mahasiswa')->references('id')->on('mahasiswa')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('dosbing_satu_aproval')->references('id')->on('dosen')->onDelete('cascade')->onUpdate('cascade');

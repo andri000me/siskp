@@ -35,6 +35,11 @@ class PenilaianProposal extends Model
         return $this->belongsTo('App\Dosen', 'dospeng_empat_proposal');
     }
 
+    // Relasi N-1 dengan dosen
+    public function dospengLimaProposal(){
+        return $this->belongsTo('App\Dosen', 'dospeng_lima_proposal');
+    }
+
     // Relasi N-1 dengan indikator_penilaian
     public function indikatorPenilaian(){
         return $this->belongsTo('App\IndikatorPenilaian', 'id_indikator_penilaian');

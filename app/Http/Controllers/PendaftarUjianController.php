@@ -14,15 +14,15 @@ class PendaftarUjianController extends Controller
 {
     public function __construct(){
         $this->middleware('mahasiswa', ['only' => [
-            'index', 'create', 'store', 'edit', 'update' 
+            'index', 'create', 'store', 'edit', 'update'
         ]]);
 
         $this->middleware('mahasiswaPimpinan', ['only' => [
-            'show', 'destroy' 
+            'show', 'destroy'
         ]]);
 
         $this->middleware('pimpinan', ['only' => [
-            'semuaPendaftar', 'detailPeriode', 'validasi', 'uploadPlagiasi', 'destroyPlagiasi', 'detailPeriodeCari', 'detailPeriodeExport', 'createJadwal', 'setujuiSemua', 'formInputByAdmin', 'inputByAdmin' 
+            'semuaPendaftar', 'detailPeriode', 'validasi', 'uploadPlagiasi', 'destroyPlagiasi', 'detailPeriodeCari', 'detailPeriodeExport', 'createJadwal', 'setujuiSemua', 'formInputByAdmin', 'inputByAdmin'
         ]]);
     }
 
@@ -35,7 +35,7 @@ class PendaftarUjianController extends Controller
 
         $total = 0;
         $daftar_ujian = PendaftarUjian::where('id_mahasiswa', Session::get('id'))->get();
-        
+
         $periode_aktif = PeriodeDaftarUjian::where('waktu_buka', '<=', date('Y-m-d'))->where('waktu_tutup', '>=', date('Y-m-d'))->first() or null;
         if($periode_aktif)
         {
@@ -59,7 +59,7 @@ class PendaftarUjianController extends Controller
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
 
         // validasi dosen PA
-        if(empty($mahasiswa->id_dosen)){ 
+        if(empty($mahasiswa->id_dosen)){
             return redirect()->back()->with('kesalahan', 'Anda belum memasukan Dosen Pendamping Akademik');
         }
 
@@ -98,7 +98,7 @@ class PendaftarUjianController extends Controller
           'ujian' => 'required|in:proposal,hasil,kerja-praktek,sidang-skripsi',
           'file_laporan' => $validasi_file_laporan . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
           'file_lembar_persetujuan' => $validasi_persetujuan_ujian . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
-        ]);        
+        ]);
 
         if($validasi->fails()){
           return redirect()->back()->withInput()->withErrors($validasi);
@@ -113,11 +113,11 @@ class PendaftarUjianController extends Controller
             $validasi = Validator::make($request->all(), [
                 'file_sertifikat_toefl' => $validasi_skor_sertifikat_toefl . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
                 'skor_toefl' => $validasi_skor_sertifikat_toefl . '|string'
-            ]);        
+            ]);
 
             if($validasi->fails()){
                 return redirect()->back()->withInput()->withErrors($validasi);
-            }    
+            }
         }
 
         if($request->post('ujian') === 'kerja-praktek' && empty($request->post('judul_laporan_kp'))){
@@ -127,7 +127,7 @@ class PendaftarUjianController extends Controller
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
 
         // validasi dosen PA
-        if(empty($mahasiswa->id_dosen)){ 
+        if(empty($mahasiswa->id_dosen)){
             return redirect()->back()->withInput()->with('kesalahan', 'Dosen Pendamping Akademik anda masih kosong, silahkan lengkapi Profil anda terlebih dahulu');
         }
 
@@ -137,7 +137,7 @@ class PendaftarUjianController extends Controller
         }
 
         if($request->post('ujian') === 'proposal' || $request->post('ujian') === 'hasil' || $request->post('ujian') === 'sidang-skripsi'){
-            
+
             // validasi mahasiswa kontrak skripsi
             if($mahasiswa->kontrak_skripsi === 'tidak'){
                 return redirect()->back()->withInput()->with('kesalahan', 'Anda belum mengontrak Mata Kuliah Skripsi');
@@ -157,7 +157,7 @@ class PendaftarUjianController extends Controller
                 $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
                 $mahasiswa->tahapan_skripsi = 'pendaftaran_proposal';
                 $mahasiswa->save();
-            
+
                 // perbaharui riwayat tahapan
                 $riwayatTahapan = \App\RiwayatTahapan::where('id_mahasiswa', Session::get('id'))->where('tahapan', 'pendaftaran_seminar_proposal')->first();
                 if($riwayatTahapan){
@@ -209,7 +209,7 @@ class PendaftarUjianController extends Controller
                 }
 
             }
-            
+
         }elseif($request->post('ujian') === 'kerja-praktek'){
             // validasi mahasiswa kontrak KP
             if($mahasiswa->kontrak_kp === 'tidak'){
@@ -238,11 +238,11 @@ class PendaftarUjianController extends Controller
             }
 
         }
-        
+
         $input = $request->all();
 
         $input['id_mahasiswa'] = Session::get('id');
-        
+
         if($request->hasFile('file_laporan')){
             $input['file_laporan'] = $this->uploadFile($request);
         }
@@ -301,7 +301,7 @@ class PendaftarUjianController extends Controller
 
         $mahasiswa = \App\Mahasiswa::findOrFail($pendaftar->id_mahasiswa);
 
-        if(empty($mahasiswa->id_dosen)){ 
+        if(empty($mahasiswa->id_dosen)){
             return redirect()->back()->with('kesalahan', 'Anda belum memasukan Dosen Pendamping Akademik');
         }
 
@@ -350,11 +350,11 @@ class PendaftarUjianController extends Controller
             $validasi = Validator::make($request->all(), [
                 'file_sertifikat_toefl' => $validasi_skor_sertifikat_toefl . '|mimes:pdf|max:' . $pengaturan->max_file_upload,
                 'skor_toefl' => $validasi_skor_sertifikat_toefl . '|string'
-            ]);        
+            ]);
 
             if($validasi->fails()){
                 return redirect()->back()->withInput()->withErrors($validasi);
-            }    
+            }
         }
 
         if($request->post('ujian') === 'kerja-praktek' && empty($request->post('judul_laporan_kp'))){
@@ -364,7 +364,7 @@ class PendaftarUjianController extends Controller
         $mahasiswa = \App\Mahasiswa::findOrFail(Session::get('id'));
 
         // validasi dosen PA
-        if(empty($mahasiswa->id_dosen)){ 
+        if(empty($mahasiswa->id_dosen)){
             return redirect()->back()->withInput()->with('kesalahan', 'Dosen Pendamping Akademik anda masih kosong, silahkan lengkapi Profil anda');
         }
 
@@ -374,7 +374,7 @@ class PendaftarUjianController extends Controller
         }
 
         if($request->post('ujian') === 'proposal' || $request->post('ujian') === 'hasil' || $request->post('ujian') === 'sidang-skripsi'){
-            
+
             // validasi mahasiswa kontrak skripsi
             if($mahasiswa->kontrak_skripsi === 'tidak'){
                 return redirect()->back()->withInput()->with('kesalahan', 'Anda belum mengontrak Mata Kuliah Skripsi');
@@ -387,9 +387,9 @@ class PendaftarUjianController extends Controller
             // cek dosen pembimbing skripsi
             $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', Session::get('id'))->get()->last();
             if(empty($dosbing)) return redirect()->back()->withInput()->with('kesalahan', 'Dosen Pembimbing Skripsi Anda masih kosong, Silahkan minta Admin untuk memasukannya');
-            
+
         }elseif($request->post('ujian') === 'kerja-praktek'){
-            
+
             // validasi mahasiswa kontrak KP
             if($mahasiswa->kontrak_kp === 'tidak'){
                 return redirect()->back()->withInput()->with('kesalahan', 'Anda belum Mengontrak Mata Kuliah Kerja Praktek');
@@ -399,7 +399,7 @@ class PendaftarUjianController extends Controller
             $dosbing = \App\DosenPembimbingKp::where('id_mahasiswa', Session::get('id'))->get()->last();
             if(empty($dosbing)) return redirect()->back()->withInput()->with('kesalahan', 'Dosen Pembimbing Kerja Praktek Anda masih kosong, Silahkan minta Admin untuk memasukannya');
         }
-        
+
         $input = $request->all();
 
         if($validasi->fails()){
@@ -428,7 +428,7 @@ class PendaftarUjianController extends Controller
         }
         if($request->post('skor_toefl')) $input['skor_toefl'] = $request->post('skor_toefl');
         if($request->post('ujian') === 'kerja-praktek') $input['judul_laporan_kp'] = $request->post('judul_laporan_kp');
-        
+
         $pendaftar->update($input);
 
         Session::flash('pesan', 'Pendaftar Ujian Berhasil Diperbaharui!');
@@ -439,7 +439,7 @@ class PendaftarUjianController extends Controller
     public function destroy($id)
     {
         $pendaftar = PendaftarUjian::findOrFail($id);
-        
+
         if(Session::has('mahasiswa') && Session::get('id') !== $pendaftar->id_mahasiswa){
           return redirect()->back()->with('kesalahan', 'Anda Tidak Boleh Menghapus Berkas Ujian Mahasiswa Lain!');
         }
@@ -547,11 +547,11 @@ class PendaftarUjianController extends Controller
         $total_berkas = PendaftarUjian::where('id_periode_daftar_ujian', $id_periode_daftar_ujian)->where('tahapan', 'diperiksa')->count();
         $id = $id_periode_daftar_ujian;
         $daftar_prodi = \App\Prodi::pluck('nama', 'id');
-        
+
         $periode = PeriodeDaftarUjian::find($id_periode_daftar_ujian);
-        
+
         $filter_ujian = true;
-        
+
         return view('pendaftar-ujian.daftar-periode', compact('daftar_ujian', 'daftar_prodi', 'total', 'pagination', 'nama', 'id_prodi', 'nim', 'angkatan', 'ujian', 'id_periode_daftar_ujian', 'id', 'total_berkas', 'periode', 'filter_ujian'));
       }
         return redirect('pendaftaran/ujian/periode/' . $id_periode_daftar_ujian);
@@ -675,7 +675,7 @@ class PendaftarUjianController extends Controller
         $validasi = Validator::make($request->all(), [
           'persentasi_plagiasi' => 'required|string|max:5',
           'file_hasil_plagiasi' => 'required|mimes:pdf|max:' . $pengaturan->max_file_upload
-        ]);        
+        ]);
 
         if($validasi->fails()){
           return redirect()->back()->withInput()->withErrors($validasi);
@@ -738,13 +738,13 @@ class PendaftarUjianController extends Controller
       if($pendaftar->ujian === 'proposal' || $pendaftar->ujian === 'hasil' || $pendaftar->ujian === 'sidang-skripsi'){
         $dosbing = \App\DosenPembimbingSkripsi::where('id_mahasiswa', $pendaftar->id_mahasiswa)->orderBy('id', 'desc')->first();
         $jadwal = \App\JadwalUjian::whereIn('ujian', ['sidang-skripsi', 'hasil', 'proposal'])->where('id_mahasiswa', $pendaftar->id_mahasiswa)->orderBy('id', 'desc')->first();
-        $total_penguji = 4;
+        $total_penguji = 5;
       }else{
         $dosbing = \App\DosenPembimbingKp::where('id_mahasiswa', $pendaftar->id_mahasiswa)->orderBy('id', 'desc')->first();
         $jadwal = \App\JadwalUjian::where('ujian', 'kerja-praktek')->where('id_mahasiswa', $pendaftar->id_mahasiswa)->orderBy('id', 'desc')->first();
         $total_penguji = 3;
       }
-      
+
       $daftar_dosen = \App\Dosen::where('status', 'aktif')->where('bisa_membimbing', 'ya')->pluck('nama', 'id');
 
       return view('jadwal-ujian.insert-by-pendaftar', compact('pendaftar', 'daftar_dosen', 'dosbing', 'jadwal', 'total_penguji'));
@@ -754,7 +754,7 @@ class PendaftarUjianController extends Controller
     public function setujuiSemua(Request $request)
     {
         PendaftarUjian::where('id_periode_daftar_ujian', $request->post('id_periode_daftar_ujian'))->update([
-          'tahapan' => 'diterima' 
+          'tahapan' => 'diterima'
         ]);
 
         Session::flash('pesan', 'Semua Berkas Ujian Di Periode Ini berhasil Disetujui');
@@ -775,7 +775,7 @@ class PendaftarUjianController extends Controller
         $mahasiswa = \App\Mahasiswa::findOrFail($request->post('id_mahasiswa'));
 
         if($request->post('ujian') === 'proposal' || $request->post('ujian') === 'hasil' || $request->post('ujian') === 'sidang-skripsi'){
-            
+
             $mahasiswa->kontrak_skripsi = 'ya';
             $mahasiswa->save();
 
@@ -792,7 +792,7 @@ class PendaftarUjianController extends Controller
                 // perbaharui tahapan skripsi mahasiswa
                 $mahasiswa->tahapan_skripsi = 'pendaftaran_proposal';
                 $mahasiswa->save();
-            
+
                 // perbaharui riwayat tahapan
                 $riwayatTahapan = \App\RiwayatTahapan::where('id_mahasiswa', $mahasiswa->id)->where('tahapan', 'pendaftaran_seminar_proposal')->first();
                 if($riwayatTahapan){
@@ -842,9 +842,9 @@ class PendaftarUjianController extends Controller
                 }
 
             }
-            
+
         }elseif($request->post('ujian') === 'kerja-praktek'){
-            
+
             $mahasiswa->kontrak_kp = 'ya';
             $mahasiswa->save();
 

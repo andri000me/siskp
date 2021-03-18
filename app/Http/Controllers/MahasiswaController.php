@@ -14,15 +14,15 @@ class MahasiswaController extends Controller
 {
     public function __construct(){
         $this->middleware('pimpinan', ['only' => [
-            'index', 'destroy', 'cari', 'createImport', 'import', 'validasiKp', 'validasiSkripsi', 'validasiTahapanSkripsi', 'validasiTahapanKp', 'nonaktifkanSemuaLulus', 'export' 
+            'index', 'destroy', 'cari', 'createImport', 'import', 'validasiKp', 'validasiSkripsi', 'validasiTahapanSkripsi', 'validasiTahapanKp', 'nonaktifkanSemuaLulus', 'export'
         ]]);
 
         $this->middleware('mahasiswaPimpinan', ['only' => [
-            'update', 'edit' 
+            'update', 'edit'
         ]]);
 
         $this->middleware('pengguna', ['only' => [
-            'show' 
+            'show'
         ]]);
     }
 
@@ -37,7 +37,7 @@ class MahasiswaController extends Controller
       }else{
         $daftar_mahasiswa = Mahasiswa::orderBy('nama', 'asc')->paginate(10);
       }
-      
+
       $total = Mahasiswa::all()->count();
       $filter_mahasiswa = true;
 
@@ -241,7 +241,7 @@ class MahasiswaController extends Controller
 
 		  $nama_file = rand().$file->getClientOriginalName();
 		  $file->move('assets/file', $nama_file);
-      
+
       if($fitur === 'kontrak_skripsi'){
         Excel::import(new \App\Imports\MahasiswaImportSkripsi, 'assets/file/'.$nama_file);
         Session::flash('pesan','Berhasil Mengimport Mahasiswa Yang Mengontrak Mata Kuliah Skripsi!');
@@ -249,9 +249,9 @@ class MahasiswaController extends Controller
         Excel::import(new \App\Imports\MahasiswaImportKp, 'assets/file/'.$nama_file);
         Session::flash('pesan','Berhasil Mengimport Mahasiswa Yang Mengontrak Mata Kuliah Kerja Praktek!');
       }
-      
+
       unlink('assets/file/'.$nama_file);
-      
+
       return redirect('mahasiswa');
     }
 
@@ -264,12 +264,12 @@ class MahasiswaController extends Controller
 
 		  $nama_file = rand().$file->getClientOriginalName();
 		  $file->move('assets/file', $nama_file);
-      
+
       Excel::import(new \App\Imports\MahasiswaImportMaba, 'assets/file/'.$nama_file);
       Session::flash('pesan','Berhasil Mengimport Mahasiswa Baru!');
-      
+
       unlink('assets/file/'.$nama_file);
-      
+
       return redirect('mahasiswa');
     }
 
@@ -339,10 +339,13 @@ class MahasiswaController extends Controller
         $mahasiswa->id_prodi = $request->input('id_prodi');
         $mahasiswa->save();
 
+        if (!Hash::check($mahasiswa->nim, $mahasiswa->password)) Session::forget('default_password');
+        else Session::put('default_password', true);
+
         $prodi_kp = \App\ProdiKp::where('id_prodi', $mahasiswa->id_prodi)->first();
         if($prodi_kp) Session::put('bisa_kp', true);
         else Session::forget('bisa_kp');
-         
+
         if(!Session::has('admin')){
           Session::forget('nama');
           Session::put('nama', $request->input('nama'));
@@ -351,12 +354,12 @@ class MahasiswaController extends Controller
         if(Session::has('mahasiswa')) return redirect('profil');
         else return redirect('mahasiswa/' . $mahasiswa->id);
     }
-    
+
     // pimpinan
     public function nonaktifkanSemuaLulus(Request $request)
     {
         $prodi_kp = \App\ProdiKp::pluck('id_prodi');
-        
+
         Mahasiswa::where('tahapan_skripsi', 'lulus')->update([
           'kontrak_skripsi' => 'tidak',
         ]);

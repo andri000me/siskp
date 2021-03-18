@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            
+
                 <!-- statistik tahapan skripsi pendampingan akademik -->
                 <div class="card border mb-2">
                     <h5 class="card-header bg-primary text-light"><span class="fa fa-chart-line"></span> Tahapan Skripsi Mahasiswa Pendampingan Akademik</h5>
@@ -53,7 +53,7 @@
                                         } );
                                     </script>
                 </div>
-                
+
                 <!-- statistik tahapan kerja praktek pendampingan akademik -->
                 <div class="card border mb-2">
                     <h5 class="card-header bg-primary text-light"><span class="fa fa-chart-line"></span> Tahapan Kerja Praktek Mahasiswa Pendampingan Akademik</h5>

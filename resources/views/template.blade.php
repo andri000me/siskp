@@ -1752,6 +1752,15 @@
                     </div>
                 @endif
 
+                @if(Session::has('default_password'))
+                <div>
+                    <div class="alert alert-danger">
+                        <strong><span class="fa fa-exclamation-circle"></span> Perhatian!</strong>
+                        <br> Sistem mendeteksi <code>Username</code> & <code>Password</code> anda sama, untuk alasan keamanan akun silahkan ganti <code>Password</code> anda di menu <a href="{{ url('profil') }}">Profil</a>.
+                    </div>
+                </div>
+                @endif
+
                 @yield('main')
 
             </div>
@@ -1773,7 +1782,7 @@
              Teknik Informatika Universitas Negeri Gorontalo</a>
 
         <a class="nav-link text-light text-center" href="https://github.com/adnankasim/siskp" target="_blank">
-            v.{{ env('APP_VER') }} <small>(rev:{{ env('APP_REV') }})</small>
+            v.{{ env('APP_VER') }} <small>(rev {{ env('APP_REV') }})</small>
         </a>
 
     </nav>

@@ -442,6 +442,10 @@ class BerandaController extends Controller
                 if(empty($mahasiswa->id_prodi) || empty($mahasiswa->id_dosen)){
                     return redirect('profil')->with('kesalahan', 'Silahkan lengkapi profil anda, seperti memperbaiki Program Studi atau Dosen Pembimbing Akademik jika terjadi kesalahan dan jangan lupa mengganti password sistem anda!');
                 }
+
+                // cek jika mahasiswa masih pakai password default
+                if (Hash::check($mahasiswa->nim, $mahasiswa->password)) Session::put('default_password', true);
+
                 return redirect('/');
             }else{
                 return redirect('masuk')->with('pesan', 'Username dan/atau Password Anda Tidak Valid')->withInput();
@@ -463,6 +467,10 @@ class BerandaController extends Controller
                     $prodi_kp = \App\ProdiKp::where('id_prodi', Session::get('kaprodi'))->get();
                     if(!$prodi_kp->isEmpty()) Session::put('kaprodi_kp', true);
                 }
+
+                // cek jika dosen masih pakai password default
+                if(Hash::check($dosen->nip, $dosen->password)) Session::put('default_password', true);
+
                 return redirect('/');
             }else{
                 return redirect('masuk')->with('pesan', 'NIP dan/atau Password Tidak Valid')->withInput();

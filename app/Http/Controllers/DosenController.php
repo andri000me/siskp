@@ -264,6 +264,9 @@ class DosenController extends Controller
         if(!empty($request->post('bisa_membimbing'))) $dosen->bisa_membimbing = $request->post('bisa_membimbing');
         $dosen->save();
 
+        if (!Hash::check($dosen->nip, $dosen->password)) Session::forget('default_password');
+        else Session::put('default_password', true);
+
         if(Session::has('admin') || Session::has('kajur') || Session::has('kaprodi')){
           Session::flash('pesan', '1 Dosen Berhasil Diupdate');
           return redirect('dosen');

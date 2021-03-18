@@ -8,7 +8,9 @@
     <meta name="theme-color" content="#2764af">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="description" content="Sistem Informasi Skripsi dan Kerja Praktek (SISKP) merupakan aplikasi berbasis web yang dikembangkan pada tahun 2020 oleh Adnan Kasim yang bertujuan untuk membantu pengelolaan skripsi dan kerja praktek di jurusan Teknik informatika Universitas Negeri Gorontalo">
+    <meta name="keywords" content="SISKP, UNG, Teknik Informatika, Adnan Kasim, Universitas Negeri Gorontalo, Skripsi, Kerja Praktek, Sistem Informasi Skripsi dan Kerja Praktek">
+    <meta name="author" content="Adnan Kasim">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
     <style>
